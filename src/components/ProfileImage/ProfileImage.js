@@ -31,7 +31,7 @@ const ProfileImage = (props) => {
                     <span className="user-status">{props.position}</span>
                     <span className="user-about">Everyone has the right to an effective remedy by the competent national tribunals for acts violating the fundamental rights </span>
                 </div>
-                <button className="btn btn-dark edit-profile">Edit Profile</button>
+                <button className="btn btn-dark edit-profile"><a href="/src/components/UpdateProfile">Edit Profile</a></button>
             </div>
             <div className="intro">
                 <h1 id="header1">ONLINE LEARNING PLATFORM</h1>
