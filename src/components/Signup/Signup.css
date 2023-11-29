@@ -184,6 +184,10 @@ background: rgb(73, 162, 241);
 text-decoration: none;
 color: white;
 }
+.SSTEX{
+  width: 90%;
+  text-align: center;
+}
 /* Style for the custom radio input */
 .Scustom-radio {
   appearance: none;
@@ -216,5 +220,26 @@ color: white;
     }
     50% {
       transform: translateX(5px); /* Move to the right */
+    }
+  }
+  @media (max-width: 1000px) {
+    .SSall {
+      width: 900px; 
+      overflow: hidden;
+    }
+    .SSgradient-form{
+      width: 900px; 
+      overflow: hidden;
+      
+    }
+  }
+  @media (max-height: 600px) {
+    .SSall {
+      height: 600px; /* Set your constant height in pixels */
+      overflow: hidden;
+    }
+    .SSgradient-form{
+      height: 600px; /* Set your constant height in pixels */
+      overflow: hidden;
     }
   }

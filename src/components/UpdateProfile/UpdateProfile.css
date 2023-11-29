@@ -1,4 +1,7 @@
 .update-profile-Container{
+    width: 85%;
+    margin-left: auto; 
+    margin-right: 0;
     background: url("../../images/up-background.jpg");
     background-size: cover;
     height: 100vh;
@@ -52,5 +55,11 @@
     
     .update-profile-Container{
         height: fit-content;
+    }
+}
+@media (max-width:1393px){
+    
+    .update-profile-Container{
+        width: 100%;
     }
 }
