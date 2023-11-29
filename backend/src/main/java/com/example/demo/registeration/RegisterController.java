@@ -86,6 +86,11 @@ public class RegisterController {
         Map<String,Object> data =oauth2User.getAttributes();
         System.out.println("email is = "+data.get("email"));
         System.out.println("role= "+role);
+        if (studentService.emailTaken(data.get("email").toString()) ||
+                instructorService.emailTaken(data.get("email").toString())
+                || data.get("email").toString().equals("admin@admin.com")) {
+            return ResponseEntity.status(409).body("email is taken");
+        }
 
         if(role.equals("ROLE_STUDENT")){
             try {
