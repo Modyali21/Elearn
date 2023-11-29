@@ -1,64 +1,148 @@
 package com.example.demo.myProfile;
 
+import com.example.demo.instructor.Instructor;
+import com.example.demo.instructor.InstructorRepository;
+import com.example.demo.student.Student;
+import com.example.demo.student.StudentRepository;
 import com.example.demo.systemUser.SystemUser;
-import com.example.demo.userProfile.userProfileDTO;
-import com.example.demo.userProfile.userProfileRepository;
 
+
+import java.util.Collections;
 import java.util.Optional;
 
 public class myProfileService {
-    private myProfileRepository repo;
-    private myProfileDTO profile;
-    public void myProfileService( myProfileRepository repository){
-        this.repo = repository;
+    private StudentRepository repos;
+    private InstructorRepository repoi;
+    private SystemUser myprofileinfo;
+    public void myProfileService( StudentRepository repository1, InstructorRepository repository2 ){
+        this.repos = repository1;
+        this.repoi= repository2;
     }
 
-    public myProfileDTO showProfileData(String email){
-        Optional<SystemUser> user = repo.findByEmail(email);
+    public SystemUser showProfileData(String email){
+        Optional<Student> user = repos.findByEmail(email);
         if(user.isPresent()){
-            if(user.get().getRole().equals("ROLE_STUDENT"))
-                profile.setStudent(true);
-            else
-                profile.setStudent(false);
-            profile.setId(user.get().getId());
-            profile.setPassword(user.get().getPassword());
-            profile.setBirthDate(user.get().getBirthDate());
-            profile.setDegree(user.get().getDegree());
-            profile.setEmail(user.get().getEmail());
-            profile.setPhone(user.get().getPhone());
-            profile.setSchool(user.get().getSchool());
-            profile.setSsn(user.get().getSsn());
-            profile.setFirstName(user.get().getFirstName());
-            profile.setLastName(user.get().getLastName());
-            return profile;
-
+            myprofileinfo= user.get();
+            return user.get();
 
         }
-        else
-            return null;
+        else{
+            Optional<Instructor> user1 = repoi.findByEmail(email);
+            if(user.isPresent()){
+            myprofileinfo= user1.get();
+            return user1.get();}
+            else
+                return null;
+
+        }
+
 
     }
 
 
-    public SystemUser edit(SystemUser data){
-        Optional<SystemUser> user = repo.findById(data.getId());
-         if(user.isPresent()){
+    public SystemUser edit(editformDTO data){
 
-        user.get().setPassword(data.getPassword());
-        user.get().setBirthDate(data.getBirthDate());
-        user.get().setDegree(data.getDegree());
-        user.get().setEmail(data.getEmail());
-        user.get().setPhone(data.getPhone());
-        user.get().setSchool(data.getSchool());
-        user.get().setSsn(data.getSsn());
-        user.get().setFirstName(data.getFirstName());
-        user.get().setLastName(data.getLastName());
-        repo.save(user);
+       if( myprofileinfo.getRole().equals(Collections.singletonList("ROLE_STUDENT"))){
+           Optional<Student> record = repos.findByEmail(myprofileinfo.getEmail());
+           if(record.isPresent()){
+           if(!data.getBirthDate().equals(null)){
+               record.get().setBirthDate(data.getBirthDate());
 
 
-       return data;}
-         else
-             return null;
+           }
+           if(!data.getEmail().equals(null)){
+               if(!repos.existsByEmail(data.getEmail())){
+                   record.get().setEmail(data.getEmail());
+
+
+               }
+
+           }
+           if(!data.getPhone().equals(null)){
+               record.get().setPhone(data.getPhone());
+
+           }
+           if(!data.getSchool().equals(null)){
+               record.get().setSchool(data.getSchool());
+
+           }
+           if(!data.getDegree().equals(null)){
+               record.get().setDegree(data.getDegree());
+
+           }
+           if(!data.getFirstName().equals(null)){
+               record.get().setFirstName(data.getFirstName());
+
+           }
+           if(!data.getLastName().equals(null)){
+               record.get().setLastName(data.getLastName());
+
+           }
+           myprofileinfo =record.get();
+           repos.save(record.get());}
+
+
+
+
+
+
+       }
+       else{
+           Optional<Instructor> record = repoi.findByEmail(myprofileinfo.getEmail());
+           if(record.isPresent()){
+               if(!data.getBirthDate().equals(null)){
+                   record.get().setBirthDate(data.getBirthDate());
+
+
+               }
+               if(!data.getEmail().equals(null)){
+                   if(!repos.existsByEmail(data.getEmail())){
+                       record.get().setEmail(data.getEmail());
+
+
+                   }
+
+               }
+               if(!data.getPhone().equals(null)){
+                   record.get().setPhone(data.getPhone());
+
+               }
+               if(!data.getSchool().equals(null)){
+                   record.get().setSchool(data.getSchool());
+
+               }
+               if(!data.getDegree().equals(null)){
+                   record.get().setDegree(data.getDegree());
+
+               }
+               if(!data.getFirstName().equals(null)){
+                   record.get().setFirstName(data.getFirstName());
+
+               }
+               if(!data.getLastName().equals(null)){
+                   record.get().setLastName(data.getLastName());
+
+               }
+               myprofileinfo =record.get();
+               repoi.save(record.get());}
+
+
+
+
+
+
+       }
+       return myprofileinfo;
+
+
+
+
+
+
+
+
+
+
 
 
     }
