@@ -46,6 +46,9 @@ public class SecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+                .oauth2Login(Customizer.withDefaults());
+
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }

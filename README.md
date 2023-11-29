@@ -74,7 +74,20 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 # Elearn
 
 ELearning platform repo
-<<<<<<< HEAD
+## some notes:
++ make sure to start MySQL before running the app.
++ the database will be created if doesn't already exist and it will **be DROPPED** after the termination of the app, this is made to facilitate testing *(for me at least)*, to change it go to [application.properties](backend/src/main/resources/application.properties) and change the following:
+```properties
+spring.jpa.hibernate.ddl-auto=create-drop
+```
+to:
+```properties
+spring.jpa.hibernate.ddl-auto=update
+```
+## My pride and joy
+![screenshoot with 94% coverage](photo.png)
+=======
+
 updated1
 
 > > > > > > > # 9ee66383fd661413ff7fa23c99eea8a286a144e8
