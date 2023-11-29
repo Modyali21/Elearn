@@ -1,27 +1,18 @@
 package com.example.demo.registeration;
 
-
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
 
-
 import java.util.Map;
-
 
 @RestController
 @CrossOrigin

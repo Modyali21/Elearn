@@ -85,26 +85,4 @@ to:
 spring.jpa.hibernate.ddl-auto=update
 ```
 ## My pride and joy
-![screenshoot with 94% coverage](photo.png)
-=======
-
-updated1
-
-> > > > > > > # 9ee66383fd661413ff7fa23c99eea8a286a144e8
-
-## some notes:
-
-- make sure to start MySQL before running the app.
-- the database will be created if doesn't already exist and it will **be DROPPED** after the termination of the app, this is made to facilitate testing _(for me at least)_, to change it go to [application.properties](backend/src/main/resources/application.properties) and change the following:
-
-```properties
-spring.jpa.hibernate.ddl-auto=create-drop
-```
-
-to:
-
-```properties
-spring.jpa.hibernate.ddl-auto=update
-```
-
-> > > > > > > d821e5a2ce2486c6e1dae40129fb2822d9e06eb6
+![screenshoot with 71% coverage](photo.png)

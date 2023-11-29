@@ -1,4 +1,5 @@
 package com.example.demo.login;
+
 import com.example.demo.config.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +16,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
 public class LoginController {
 	
 	private final AuthenticationManager authenticationManager;
-
 
 	@Autowired
 	private CustomUserDetailsService cuds;
@@ -48,7 +44,6 @@ public class LoginController {
 			return ResponseEntity.status(401).body("the account is disabled, contact the admin");
 		}
 	}
-
 	@RequestMapping("/oauth2/signin/{role}")
 	public ResponseEntity<Object> Oauth2_login(@PathVariable String role,@AuthenticationPrincipal OAuth2User oauth2User) {
 		System.out.println("output is = "+oauth2User.getAttributes());
