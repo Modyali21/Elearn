@@ -1,12 +1,12 @@
 import './App.css';
-import {ElearningPage,ProfileImage, Header,UserInfo,SideBar,EnrolledCourses,MutualFriends,EnrolledCP} from "./components/index"
+import {ElearningPage,ProfileImage, Header,UserInfo,SideBar,EnrolledCourses,MutualFriends,EnrolledCP,Signup,Login} from "./components/index"
 import {UpdateProfile} from "./components/index"
-
 function App() {
-
+  
   return (
     <>
-      <ElearningPage>
+    <Signup/>
+      {/* <ElearningPage>
         <Header/>
         <SideBar/>
         <ProfileImage position={"Instructor"} name={"Mohamed Elnady"}/>
@@ -22,7 +22,8 @@ function App() {
           <MutualFriends/>
         </EnrolledCP>
         <UpdateProfile/>
-      </ElearningPage>
+        
+      </ElearningPage> */}
     </>
   );
 }
