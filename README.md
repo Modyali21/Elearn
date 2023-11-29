@@ -10,3 +10,5 @@ to:
 ```properties
 spring.jpa.hibernate.ddl-auto=update
 ```
+## My pride and joy
+![screenshoot with 94% coverage](photo.png)
