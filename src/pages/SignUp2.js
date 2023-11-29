@@ -1,11 +1,14 @@
-import React from 'react';
-import './style3.css';
+import React, { useState } from 'react';
+import './';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from 'react-router-dom';
 
 
 function SignUp2() {
+  const [info,setInfo] = useState({});
+
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -106,19 +109,6 @@ function SignUp2() {
     if(isValidEmail && isValidPassword === 2 && isValidSSN && isValidBirth){
     const name = fname + " " + lname
     console.log('Sign up Data:', { email, password,ssn,birthdate,name, Student_instructor,degree,gender,country });
-    //   document.getElementById('email').value='';
-    //   document.getElementById('password').value='';
-    //   document.getElementById('Repassword').value='';
-    //   document.getElementById("birth").value='';
-    //   document.getElementById("ssn").value='';
-    //   document.getElementById("fname").value='';
-    //   document.getElementById("lname").value='';
-    //   document.getElementById("gender").value='';
-    //   document.getElementById("degree").value='';
-    //   document.getElementById("country").value='';
-    //   document.querySelectorAll('input[name="radio-group"]').forEach(input => {
-    //     input.checked = false;
-    //   }); 
     }
     // Do something with the login data, for example, log it to the console
     // You can add authentication logic here, such as sending the data to a server for validation.
@@ -134,44 +124,49 @@ function SignUp2() {
                 <h5>Please fill the following information</h5>
             </div>
             <form action="/Login.js" method="post" className='Sff2' onSubmit={handleSubmit}>
+{/*  ************************************* for email *************************** */}
                 <div className='Sflp'>
-                    <input className='Sin' placeholder='Email'  id='email' type='text' required/>
+                    <input className='Sin' name="email" placeholder='Email'  id='email' type='text' required/>
                 </div>
+{/*  ************************************* for first name & last name *************************** */}
                 <div className='Sflp'>
-                <input className='Sin2' placeholder='FirstName'  id='fname' type='text'required/>
-                <input className='Sin2' placeholder='LastName'  id='lname' type='text'required/>
+                  <input className='Sin2' name="firstName" placeholder='FirstName'  id='fname' type='text'required/>
+                  <input className='Sin2' name="lastName" placeholder='LastName'  id='lname' type='text'required/>
                 </div>
+{/*  ************************************* for password *************************** */}
                 <div className='Sflp'>
-                <input className='Sin2' placeholder='Password'id='password' type='password'required/>
-                <input className='Sin2' placeholder='Re-Password'id='Repassword' type='password'required/>
+                  <input className='Sin2' name="password" placeholder='Password'id='password' type='password'required/>
+                  <input className='Sin2' placeholder='Re-Password'id='Repassword' type='password'required/>
                 </div>
+{/*  ************************************* for gender *************************** */}
                 <div className='Sflp'>
-                    <select className='Sin2' id="gender" name="genderSelect">
+                    <select className='Sin2' name="gender" id="gender" name="genderSelect">
                         <option value="" disabled selected>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select>
                     <input className='Sin2' type="date" id="birth" placeholder='Birthdate' name="birthdateInput" max="2030-12-31" required/>
-
                 </div>
+{/*  ************************************* for degree *************************** */}
                 <div className='Sflp'>
                     <input className='Sin2' placeholder='SSN'id='ssn' type='text'required/>
                     <select className='Sin2' placeholder='Degree'id='degree' name="degreeSelect" required>
-                    <option value="" disabled selected>Degree</option>
-                    <option value="student">Student</option>
-                    <option value="associate">Associate</option>
-                    <option value="bachelor">Bachelor</option>
-                    <option value="certificate">Certificate</option>
-                    <option value="diploma">Diploma</option>
-                    <option value="doctorate">Doctorate</option>
-                    <option value="engineer">Engineer's Degree</option>
-                    <option value="master">Master</option>
-                    <option value="professional">Professional Degree</option>
-                    <option value="specialist">Specialist Degree</option>
-                    <option value="vocational">Vocational</option>
+                      <option value="" disabled selected>Degree</option>
+                      <option value="student">Student</option>
+                      <option value="associate">Associate</option>
+                      <option value="bachelor">Bachelor</option>
+                      <option value="certificate">Certificate</option>
+                      <option value="diploma">Diploma</option>
+                      <option value="doctorate">Doctorate</option>
+                      <option value="engineer">Engineer's Degree</option>
+                      <option value="master">Master</option>
+                      <option value="professional">Professional Degree</option>
+                      <option value="specialist">Specialist Degree</option>
+                      <option value="vocational">Vocational</option>
                     </select>
                 </div>
+{/*  ************************************* for country *************************** */}
                 <div  className='Sflp'>
                     <select className='Sin2' id="country" name="country" required>
                         <option value="" disabled selected>Country</option>
@@ -198,11 +193,12 @@ function SignUp2() {
                     </select>                     
                     <input className='Sin2' placeholder='City'id='City' type='text'/>
                 </div>
+{/*  ************************************* for student or instructor *************************** */}
                 <div  className='Sflp2'>
                   <label ><input type='radio'  id='student' value="student" name="radio-group" required/> Student</label>
                   <label ><input type='radio' id='instructor' value="instructor" name="radio-group" required/> Instructor</label>
                 </div>
-
+{/*  ************************************* submit *************************** */}
                 <button className='Sbutt' type='submit' >Register</button>
             </form>
         </div>
