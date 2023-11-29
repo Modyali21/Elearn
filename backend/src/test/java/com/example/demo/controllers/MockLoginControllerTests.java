@@ -19,6 +19,7 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.demo.config.CustomUserDetailsService;
 import com.example.demo.utilities.Helper;
 
 @SpringBootTest
@@ -29,6 +30,9 @@ public class MockLoginControllerTests {
 
     @MockBean
     private AuthenticationManager authenticationManager;
+    
+    @MockBean
+    private CustomUserDetailsService customUserDetailsService;
 
     private String path = "src/test/resources/loginTestFiles/";
 
