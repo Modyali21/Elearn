@@ -1,0 +1,22 @@
+#enrolled-courses ul li{
+    list-style: none;
+    padding: 10px;
+}
+#enrolled-courses ul li span{
+    font-size: 20px;
+    font-weight: 700;
+}
+.cbtns{
+    border-radius: 50px;
+    width: 150px;
+    background-color:var(--text-color);
+    color: white;
+    margin: 0 3px;
+}
+#enrolled-courses ul li:not(:last-child){
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(131, 131, 131, 0.436);
+}
+.cbtns:hover{
+    background-color: rgb(113, 113, 113);
+}
