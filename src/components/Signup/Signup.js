@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './Signup.css';
-
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {SERVER_URL} from "../../constants"
-
+import {signup} from "../../firebase"
 function SignUp2() {
   const [repass,setRepass] = useState('')
   const [info,setInfo] = useState({
@@ -70,7 +69,7 @@ function handleRepass(event){
     }
     return false
   }
-  const handleSubmit = (e) => {
+  async function handleSubmit(e){
     e.preventDefault();
     const isValidEmail = validateEmail(info.email);
     const isValidPassword = validatePassword(info.password,repass);
@@ -79,6 +78,7 @@ function handleRepass(event){
     const isValidPhone = validatePhone(info.phone);
 
     if (!isValidEmail) {
+        
         document.getElementById('email').placeholder="must contain @ and . as(kk@ll.dd)";
         document.getElementById('email').classList.add('SSvibrate'); // Add the vibrate class
         setTimeout(() => {
@@ -122,9 +122,17 @@ function handleRepass(event){
       }
     if(isValidEmail && isValidPassword === 2 && isValidSSN && isValidBirth && isValidPhone){
     console.log(info);
-    axios.post(SERVER_URL+'/register',info).then(response=>{
-      window.location.href = "http://localhost:3000/";
-    }).catch(err =>{alert(err.response.data)})
+      try{
+        signup(info.email,info.password).then(()=>{
+          axios.post(SERVER_URL+'/register',info).then(response=>{
+            window.location.href = "http://localhost:3000/";
+          }).catch(err =>{alert(err.response.data)})
+        }).catch(err =>{alert(err.message.slice(err.message.indexOf("P")))});
+      }
+      catch{
+      alert("The email is already present");
+  }
+    
     }
   };
   return (
