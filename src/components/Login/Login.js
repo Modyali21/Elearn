@@ -1,12 +1,11 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import './Login.css';
 import axios from 'axios';
 import {SERVER_URL} from "../../constants"
+import './Login.css';
 
-// import { Link } from 'react-router-dom';
-
-
-const Login = () => {
+function Login() {
+  const [status,setStatus] = useState(0)
   const [info,setInfo] = useState({
     email: '',
     password : '',
@@ -14,7 +13,6 @@ const Login = () => {
   function handleChange(event){
       setInfo({...info,[event.target.name]:event.target.value})
 }
-
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,13 +25,10 @@ const Login = () => {
     return true;
   };
   const handleSubmit = (e) => {
+    
     e.preventDefault();
-    // Get form values by ID
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    const isValidEmail = validateEmail(email);
-    const isValidPassword = validatePassword(password);
-
+    const isValidEmail = validateEmail(info.email);
+    const isValidPassword = validatePassword(info.password);
     if (!isValidEmail) {
       document.getElementById('email').value='';
       document.getElementById('email').classList.add('Lvibrate'); // Add the vibrate class
@@ -50,7 +45,12 @@ const Login = () => {
     }
     if(isValidEmail && isValidPassword){
       console.log(info);
-      axios.post(SERVER_URL+'/login',info).then(response=>{alert(response.data)}).catch(err =>{alert(err.response.data);})
+      axios.post(SERVER_URL+'/login',info).then(response=>{
+        window.location.href = "http://localhost:3000/profile";
+      }).catch(err =>{
+        alert(err.response.data)
+      })
+
     }
     // Do something with the login data, for example, log it to the console
     // You can add authentication logic here, such as sending the data to a server for validation.
@@ -67,25 +67,29 @@ const Login = () => {
             </div>
             <h6 className='mb-4'>Please login to your account</h6>
             <form action='#' className='Lff' onSubmit={handleSubmit}>
-            <input className='Linp' placeholder='Email' id='email' type='name'required name='email' onChange={handleChange}/>
-            <input className='Linp' placeholder='Password' id='password' type='password'required name='password' onChange={handleChange}/>
+            <input className='Linp' placeholder='Email' id='email' type='name' name='email'required onChange={handleChange}/>
+            <input className='Linp' placeholder='Password' id='password' name='password' type='password'required onChange={handleChange}/>
             <button className=" Lbut" type='submit'>Sign in</button>
+            
             </form>
             <div className="Lend">
               <p className="Ldont">Don't have an account?</p>
-              {/* <Link to={"/signup2"}  className='Lbut2'>Sign Up</Link> */}
+              
+            <Link to={"/signup"} style={{textDecoration:"none"}}  className='Lbut2'>Sign Up</Link>
+
+              
             </div>
 
         </div>
 
         <div className="Lrightside">
-          <div className="d-flex flex-column  justify-content-evenly Lgradient-custom-2 h-100 mb-4">
+          <div className="LrightContent">
             <div>
               <h1 className='Lhh'>Login System</h1>
             </div>
             <div className="text-white ">
               <h3 className="mb-7">Welcome To Our E-Learning Platform! 🚀</h3>
-              <h5 className="mb-4">We are glad that your are a member of our family 📚✨</h5>
+              <h5 className="mb-5">We are glad that your are a member of our family 📚✨</h5>
               <h6 className=" Ltext">Welcome to our cutting-edge e-learning platform, where knowledge meets innovation. Unlock a world of transformative learning experiences designed to empower you with skills that transcend boundaries. Dive into a seamless blend of interactive courses, engaging content, and collaborative tools, fostering a dynamic online community dedicated to your educational journey. Embrace the future of learning – log in now and embark on a personalized path to success!</h6>
             </div>
 

@@ -3,6 +3,7 @@ import "./SideBar.css"
 import { FaHome,FaUnlockAlt,FaLock   } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import logo from "../../images/learninglogo.jpg"
+import { Link } from 'react-router-dom';
 const SideBar = () => {
     return (
         <div class="wrapper">
@@ -44,10 +45,10 @@ const SideBar = () => {
                         </a>
                     </li>
                     <li>
-                        <a href="/">
+                        <Link to="/signup" href="/">
                             <span class="icon"><MdDashboard fontSize={"20px"}/></span>
-                            <span class="item">Reports</span>
-                        </a>
+                            <span class="item">Sign up</span>
+                        </Link>
                     </li>
                     
                 </ul>

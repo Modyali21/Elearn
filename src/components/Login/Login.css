@@ -47,6 +47,18 @@
   height: 100%;
   color: white;
   background-color: rgba(0, 0, 0, 0.214);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.LrightContent{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
 }
 .Linp{
   width: 85%;
@@ -109,8 +121,8 @@
   height: 200px;
 }
 .Ltext{
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .Lhh{
   color: white;
@@ -132,5 +144,25 @@
   }
   50% {
     transform: translateX(5px); /* Move to the right */
+  }
+}
+@media (max-width: 1000px) {
+  .Lall {
+    width: 900px; /* Set your constant width in pixels */
+    overflow: hidden;
+  }
+  .Lgradient-form{
+    width: 900px; /* Set your constant width in pixels */
+    overflow: hidden;
+  }
+}
+@media (max-height: 600px) {
+  .Lall {
+    height: 600px; /* Set your constant height in pixels */
+    overflow: hidden;
+  }
+  .Lgradient-form{
+    height: 600px; /* Set your constant height in pixels */
+    overflow: hidden;
   }
 }
