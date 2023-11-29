@@ -1,11 +1,7 @@
 package com.example.demo.registeration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -16,8 +12,6 @@ import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,7 +21,6 @@ public class RegisterController {
     private StudentService studentService;
     private InstructorService instructorService;
     private PasswordEncoder passwordEncoder;
-    //private List<String> role ;
 
     public RegisterController(StudentService studentService, InstructorService instructorService,
             PasswordEncoder passwordEncoder) {
@@ -35,7 +28,6 @@ public class RegisterController {
         this.instructorService = instructorService;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<String> registerStudent(@RequestBody RegisterDTO resgisterInfo) {
@@ -130,9 +122,7 @@ public class RegisterController {
             }
         }
 
-            return ResponseEntity.status(200).body("resgistered successfully");
+        return ResponseEntity.status(200).body("resgistered successfully");
     }
-
-
 
 }

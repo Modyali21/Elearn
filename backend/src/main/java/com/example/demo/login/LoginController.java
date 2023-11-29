@@ -1,8 +1,6 @@
 package com.example.demo.login;
 
 import com.example.demo.config.CustomUserDetailsService;
-import com.example.demo.student.StudentService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,25 +44,21 @@ public class LoginController {
 			return ResponseEntity.status(401).body("the account is disabled, contact the admin");
 		}
 	}
-
 	@RequestMapping("/oauth2/signin/{role}")
 	public ResponseEntity<Object> Oauth2_login(@PathVariable String role,@AuthenticationPrincipal OAuth2User oauth2User) {
 		System.out.println("output is = "+oauth2User.getAttributes());
 		Map<String,Object> data =oauth2User.getAttributes();
 		System.out.println("email is = "+data.get("email"));
 		System.out.println("role is = "+role);
-				try {
-					UserDetails ud =cuds.loadUserByUsername(data.get("email").toString());
-					System.out.println("user details = "+ud.toString());
-					return ResponseEntity.status(200).body("welcome back");
-				} catch (UsernameNotFoundException e) {
-					return ResponseEntity.status(401).body("email has not registered yet");
-				}
+		try {
+			UserDetails ud =cuds.loadUserByUsername(data.get("email").toString());
+			System.out.println("user details = "+ud.toString());
+			return ResponseEntity.status(200).body("welcome back");
+		} catch (UsernameNotFoundException e) {
+			return ResponseEntity.status(401).body("email has not registered yet");
+		}
 
 
 
 	}
-
-
-
 }

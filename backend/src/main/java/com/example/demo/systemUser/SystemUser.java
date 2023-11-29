@@ -30,22 +30,22 @@ public abstract class SystemUser{
     @Column(name = "email", nullable = false)
     protected String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     protected String password;
 
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false)
     protected String phone;
 
-    @Column(name = "school")
+    @Column(name = "school", nullable = false)
     protected String school;
 
-    @Column(name = "degree")
+    @Column(name = "degree", nullable = false)
     protected String degree;
 
-    @Column(name = "ssn")
+    @Column(name = "ssn", nullable = false)
     protected String ssn;
 
-    @Column(name = "birth_date")
+    @Column(name = "birth_date", nullable = false)
     protected Date birthDate;
 
     public SystemUser(String firstName, String lastName, String email, String password, String phone, String school,
