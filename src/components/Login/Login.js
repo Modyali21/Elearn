@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {SERVER_URL} from "../../constants"
 import './Login.css';
-
+import {login} from "../../firebase"
 function Login() {
-  const [status,setStatus] = useState(0)
   const [info,setInfo] = useState({
     email: '',
     password : '',
@@ -24,8 +23,7 @@ function Login() {
     }
     return true;
   };
-  const handleSubmit = (e) => {
-    
+  async function handleSubmit(e){
     e.preventDefault();
     const isValidEmail = validateEmail(info.email);
     const isValidPassword = validatePassword(info.password);
@@ -45,11 +43,19 @@ function Login() {
     }
     if(isValidEmail && isValidPassword){
       console.log(info);
-      axios.post(SERVER_URL+'/login',info).then(response=>{
-        window.location.href = "http://localhost:3000/profile";
-      }).catch(err =>{
-        alert(err.response.data)
-      })
+      try{
+        login(info.email,info.password).then(()=>{
+          axios.post(SERVER_URL+'/login',info).then(response=>{
+            window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
+          }).catch(err =>{
+            alert(err.response.data)
+          })
+        }).catch(err =>{alert(err.response.data)});
+    }
+    catch{
+        alert("The email is already present");
+    }
+      
 
     }
     // Do something with the login data, for example, log it to the console
