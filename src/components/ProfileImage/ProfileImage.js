@@ -32,13 +32,13 @@ const ProfileImage = (props) => {
                     <span className="user-status">{props.position}</span>
                     <span className="user-about">Everyone has the right to an effective remedy by the competent national tribunals for acts violating the fundamental rights </span>
                 </div>
-                <button className="btn btn-dark edit-profile"><Link to="/updateprofile" href="/src/components/UpdateProfile">Edit Profile</Link></button>
+                <button className="btn btn-dark edit-profile"><Link style={{textDecoration:"none", color:"white"}} to="/updateprofile" href="/src/components/UpdateProfile">Edit Profile</Link></button>
             </div>
             <div className="intro">
                 <h1 id="header1">ONLINE LEARNING PLATFORM</h1>
                 <h3 id="header2">Boost your knowlegde</h3>
                 <span className="intro-discription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt recusandae ea dolorem nemo perspiciatis quasi mollitia fugiat quae ullam neque voluptatum illo unde, facere accusamus provident quos et quidem dignissimos, assumenda dolore nisi. Natus nemo perspiciatis facilis hic, quia accusantium totam nesciunt! Ab deleniti animi sint natus temporibus impedit qui sapiente eius.</span>
-                <div><Link to="/" className="btn btn-dark btn-intro">Get Started</Link></div>
+                <div><Link to="/" style={{textDecoration:"none"}} className="btn btn-dark btn-intro ">Get Started</Link></div>
             </div>
             
             
