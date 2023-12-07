@@ -1,128 +1,40 @@
 package com.example.demo.registeration;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.instructor.Instructor;
-import com.example.demo.instructor.InstructorService;
-import com.example.demo.student.Student;
-import com.example.demo.student.StudentService;
-
-import java.util.Map;
 
 @RestController
 @CrossOrigin
 public class RegisterController {
 
-    private StudentService studentService;
-    private InstructorService instructorService;
-    private PasswordEncoder passwordEncoder;
+    private final  RegisterService registerService;
 
-    public RegisterController(StudentService studentService, InstructorService instructorService,
-            PasswordEncoder passwordEncoder) {
-        this.studentService = studentService;
-        this.instructorService = instructorService;
-        this.passwordEncoder = passwordEncoder;
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerStudent(@RequestBody RegisterDTO resgisterInfo) {
+    public ResponseEntity<String> registerStudent(@RequestBody RegisterDTO registerDTO) {
 
-        if (studentService.emailTaken(resgisterInfo.getEmail()) ||
-                instructorService.emailTaken(resgisterInfo.getEmail())
-                || resgisterInfo.getEmail().equals("admin@admin.com")) {
+        if (registerService.emailTaken(registerDTO.getEmail())) {
             return ResponseEntity.status(409).body("email is taken");
         }
-        if (studentService.ssnTaken(resgisterInfo.getSsn()) ||
-                instructorService.ssnTaken(resgisterInfo.getSsn())) {
+        if (registerService.ssnTaken(registerDTO.getSsn())) {
             return ResponseEntity.status(409).body("there is another user with the same SSN");
         }
-
-        if (resgisterInfo.isStudent()) {
-            studentService.saveUser(
-                    Student.builder()
-                            .firstName(resgisterInfo.getFirstName())
-                            .lastName(resgisterInfo.getLastName())
-                            .email(resgisterInfo.getEmail())
-                            .password(passwordEncoder.encode(resgisterInfo.getPassword()))
-                            .phone(resgisterInfo.getPhone())
-                            .school(resgisterInfo.getSchool())
-                            .degree(resgisterInfo.getDegree())
-                            .ssn(resgisterInfo.getSsn())
-                            .birthDate(resgisterInfo.getBirthDate())
-                            .build());
-        } else {
-            instructorService.saveUser(
-                    Instructor.builder()
-                            .firstName(resgisterInfo.getFirstName())
-                            .lastName(resgisterInfo.getLastName())
-                            .email(resgisterInfo.getEmail())
-                            .password(passwordEncoder.encode(resgisterInfo.getPassword()))
-                            .phone(resgisterInfo.getPhone())
-                            .school(resgisterInfo.getSchool())
-                            .degree(resgisterInfo.getDegree())
-                            .ssn(resgisterInfo.getSsn())
-                            .birthDate(resgisterInfo.getBirthDate())
-                            .hasPrivilege(false)
-                            .build());
-        }
-        return ResponseEntity.status(201).body("resgistered successfully");
+        registerService.saveUser(registerDTO);
+        return ResponseEntity.status(201).body("registered successfully");
     }
     @RequestMapping("/oauth2/{role}")
-    public ResponseEntity<Object> oauth_login(@PathVariable String role,@AuthenticationPrincipal OAuth2User oauth2User) {
-        System.out.println("output is = "+oauth2User.getAttributes());
-        Map<String,Object> data =oauth2User.getAttributes();
-        System.out.println("email is = "+data.get("email"));
-        System.out.println("role= "+role);
-        if (studentService.emailTaken(data.get("email").toString()) ||
-                instructorService.emailTaken(data.get("email").toString())
-                || data.get("email").toString().equals("admin@admin.com")) {
+    public ResponseEntity<Object> googleRegister(@PathVariable String role, @AuthenticationPrincipal OAuth2User oauth2User) {
+
+        if (registerService.emailTaken(oauth2User.getAttributes().get("email").toString())) {
             return ResponseEntity.status(409).body("email is taken");
         }
-
-        if(role.equals("ROLE_STUDENT")){
-            try {
-                studentService.saveUser(
-                        Student.builder()
-                                .firstName(data.get("given_name").toString())
-                                .lastName(data.get("family_name").toString())
-                                .email(data.get("email").toString())
-                                .password(passwordEncoder.encode(data.get("at_hash").toString()))
-                                .phone(null)
-                                .school(null)
-                                .degree(null)
-                                .ssn(null)
-                                .birthDate(null)
-                                .build());
-            } catch (DataIntegrityViolationException e) {
-                return ResponseEntity.status(401).body("Email is already taken for user");
-            }
-
-        }
-        else if (role.equals("ROLE_INSTRUCTOR") || role.equals("ROLE_ADMIN") ){
-            try {
-                instructorService.saveUser(
-                        Instructor.builder()
-                                .firstName(data.get("given_name").toString())
-                                .lastName(data.get("family_name").toString())
-                                .email(data.get("email").toString())
-                                .password(passwordEncoder.encode(data.get("at_hash").toString()))
-                                .phone(null)
-                                .school(null)
-                                .degree(null)
-                                .ssn(null)
-                                .birthDate(null)
-                                .build());
-            } catch (DataIntegrityViolationException e) {
-                return ResponseEntity.status(401).body("Email is already taken for user");
-            }
-        }
-
-        return ResponseEntity.status(200).body("resgistered successfully");
+        registerService.saveUser(role, oauth2User);
+        return ResponseEntity.status(200).body("registered successfully");
     }
 
 }
