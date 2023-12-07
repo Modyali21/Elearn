@@ -15,31 +15,31 @@ const SideBar = () => {
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html" class="active" >
+                        <a href="#" class="active" >
                             <span class="icon"><FaHome fontSize={"20px"}/></span>
                             <span class="item">Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="index.html#section1">
+                        <a href="#">
                             <span class="icon"><MdDashboard fontSize={"20px"}/></span>
                             <span class="item">Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="TopStudents.html">
+                        <a href="#">
                             <span class="icon"><FaUnlockAlt  hboard fontSize={"20px"}/></span>
                             <span class="item">People</span>
                         </a>
                     </li>
                     <li>
-                        <a href="DoTheMath.html">
+                        <a href="#">
                             <span class="icon"><FaLock  fontSize={"20px"}/></span>
                             <span class="item">Revision videos</span>
                         </a>
                     </li>
                     <li>
-                        <a href="video.php">
+                        <a href="#">
                             <span class="icon"><MdDashboard fontSize={"20px"}/></span>
                             <span class="item">Semester videos</span>
                         </a>

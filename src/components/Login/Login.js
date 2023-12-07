@@ -28,14 +28,12 @@ function Login() {
     const isValidEmail = validateEmail(info.email);
     const isValidPassword = validatePassword(info.password);
     if (!isValidEmail) {
-      document.getElementById('email').value='';
       document.getElementById('email').classList.add('Lvibrate'); // Add the vibrate class
       setTimeout(() => {
       document.getElementById('email').classList.remove('Lvibrate'); // Remove the vibrate class after a short delay
       }, 1000);
     }
     if (!isValidPassword) {
-      document.getElementById('password').value='';
       document.getElementById('password').classList.add('Lvibrate'); // Add the vibrate class
       setTimeout(() => {
       document.getElementById('password').classList.remove('Lvibrate'); // Remove the vibrate class after a short delay
