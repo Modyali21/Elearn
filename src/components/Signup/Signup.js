@@ -124,9 +124,9 @@ function handleRepass(event){
     console.log(info);
       try{
         signup(info.email,info.password).then(()=>{
-          // axios.post(SERVER_URL+'/register',info).then(response=>{
-          //   window.location.href = "http://localhost:3000/";
-          // }).catch(err =>{alert(err.response.data)})
+          axios.post(SERVER_URL+'/register',info).then(response=>{
+            window.location.href = "http://localhost:3000/";
+          }).catch(err =>{alert(err.response.data)})
         }).catch(err =>{alert(err.message.slice(err.message.indexOf("P")))});
       }
       catch{

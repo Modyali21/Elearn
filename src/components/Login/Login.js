@@ -43,11 +43,11 @@ function Login() {
       console.log(info);
       try{
         login(info.email,info.password).then(()=>{
-          // axios.post(SERVER_URL+'/login',info).then(response=>{
-          //   window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
-          // }).catch(err =>{
-          //   alert(err.response.data)
-          // })
+          axios.post(SERVER_URL+'/login',info).then(response=>{
+            window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
+          }).catch(err =>{
+            alert(err.response.data)
+          })
         }).catch(err =>{alert(err.response.data)});
     }
     catch{
