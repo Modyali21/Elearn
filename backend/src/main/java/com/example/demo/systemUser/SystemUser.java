@@ -21,31 +21,31 @@ public abstract class SystemUser{
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     protected String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     protected String lastName;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     protected String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     protected String password;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone")
     protected String phone;
 
-    @Column(name = "school", nullable = false)
+    @Column(name = "school")
     protected String school;
 
-    @Column(name = "degree", nullable = false)
+    @Column(name = "degree")
     protected String degree;
 
-    @Column(name = "ssn", nullable = false)
+    @Column(name = "ssn")
     protected String ssn;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     protected Date birthDate;
 
     public SystemUser(String firstName, String lastName, String email, String password, String phone, String school,

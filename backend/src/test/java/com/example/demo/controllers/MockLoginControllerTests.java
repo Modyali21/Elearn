@@ -1,14 +1,13 @@
 package com.example.demo.controllers;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.example.demo.config.CustomUserDetailsService;
+import com.example.demo.config.TestSecurityConfig;
+import com.example.demo.login.LoginController;
+import com.example.demo.utilities.Helper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -17,29 +16,28 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.demo.config.CustomUserDetailsService;
-import com.example.demo.utilities.Helper;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ContextConfiguration(classes = TestSecurityConfig.class)
+@WebMvcTest(LoginController.class)
 public class MockLoginControllerTests {
+    private final String path = "src/test/resources/loginTestFiles/";
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private AuthenticationManager authenticationManager;
-    
     @MockBean
     private CustomUserDetailsService customUserDetailsService;
 
-    private String path = "src/test/resources/loginTestFiles/";
-
     /**
      * Wrong password
-     *
-     * @throws Exception
      */
     @Test
     public void test1() throws Exception {
@@ -52,8 +50,6 @@ public class MockLoginControllerTests {
 
     /**
      * Locked user
-     *
-     * @throws Exception
      */
     @Test
     public void test2() throws Exception {
@@ -66,8 +62,6 @@ public class MockLoginControllerTests {
 
     /**
      * Disabled user
-     *
-     * @throws Exception
      */
     @Test
     public void test3() throws Exception {
@@ -80,8 +74,6 @@ public class MockLoginControllerTests {
 
     /**
      * registered user
-     *
-     * @throws Exception
      */
     @Test
     public void test4() throws Exception {
