@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -69,13 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
+
 # Elearn
 ELearning platform repo
-<<<<<<< HEAD
 updated1
 >>>>>>> 9ee66383fd661413ff7fa23c99eea8a286a144e8
-=======
 ## some notes:
 + make sure to start MySQL before running the app.
 + the database will be created if doesn't already exist and it will **be DROPPED** after the termination of the app, this is made to facilitate testing *(for me at least)*, to change it go to [application.properties](backend/src/main/resources/application.properties) and change the following:
