@@ -52,7 +52,7 @@ public class StudentRepositoryTest {
     @Test
     public void searchForNonExistingStudent() {
         Optional<Student> tmp = studentRepository.findByEmail("ahmed@gmail.com");
-        assert (!tmp.isPresent());
+        assert (tmp.isEmpty());
     }
 
     @Test

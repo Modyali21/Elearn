@@ -6,9 +6,10 @@ import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
-
+@Service
 public class RegisterService {
     private final StudentService studentService;
     private final InstructorService instructorService;
