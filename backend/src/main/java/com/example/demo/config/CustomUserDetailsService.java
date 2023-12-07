@@ -1,16 +1,13 @@
 package com.example.demo.config;
 
-import java.util.Optional;
-
+import com.example.demo.instructor.InstructorService;
+import com.example.demo.student.StudentService;
+import com.example.demo.systemUser.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.example.demo.instructor.InstructorService;
-import com.example.demo.student.StudentService;
-import com.example.demo.systemUser.SystemUser;
 
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -28,16 +25,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                     .roles("ADMIN")
                     .build();
         }
-        Optional<? extends SystemUser> user;
-        user = studentService.findByEmail(username);
-        if (!user.isPresent()) {
+        SystemUser user;
+        try {
+            user = studentService.findByEmail(username);
+        } catch (UsernameNotFoundException e) {
             user = instructorService.findByEmail(username);
         }
-        if (user.isPresent()) {
-            return new CustomUserDetails(user.get());
-        } else {
-            throw new UsernameNotFoundException("email isn't resgistered");
-        }
+        return new CustomUserDetails(user);
     }
 
 }

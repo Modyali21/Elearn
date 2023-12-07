@@ -3,9 +3,6 @@ package com.example.demo.controllers;
 import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import com.example.demo.student.StudentService;
 import com.example.demo.utilities.Helper;
 import org.junit.jupiter.api.Test;
@@ -18,6 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.sql.Date;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
@@ -28,7 +29,7 @@ public class LoginControllerTests {
     private InstructorService instructorService;
     @Autowired
     private MockMvc mockMvc;
-    private String path = "src/test/resources/loginTestFiles/";
+    private final String path = "src/test/resources/loginTestFiles/";
 
     public void setUp() {
         studentService.saveUser(Student.builder()
