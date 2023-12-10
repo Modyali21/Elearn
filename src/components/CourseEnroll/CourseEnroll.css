@@ -1,0 +1,221 @@
+.Cbody{
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+
+}
+.Cnav{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.87);
+}
+.Clog{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Clogo{
+    border-radius: 4px;
+}
+.Clinks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 35%;
+    text-align: center;
+}
+.Ctotal{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgba(205, 205, 205, 0.503);
+}
+
+/* Style the tab */
+.Ctab {
+  border: 1px solid #3b3b3b99;
+  background-color:green;
+  height: 10%;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 50px;
+  /* box-shadow: 0 0 1px 0 rgba(#185ee0, 0.15), 0 6px 12px 0 rgba(#185ee0, 0.15); */
+  transition: color 0.7s ease-in;
+
+}
+
+/* Style the buttons inside the tab */
+.Ctab button {
+    background-color:rgb(232, 230, 230);
+    outline: none;
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 50px;
+  /* font-size: 17px; */
+}
+
+/* Change background color of buttons on hover */
+.Ctab button:hover {
+  background-color: #a9a7a7;
+  border: 1px solid black;
+}
+
+/* Create an active/current tablink class */
+.Ctab button.active {
+  color:white;
+  background-color: rgba(0, 0, 0, 0.686);
+  font-size: smaller;
+}
+
+
+.Cdata{
+    height: 80%;
+    width: 90%;
+    padding: 5px 5px 5px 15px ;
+    border-radius: 10px;
+    background-color: green;
+    color: black;
+}
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    /* padding-bottom: 10px; */
+  }
+.Cna{
+    height: 8%;
+}
+.Cbut{
+    background-color: green;
+    color: white;
+    width: 140px;
+    height: 40px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Cbut:hover{
+    color: white;
+    background-color: rgb(2, 93, 2);
+}
+.Cbut:active{
+    color: white;
+    font-size: smaller;
+}
+.CLecture1{
+    width: 90%;
+    min-height: 150px;
+    max-height: 200px;
+    background-color: rgba(211, 208, 208, 0.888);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+    padding: 5px 5px 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow:auto;
+}
+.Clink{
+    border: none;
+    outline: none;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+  }
+
+h6{
+    font-weight: bold;
+}
+
+h4{
+    font-weight: bold;
+}
+.CTeacBut{
+    background-color: green;
+    cursor: pointer;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    display: none;
+}
+.CTeacBut:hover{
+    color: white;
+    background-color: rgb(2, 93, 2);
+}
+.CTeacBut:active{
+    color: white;
+    font-size: smaller;
+}
+.Ctitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Csearch{
+    width: 500px ;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    padding-left: 5px;
+}
+.Csearchlogo{
+    width: 200px;
+    height: 30px;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 1000px) {
+    .Cbody {
+      width: 1000px; /* Set your constant width in pixels */
+      overflow: hidden;
+    }
+
+  }
+  @media (max-height: 600px) {
+    .Cbody {
+      height: 600px; /* Set your constant height in pixels */
+      overflow: hidden;
+    }
+
+  }
