@@ -1,6 +1,5 @@
 import './CourseEnroll.css';
 import React, { useState } from 'react';
-import {Header,SideBar} from "../index"
 import { Link } from 'react-router-dom';
 
 function CourseEnroll() {
@@ -21,7 +20,7 @@ function CourseEnroll() {
         <div className='Ctotal'>
         <div className="Ctab ">
             <input type="text" placeholder="Search.." className='Csearch' name="search"/>
-            <button type="submit" className='Csearchlogo'></button>       
+            <button type="submit" className='CSebut'>Search</button>      
         </div>
         <div className='Cdata'>
             <div id="Details" style={{color:"white"}} className="tabcontent">
