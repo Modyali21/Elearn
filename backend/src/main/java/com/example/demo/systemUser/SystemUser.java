@@ -1,15 +1,11 @@
 package com.example.demo.systemUser;
 
-import java.sql.Date;
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.sql.Date;
+import java.util.List;
 
 @MappedSuperclass
 @Data

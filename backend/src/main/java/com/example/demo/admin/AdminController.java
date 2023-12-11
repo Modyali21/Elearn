@@ -1,10 +1,11 @@
 package com.example.demo.admin;
 
 import com.example.demo.instructor.Instructor;
+import com.example.demo.instructor.InstructorFilterDetails;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
-import com.example.demo.systemUser.filterOptions;
+import com.example.demo.systemUser.SystemUserFilterDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,12 @@ public class AdminController {
     }
 
     @PostMapping("/students")
-    public List<Student> findStudents(@RequestBody filterOptions filterOptions){
-        return studentService.find(filterOptions);
+    public List<Student> findStudents(@RequestBody SystemUserFilterDetails filterOptions){
+        return studentService.findAllBasedOnFilter(filterOptions);
     }
 
     @PostMapping("/instructors")
-    public List<Instructor> findInstructors(@RequestBody filterOptions filterOptions){
-        return instructorService.find(filterOptions);
+    public List<Instructor> findInstructors(@RequestBody InstructorFilterDetails filterOptions){
+        return instructorService.findAllBasedOnFilter(filterOptions);
     }
 }

@@ -1,15 +1,14 @@
 package com.example.demo.student;
 
-import java.sql.Date;
-import java.util.Collections;
-import java.util.List;
-
 import com.example.demo.systemUser.SystemUser;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Builder;
+
+import java.sql.Date;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "student", uniqueConstraints = { @UniqueConstraint(name = "uk_email", columnNames = "email"),

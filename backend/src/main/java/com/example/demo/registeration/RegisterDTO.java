@@ -1,8 +1,8 @@
 package com.example.demo.registeration;
 
-import java.sql.Date;
-
 import lombok.Data;
+
+import java.sql.Date;
 
 @Data
 public class RegisterDTO {

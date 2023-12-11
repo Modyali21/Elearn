@@ -1,15 +1,13 @@
 package com.example.demo.config;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
+import com.example.demo.systemUser.SystemUser;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.systemUser.SystemUser;
-
-import lombok.Data;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Data
 public class CustomUserDetails implements UserDetails{
