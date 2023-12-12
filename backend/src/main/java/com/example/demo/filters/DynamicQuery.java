@@ -51,10 +51,12 @@ public class DynamicQuery<T> {
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         String sortBy = filter.getSortBy();
-        if (filter.isDescending()) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(sortBy)));
-        } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(sortBy)));
+        if (sortBy != null) {
+            if (filter.isDescending()) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(root.get(sortBy)));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(root.get(sortBy)));
+            }
         }
         criteriaQuery.select(root).where(filter.getPredicates(criteriaBuilder, root));
         return entityManager.createQuery(criteriaQuery)
@@ -100,10 +102,12 @@ public class DynamicQuery<T> {
         CriteriaQuery<R> criteriaQuery = criteriaBuilder.createQuery(outputClass);
         Root<T> root = criteriaQuery.from(entityClass);
         String sortBy = filter.getSortBy();
-        if (filter.isDescending()) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(sortBy)));
-        } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(sortBy)));
+        if (sortBy != null) {
+            if (filter.isDescending()) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(root.get(sortBy)));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(root.get(sortBy)));
+            }
         }
         criteriaQuery.select(criteriaBuilder.construct(outputClass, Arrays.stream(fields)
                                                                           .map(root::get)
