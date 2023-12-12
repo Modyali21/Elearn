@@ -18,8 +18,20 @@ public class InstructorService extends SystemUserService<Instructor, InstructorR
     public Class<Instructor> getEntityClass() {
         return Instructor.class;
     }
-    public List<Instructor> findAllBasedOnFilter(InstructorFilterDetails filterDetails) {
+
+    public List<InstructorDto> findAllBasedOnFilter(InstructorFilterDetails filterDetails) {
         InstructorFilter filter = new InstructorFilter(filterDetails);
-        return new DynamicQuery<>(entityManager, getEntityClass()).makeQuery(filter);
+        return new DynamicQuery<>(entityManager, getEntityClass()).makeQuery(filter,
+                                                                             InstructorDto.class,
+                                                                             "id",
+                                                                             "firstName",
+                                                                             "lastName",
+                                                                             "email",
+                                                                             "phone",
+                                                                             "school",
+                                                                             "degree",
+                                                                             "ssn",
+                                                                             "birthDate",
+                                                                             "hasPrivilege");
     }
 }

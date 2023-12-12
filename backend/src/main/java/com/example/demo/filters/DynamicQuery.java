@@ -4,7 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Selection;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -73,6 +75,44 @@ public class DynamicQuery<T> {
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(criteriaBuilder.count(root)).where(filter.getPredicates(criteriaBuilder, root));
         return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
+
+    /**
+     * a method that makes query on some entity based on a filter but the result is a list of {@code outputClass}
+     * so it is similar to {@link #makeQuery(Filter, Function)} but instead the mapping is in the query not after and
+     * using {@link CriteriaBuilder#construct(Class, Selection[]) CriteriaBuilder.construct}.
+     * <p>
+     * I made it since there is a possibility that it gives a better performance than
+     * {@link #makeQuery(Filter, Function)} (not that it performed bad or anything, but in theory this method should
+     * reduce the number of object created by half, since instead of using the returned list of a certain type then
+     * mapping each one to another, we just return a list of our wanted type from the start).
+     *
+     * @param filter      the filter which defines the predicates to be used in the query
+     * @param outputClass the output class
+     * @param fields      the name of fields from the entity class to be given to the constructor of the output
+     *                    class, meaning there must be a constructor in the output class that support the fields in
+     *                    the entered order or an exception will be thrown
+     * @param <R>         the output type
+     * @return a list containing the result of the query mapped to the output type
+     */
+    public <R> List<R> makeQuery(Filter<T> filter, Class<R> outputClass, String... fields) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<R> criteriaQuery = criteriaBuilder.createQuery(outputClass);
+        Root<T> root = criteriaQuery.from(entityClass);
+        String sortBy = filter.getSortBy();
+        if (filter.isDescending()) {
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get(sortBy)));
+        } else {
+            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(sortBy)));
+        }
+        criteriaQuery.select(criteriaBuilder.construct(outputClass, Arrays.stream(fields)
+                                                                          .map(root::get)
+                                                                          .toArray(Selection[]::new)));
+        criteriaQuery.where(filter.getPredicates(criteriaBuilder, root));
+        return entityManager.createQuery(criteriaQuery)
+                            .setMaxResults(filter.getMaxResults())
+                            .setFirstResult(filter.getFirstResult())
+                            .getResultList();
     }
 
 

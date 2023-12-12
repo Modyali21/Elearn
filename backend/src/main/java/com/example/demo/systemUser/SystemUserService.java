@@ -40,11 +40,25 @@ public abstract class SystemUserService<T extends SystemUser, R extends SystemUs
         }
     }
 
+    public void deleteUser(T user) {
+        repository.delete(user);
+    }
+
     public abstract Class<T> getEntityClass();
 
 
-    public <K extends SystemUserFilterDetails> List<T> findAllBasedOnFilter(K filterDetails) {
+    public <K extends SystemUserFilterDetails> List<SystemUserDto> findAllBasedOnFilter(K filterDetails) {
         SystemUserFilter<T, K> filter = new SystemUserFilter<>(filterDetails);
-        return new DynamicQuery<>(entityManager, getEntityClass()).makeQuery(filter);
+        return new DynamicQuery<>(entityManager, getEntityClass()).makeQuery(filter,
+                                                                             SystemUserDto.class,
+                                                                             "id",
+                                                                             "firstName",
+                                                                             "lastName",
+                                                                             "email",
+                                                                             "phone",
+                                                                             "school",
+                                                                             "degree",
+                                                                             "ssn",
+                                                                             "birthDate");
     }
 }

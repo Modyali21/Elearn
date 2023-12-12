@@ -27,8 +27,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody LoginDTO loginRequest) {
-        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getEmail(), loginRequest.getPassword());
+    public ResponseEntity<Object> login(@RequestBody LoginDto loginRequest) {
+        Authentication authenticationRequest =
+                UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getEmail(),
+                                                                                                   loginRequest.getPassword());
         try {
             this.authenticationManager.authenticate(authenticationRequest);
             return ResponseEntity.status(200).body("welcome back");
@@ -42,7 +44,8 @@ public class LoginController {
     }
 
     @RequestMapping("/oauth2/signin/{role}")
-    public ResponseEntity<Object> Oauth2_login(@PathVariable String role, @AuthenticationPrincipal OAuth2User oauth2User) {
+    public ResponseEntity<Object> Oauth2_login(@PathVariable String role,
+                                               @AuthenticationPrincipal OAuth2User oauth2User) {
         System.out.println("output is = " + oauth2User.getAttributes());
         Map<String, Object> data = oauth2User.getAttributes();
         System.out.println("email is = " + data.get("email"));
