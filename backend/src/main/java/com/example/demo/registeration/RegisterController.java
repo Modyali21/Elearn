@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class RegisterController {
 
-    private final  RegisterService registerService;
+    private final RegisterService registerService;
 
     public RegisterController(RegisterService registerService) {
         this.registerService = registerService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerStudent(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity<String> registerStudent(@RequestBody RegisterDto registerDTO) {
 
         if (registerService.emailTaken(registerDTO.getEmail())) {
             return ResponseEntity.status(409).body("email is taken");
@@ -27,8 +27,10 @@ public class RegisterController {
         registerService.saveUser(registerDTO);
         return ResponseEntity.status(201).body("registered successfully");
     }
+
     @RequestMapping("/oauth2/{role}")
-    public ResponseEntity<Object> googleRegister(@PathVariable String role, @AuthenticationPrincipal OAuth2User oauth2User) {
+    public ResponseEntity<Object> googleRegister(@PathVariable String role,
+                                                 @AuthenticationPrincipal OAuth2User oauth2User) {
 
         if (registerService.emailTaken(oauth2User.getAttributes().get("email").toString())) {
             return ResponseEntity.status(409).body("email is taken");

@@ -10,8 +10,8 @@ import java.util.List;
 @MappedSuperclass
 @Data
 @NoArgsConstructor
-public abstract class SystemUser{
-    
+public abstract class SystemUser {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +45,7 @@ public abstract class SystemUser{
     protected Date birthDate;
 
     public SystemUser(String firstName, String lastName, String email, String password, String phone, String school,
-            String degree, String ssn, Date birthDate) {
+                      String degree, String ssn, Date birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

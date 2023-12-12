@@ -1,13 +1,14 @@
 package com.example.demo.systemUser;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
-@NoArgsConstructor
-public class SystemUserFilterDetails {
+@AllArgsConstructor
+public class SystemUserDto {
+    protected long id;
     protected String firstName;
     protected String lastName;
     protected String email;
@@ -16,9 +17,4 @@ public class SystemUserFilterDetails {
     protected String degree;
     protected String ssn;
     protected Date birthDate;
-    protected int firstResult;
-    protected int maxResults;
-    protected String sortBy;
-    protected boolean descending;
-    protected boolean or;
 }

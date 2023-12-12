@@ -5,8 +5,8 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class RegisterDTO {
-    
+public class RegisterDto {
+
     private String firstName;
     private String lastName;
     private String email;

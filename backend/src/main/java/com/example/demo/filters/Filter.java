@@ -7,6 +7,7 @@ import lombok.Data;
 
 /**
  * a filter class where user can define predicates that will be used when making the query
+ *
  * @param <E> the entity on which the query is to be made
  * @see Predicate
  * @see DynamicQuery
@@ -20,8 +21,9 @@ public abstract class Filter<E> {
 
     /**
      * a method that returns the predicate which the user will define
+     *
      * @param criteriaBuilder used to construct the predicates
-     * @param root represent the entity table, also needed to construct the predicates
+     * @param root            represent the entity table, also needed to construct the predicates
      * @return the predicate defined by user
      */
     public abstract Predicate getPredicates(CriteriaBuilder criteriaBuilder, Root<E> root);

@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Data
-public class CustomUserDetails implements UserDetails{
+public class CustomUserDetails implements UserDetails {
 
     private SystemUser systemUser;
 
@@ -25,12 +25,12 @@ public class CustomUserDetails implements UserDetails{
 
     @Override
     public String getPassword() {
-       return systemUser.getPassword();
+        return systemUser.getPassword();
     }
 
     @Override
     public String getUsername() {
-       return systemUser.getEmail();
+        return systemUser.getEmail();
     }
 
     @Override
@@ -52,5 +52,5 @@ public class CustomUserDetails implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
+
 }
