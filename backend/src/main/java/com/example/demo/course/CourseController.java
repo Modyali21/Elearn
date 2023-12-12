@@ -2,10 +2,13 @@ package com.example.demo.course;
 
 import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
+import com.example.demo.student.Student;
+import com.example.demo.student.StudentService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private InstructorService instructorService;
+
 
     @PostMapping("/addCourse")
     public String addCourse(@RequestBody Course course){
@@ -53,6 +57,13 @@ public class CourseController {
     @GetMapping("/sortedCourses")
     public List<Course> getSortedCriteriaCourses(@RequestBody String criteria){
         return courseService.sortBy(criteria);
+    }
+    @PutMapping("/student/{studentId}/course/{courseCode}")
+    public String assignProjectToEmployee(
+            @PathVariable Long studentId,
+            @PathVariable String courseCode
+    ){
+        return courseService.enrollCourse(courseCode,studentId);
     }
 
 }

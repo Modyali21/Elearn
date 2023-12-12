@@ -10,5 +10,6 @@ public class StudentService extends SystemUserService<Student,StudentRepository>
     public StudentService(StudentRepository repository) {
         super(repository);
     }
+
     
 }
