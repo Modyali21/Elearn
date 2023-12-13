@@ -74,6 +74,8 @@
   border: 1px solid ;
   height: 40px;
   color: white;
+  cursor: pointer;
+
 }
 .Lbut:active{
   background: white;

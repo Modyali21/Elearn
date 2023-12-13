@@ -1,4 +1,4 @@
-.Cbody{
+.ECbody{
     height: 100vh;
     width: 100%;
     margin: 0;
@@ -7,9 +7,9 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-
+    background-color: green;
 }
-.Cnav{
+.ECnav{
     height: 15%;
     width: 100%;
     display: flex;
@@ -18,17 +18,17 @@
     align-items: center;
     background-color: rgba(0, 0, 0, 0.87);
 }
-.Clog{
-    width: 20%;
+.EClog{
+    width: 30%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
-.Clogo{
+.EClogo{
     border-radius: 4px;
 }
-.Clinks{
+.EClinks{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -36,22 +36,22 @@
     width: 35%;
     text-align: center;
 }
-.Ctotal{
+.ECtotal{
     height: 85%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgba(205, 205, 205, 0.503);
+    background-color: rgba(205, 205, 205, 0.621);
 }
 
 /* Style the tab */
-.Ctab {
+.ECtab {
   border: 1px solid #3b3b3b99;
   background-color:green;
   height: 10%;
-  width: 50%;
+  width: 75%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -61,36 +61,36 @@
   transition: color 0.7s ease-in;
 
 }
-
-/* Style the buttons inside the tab */
-.Ctab button {
-    background-color:rgb(232, 230, 230);
-    outline: none;
-    float: left;
-    cursor: pointer;
-    transition: 0.3s;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 50px;
-  /* font-size: 17px; */
+.ECname{
+    background-color: white;
+    color: black;
+    width: 200px;
+    height:40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 0px;
+    font-weight: bold;
 }
-
-/* Change background color of buttons on hover */
-.Ctab button:hover {
-  background-color: #a9a7a7;
-  border: 1px solid black;
+.ECsearcgbar{
+    display: flex;
+    flex: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%;
+    height: 100%;
 }
 
 /* Create an active/current tablink class */
-.Ctab button.active {
+.ECtab button.active {
   color:white;
   background-color: rgba(0, 0, 0, 0.686);
   font-size: smaller;
 }
 
 
-.Cdata{
+.ECdata{
     height: 80%;
     width: 90%;
     padding: 5px 5px 5px 15px ;
@@ -99,17 +99,18 @@
     color: black;
 }
 /* Style the tab content */
-.tabcontent {
-    display: none;
+.ECtabcontent {
+    display: flex;
+    flex-direction: column;
     overflow: auto;
     width: 100%;
     height: 100%;
     /* padding-bottom: 10px; */
   }
-.Cna{
+.ECna{
     height: 8%;
 }
-.Cbut{
+.ECbut{
     background-color: green;
     color: white;
     width: 140px;
@@ -119,18 +120,18 @@
     align-items: center;
     justify-content: center;
 }
-.Cbut:hover{
+.ECbut:hover{
     color: white;
     background-color: rgb(2, 93, 2);
 }
-.Cbut:active{
+.ECbut:active{
     color: white;
     font-size: smaller;
 }
-.CLecture1{
+.ECCourses{
     width: 90%;
-    min-height: 150px;
-    max-height: 200px;
+    min-height: 250px;
+    max-height: 350px;
     background-color: rgba(211, 208, 208, 0.888);
     border-radius: 15px;
     margin-bottom: 20px;
@@ -138,10 +139,10 @@
     padding: 5px 5px 5px 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     overflow:auto;
 }
-.Clink{
+.EClink{
     border: none;
     outline: none;
     text-decoration: none;
@@ -150,14 +151,15 @@
     color: black;
   }
 
-h6{
+.ECh6{
     font-weight: bold;
+    margin: 0px;
 }
 
-h4{
+.ECh4{
     font-weight: bold;
 }
-.CTeacBut{
+.ECTeacBut1{
     background-color: green;
     cursor: pointer;
     color: white;
@@ -168,37 +170,74 @@ h4{
     align-items: center;
     justify-content: center;
     border: none;
-    display: none;
+    display: flex;
 }
-.CTeacBut:hover{
+
+.ECTeacBut1:hover{
     color: white;
     background-color: rgb(2, 93, 2);
 }
-.CTeacBut:active{
+.ECTeacBut1:active{
     color: white;
     font-size: smaller;
 }
-.Ctitle{
+
+.ECtitle{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-.Csearch{
-    width: 500px ;
+.ECsearch{
+    width: 30% ;
     height: 40px;
     border-radius: 20px;
     border: none;
     padding-left: 15px;
 }
-.CSebut{
-    width: 200px;
-    height: 10px;
-    background-color: red;
+/* Style the buttons inside the tab */
+.ECSebut{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color:rgb(232, 230, 230);
+    outline: none;
+    float: left;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    color: black;
+  /* font-size: 17px; */
 }
 
-
+/* Change background color of buttons on hover */
+.ECSebut:hover {
+  background-color: #a9a7a7;
+  border: 1px solid black;
+}
+.ECSebut:active {
+    font-size: smaller;
+    border: none;
+  }
+.ECh2{
+    color: white;
+}
+.ECreg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 15%;
+}
 
 
 
@@ -207,14 +246,14 @@ h4{
 
 
 @media (max-width: 1000px) {
-    .Cbody {
+    .ECbody {
       width: 1000px; /* Set your constant width in pixels */
       overflow: hidden;
     }
 
   }
   @media (max-height: 600px) {
-    .Cbody {
+    .ECbody {
       height: 600px; /* Set your constant height in pixels */
       overflow: hidden;
     }
