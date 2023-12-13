@@ -1,39 +1,39 @@
 package com.example.demo.myProfile;
 
+import com.example.demo.config.CustomUserDetails;
 import com.example.demo.instructor.Instructor;
-import com.example.demo.instructor.InstructorRepository;
+import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
-import com.example.demo.student.StudentRepository;
+import com.example.demo.student.StudentService;
 import com.example.demo.systemUser.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import java.util.Collections;
 import java.util.Optional;
 @Service
-
 public class MyProfileService {
 
     @Autowired
-    private StudentRepository repos;
+    private StudentService studentservice;
     @Autowired
-    private InstructorRepository repoi;
-    private SystemUser myprofileinfo;
+    private InstructorService instructorservice;
 
 
-    public SystemUser showProfileData(String email){
-        Optional<Student> user = repos.findByEmail(email);
+
+    public ProfileInfoDTO showProfileData(CustomUserDetails userdetails){
+        Optional<Student> user = studentservice.findByEmail(userdetails.getUsername());
+        ProfileInfoDTO myprofileinfo = new ProfileInfoDTO();
            if(user.isPresent()){
-             myprofileinfo= user.get();
-             return user.get();
+             myprofileinfo.fill(user.get());
+
+             return myprofileinfo;
 
            }
 
-            Optional<Instructor> user1 = repoi.findByEmail(email);
+            Optional<Instructor> user1 = instructorservice.findByEmail(userdetails.getUsername());
             if(user1.isPresent()){
-            myprofileinfo= user1.get();
-            return user1.get();}
+                myprofileinfo.fill(user1.get());
+                 return myprofileinfo; }
 
                 return null;
 
@@ -43,24 +43,31 @@ public class MyProfileService {
     }
 
 
-    public SystemUser edit(EditFormDTO data){
+    public  boolean edit(EditFormDTO data,String email){
 
-       if( myprofileinfo.getRole().equals(Collections.singletonList("ROLE_STUDENT"))){
-           Optional<Student> record = repos.findByEmail(myprofileinfo.getEmail());
-           if(record.isPresent()){
 
-               if(!repos.existsByEmail(data.getEmail())){
-                   record.get().setEmail(data.getEmail());
-                   myprofileinfo.setEmail(data.getEmail());
+
+
+
+           Optional<Student> records = studentservice.findByEmail(email);
+
+
+
+           if(records.isPresent()){
+
+               if(!(instructorservice.emailTaken(data.getEmail())||studentservice.emailTaken(data.getEmail()))){
+                   records.get().setEmail(data.getEmail());
+
 
 
                }
                else{
-                   return null;
+                   // Email taken
+                   return false;
                }
            if(data.getBirthDate()!=null){
-               record.get().setBirthDate(data.getBirthDate());
-               myprofileinfo.setBirthDate(data.getBirthDate());
+               records.get().setBirthDate(data.getBirthDate());
+
 
 
            }
@@ -69,54 +76,55 @@ public class MyProfileService {
 
 
            if(data.getPhone()!=null){
-               record.get().setPhone(data.getPhone());
-               myprofileinfo.setPhone(data.getPhone());
+               records.get().setPhone(data.getPhone());
+
 
            }
            if(data.getSchool()!=null){
-               record.get().setSchool(data.getSchool());
-               myprofileinfo.setSchool(data.getSchool());
+               records.get().setSchool(data.getSchool());
+
 
            }
            if(data.getDegree()!=null){
-               record.get().setDegree(data.getDegree());
-               myprofileinfo.setDegree(data.getDegree());
+               records.get().setDegree(data.getDegree());
+
 
            }
            if(data.getFirstName()!=null){
-               record.get().setFirstName(data.getFirstName());
-               myprofileinfo.setFirstName(data.getFirstName());
+               records.get().setFirstName(data.getFirstName());
+
 
            }
            if(data.getLastName()!=null){
-               record.get().setLastName(data.getLastName());
-               myprofileinfo.setLastName(data.getLastName());
+               records.get().setLastName(data.getLastName());
+
 
            }
 
-           repos.save(record.get());}
+           studentservice.saveUser(records.get());}
 
 
 
 
 
 
-       }
+
        else{
-           Optional<Instructor> record = repoi.findByEmail(myprofileinfo.getEmail());
-           if(record.isPresent()){
+           Optional<Instructor> recordi = instructorservice.findByEmail(email);
+           if(recordi.isPresent()){
 
-               if(!repoi.existsByEmail(data.getEmail())){
-                   record.get().setEmail(data.getEmail());
-                   myprofileinfo.setEmail(data.getEmail());
+               if(!(instructorservice.emailTaken(data.getEmail())||studentservice.emailTaken(data.getEmail()))){
+                   recordi.get().setEmail(data.getEmail());
+
 
 
                }
-               else return null;
+               // Email is taken
+               else return false;
 
                if(data.getBirthDate()!=null){
-                   record.get().setBirthDate(data.getBirthDate());
-                   myprofileinfo.setBirthDate(data.getBirthDate());
+                   recordi.get().setBirthDate(data.getBirthDate());
+
 
 
 
@@ -126,33 +134,33 @@ public class MyProfileService {
 
 
                if(data.getPhone()!=null){
-                   record.get().setPhone(data.getPhone());
-                   myprofileinfo.setPhone(data.getPhone());
+                   recordi.get().setPhone(data.getPhone());
+
 
 
                }
                if(data.getSchool()!=null){
-                   record.get().setSchool(data.getSchool());
-                   myprofileinfo.setSchool(data.getSchool());
+                   recordi.get().setSchool(data.getSchool());
+
 
                }
                if(data.getDegree()!=null){
-                   record.get().setDegree(data.getDegree());
-                   myprofileinfo.setDegree(data.getDegree());
+                   recordi.get().setDegree(data.getDegree());
+
 
                }
                if(data.getFirstName()!=null){
-                   record.get().setFirstName(data.getFirstName());
-                   myprofileinfo.setFirstName(data.getFirstName());
+                   recordi.get().setFirstName(data.getFirstName());
+
 
                }
                if(data.getLastName()!=null){
-                   record.get().setLastName(data.getLastName());
-                   myprofileinfo.setLastName(data.getLastName());
+                   recordi.get().setLastName(data.getLastName());
+
 
                }
 
-               repoi.save(record.get());}
+               instructorservice.saveUser(recordi.get());}
 
 
 
@@ -160,7 +168,7 @@ public class MyProfileService {
 
 
        }
-       return myprofileinfo;
+       return true;
 
 
 

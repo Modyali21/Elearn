@@ -1,8 +1,11 @@
 package com.example.demo.myProfile;
 
+import com.example.demo.config.CustomUserDetails;
 import com.example.demo.systemUser.SystemUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +20,9 @@ public class MyProfileController {
 
 
 
-    @GetMapping("/myprofile/{id}")
-     public SystemUser showProfileData(@PathVariable(name="id") String email) {
-        return mps.showProfileData(email) ;
+    @GetMapping("/myprofile")
+     public ProfileInfoDTO showProfileData(@AuthenticationPrincipal CustomUserDetails customUser) {
+        return mps.showProfileData(customUser) ;
 
     }
 
@@ -27,15 +30,13 @@ public class MyProfileController {
 
 
 @PostMapping("/myprofile")
-public SystemUser edit(@RequestBody EditFormDTO data) {
-    SystemUser profileInfo = mps.edit(data);
-    if(profileInfo==null) {
-        System.out.println("this E-mail is used");
+public ResponseEntity<String> edit(@RequestBody EditFormDTO data, @AuthenticationPrincipal CustomUserDetails customUser) {
+    boolean result = mps.edit(data, customUser.getUsername());
+    if(result)
+            return ResponseEntity.status(201).body("Done");
+    else
+            return ResponseEntity.status(409).body("E-mail is taken");
 
-    }
-
-
-        return profileInfo;
     }
 
 
