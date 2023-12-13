@@ -1,0 +1,38 @@
+.user-info-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.userinfo{
+    margin-bottom: 50px;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: space-evenly;
+    background-color:  rgb(237, 237, 237);
+    /* border-radius: 5% 10%  40% 0; */
+}
+#user{
+    text-align: center;
+    padding: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    color: var(--text-color);
+}
+
+.info-container ul li{
+    list-style: none;
+    /* margin-left: -100px; */
+    font-size: 22px;
+    font-weight: 700;
+}
+.info-container ul li span{
+    color: rgba(93, 93, 93, 0.507);
+    padding: 10px;
+    font-size: 15px;
+}
+.info-container ul li:not(:last-child){
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(131, 131, 131, 0.436);
+}
