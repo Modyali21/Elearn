@@ -174,7 +174,6 @@ display: flex;
 justify-content: center;
 align-items: center;
 background: rgb(53, 138, 213);
-cursor: pointer;
 }
 .Sbutt:active{
 background: white;
@@ -225,11 +224,11 @@ color: white;
   }
   @media (max-width: 1000px) {
     .SSall {
-      width: 1000px; 
+      width: 900px; 
       overflow: hidden;
     }
     .SSgradient-form{
-      width: 1000px; 
+      width: 900px; 
       overflow: hidden;
       
     }

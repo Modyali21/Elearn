@@ -1,5 +1,5 @@
 import './App.css';
-import {ElearningPage,ProfileImage, Header,UserInfo,SideBar,EnrolledCourses,MutualFriends,EnrolledCP,Signup,Login,Course,CourseEnroll,MakeCourse} from "./components/index"
+import {ElearningPage,ProfileImage, Header,UserInfo,SideBar,EnrolledCourses,MutualFriends,EnrolledCP,Signup,Login,Course,CourseEnroll,MakeCourse,Admin} from "./components/index"
 import {UpdateProfile} from "./components/index"
 import {BrowserRouter,Route, Routes} from "react-router-dom"
 function App() {
@@ -13,6 +13,12 @@ function App() {
           <Route path="/course" element={<Course />} />
           <Route path="/courseenroll" element={<CourseEnroll />} />
           <Route path="/makecourse" element={<MakeCourse />} />
+          <Route path="/admin" element={
+           <div>
+            <Header/>
+          <Admin />
+           </div>
+          } />
 
           <Route path="/updateprofile" element={
           <>

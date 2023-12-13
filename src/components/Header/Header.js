@@ -2,7 +2,7 @@ import React from 'react'
 import "./Header.css"
 const Header = () => {
     return (
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-0 navbar-cont">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 navbar-cont">
             <h2><a class="navbar-brand" href="/">ELearning Platform</a></h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

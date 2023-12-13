@@ -51,13 +51,6 @@
     margin-top: 10px;
     width: calc(100% - 65px);
 }
-.degr{
-    height: 40px;
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    padding-left: 8px;
-}
 @media (max-height:500px){
     
     .update-profile-Container{
@@ -70,20 +63,3 @@
         width: 100%;
     }
 }
-.PPvibrate {
-    animation: vibrate 0.3s ease-in-out infinite; /* Define the vibrate animation */
-    border-color: red;
-  }
-  @keyframes vibrate {
-    0%,
-    100% {
-      transform: translateX(0); /* Initial and final position */
-    }
-    25%,
-    75% {
-      transform: translateX(-5px); /* Move to the left */
-    }
-    50% {
-      transform: translateX(5px); /* Move to the right */
-    }
-  }

@@ -74,8 +74,6 @@
   border: 1px solid ;
   height: 40px;
   color: white;
-  cursor: pointer;
-
 }
 .Lbut:active{
   background: white;
@@ -150,11 +148,11 @@
 }
 @media (max-width: 1000px) {
   .Lall {
-    width: 1000px; /* Set your constant width in pixels */
+    width: 900px; /* Set your constant width in pixels */
     overflow: hidden;
   }
   .Lgradient-form{
-    width: 1000px; /* Set your constant width in pixels */
+    width: 900px; /* Set your constant width in pixels */
     overflow: hidden;
   }
 }
