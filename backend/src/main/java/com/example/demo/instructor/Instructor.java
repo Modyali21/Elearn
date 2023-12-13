@@ -1,12 +1,6 @@
 package com.example.demo.instructor;
 
-import java.sql.Date;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import com.example.demo.systemUser.SystemUser;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,9 +9,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 @Entity
-@Table(name = "instructor", uniqueConstraints = { @UniqueConstraint(name = "uk_email", columnNames = "email"),
-        @UniqueConstraint(name = "uk_ssn", columnNames = "ssn") })
+@Table(name = "instructor", uniqueConstraints = {@UniqueConstraint(name = "uk_email", columnNames = "email"),
+        @UniqueConstraint(name = "uk_ssn", columnNames = "ssn")})
 public class Instructor extends SystemUser {
 
     @Column(name = "has_privilege", nullable = false)
@@ -31,7 +30,7 @@ public class Instructor extends SystemUser {
 
     @Builder
     public Instructor(String firstName, String lastName, String email, String password, String phone, String school,
-            String degree, String ssn, Date birthDate, boolean hasPrivilege) {
+                      String degree, String ssn, Date birthDate, boolean hasPrivilege) {
         super(firstName, lastName, email, password, phone, school, degree, ssn, birthDate);
         this.hasPrivilege = hasPrivilege;
     }

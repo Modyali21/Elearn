@@ -20,10 +20,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username.equals("admin@admin.com")) {
             return User.builder()
-                    .username("admin@admin.com")
-                    .password("$2a$10$4uwaYV99.XeHuS/rxzFsEu1hKPuWDLW6YIMDToiyqtUD1e0kxHAGu")
-                    .roles("ADMIN")
-                    .build();
+                       .username("admin@admin.com")
+                       .password("$2a$10$4uwaYV99.XeHuS/rxzFsEu1hKPuWDLW6YIMDToiyqtUD1e0kxHAGu")
+                       .roles("ADMIN")
+                       .build();
         }
         SystemUser user;
         try {
