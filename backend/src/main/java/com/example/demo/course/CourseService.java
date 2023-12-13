@@ -2,6 +2,11 @@ package com.example.demo.course;
 
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.metamodel.Attribute;
+import jakarta.persistence.metamodel.EntityType;
+import jakarta.persistence.metamodel.Metamodel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,8 @@ public class CourseService {
     CourseRepository courseRepository;
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    private EntityManager entityManager;
     public Course saveCourseDetails(Course course){
         return courseRepository.save(course);
     }
@@ -31,18 +38,19 @@ public class CourseService {
         return "deleted Successfully the course ";
     }
     public List<Course> sortBy(String criteria){
-        List<Course> courses = courseRepository.findAll();
-        if(criteria.equalsIgnoreCase("courseName")){
-            courses.sort((o1, o2) -> o1.getCourseName().compareTo(
-                    o2.getCourseName()));
-            return courses;
+        Metamodel metamodel = entityManager.getMetamodel();
+        EntityType<Course> courseEntityType = metamodel.entity(Course.class);
+        Set<String> attributeNames = courseEntityType.getAttributes().stream()
+                .map(Attribute::getName)
+                .collect(java.util.stream.Collectors.toSet());
+        if(!attributeNames.contains(criteria)){
+            return null;
         }
-        else if(criteria.equalsIgnoreCase("deadline")){
-            courses.sort((o1, o2) -> o1.getDeadLine().compareTo(
-                    o2.getDeadLine()));
-            return courses;
-        }
-        return null;
+
+        String jpqlQuery = "SELECT c FROM Course c ORDER BY c." + criteria;
+        TypedQuery<Course> query = entityManager.createQuery(jpqlQuery, Course.class);
+        return query.getResultList();
+
     }
     public String enrollCourse(String courseCode,long studentId){
         Set<Course> courseSet = null;

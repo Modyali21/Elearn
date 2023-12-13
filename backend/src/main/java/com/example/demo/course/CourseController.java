@@ -1,5 +1,6 @@
 package com.example.demo.course;
 
+import com.example.demo.config.CustomUserDetails;
 import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
@@ -8,6 +9,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/course")
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -25,16 +28,25 @@ public class CourseController {
 
 
     @PostMapping("/addCourse")
-    public String addCourse(@RequestBody Course course){
+    public String addCourse(@AuthenticationPrincipal CustomUserDetails user, @RequestBody Course course){
         //check if course already exists
         if(courseService.getCourseById(course.getCourseCode())!=null){
             return "the course already exists";
         }
-        Course addedCourse=  courseService.saveCourseDetails(course);
+        if(!(user.getSystemUser() instanceof Instructor)){
+            return "not an instructor";
+        }
+        Instructor instructor = (Instructor)user.getSystemUser();
+        Course addedCourse=null;
+        if(course.getInstructorId()==instructor.getId())
+            addedCourse=  courseService.saveCourseDetails(course);
+        else{
+            return "not authorized";
+        }
 
         return "course has been added successfully";
     }
-    @GetMapping("/getAll")
+    @GetMapping("/getAllOfInstructor")
     public List<Course> getInstructorCourses(@RequestBody Instructor instructor){
         List<Course> allCourses = courseService.getAllCourses();
         Instructor instructorFromDataBase= instructorService.findByEmail(instructor.getEmail());
@@ -46,9 +58,18 @@ public class CourseController {
         }
         return filteredCourses;
     }
+    @GetMapping("/getAll")
+    public List<Course> getAllCourses(){
+        return courseService.getAllCourses();
+    }
+
+
     @PostMapping("/deleteCourse")
-    public String deleteCourse(@RequestBody Course course){
-        ///TODO : USER AUTHENTICATION
+    public String deleteCourse(@AuthenticationPrincipal CustomUserDetails user,@RequestBody Course course){
+        Instructor instructor = (Instructor)user.getSystemUser();
+        if(course.getInstructorId()!=instructor.getId()){
+            return "not authorized";
+        }
         if(courseService.getCourseById(course.getCourseCode())==null){
             return "the course doesn't exists";
         }
@@ -58,11 +79,19 @@ public class CourseController {
     public List<Course> getSortedCriteriaCourses(@RequestBody String criteria){
         return courseService.sortBy(criteria);
     }
-    @PutMapping("/student/{studentId}/course/{courseCode}")
-    public String assignProjectToEmployee(
+    @PutMapping("/student/{studentId}/coursecode/{courseCode}")
+    public String assignProjectToEmployee(@AuthenticationPrincipal CustomUserDetails user,
             @PathVariable Long studentId,
             @PathVariable String courseCode
     ){
+        if(!(user.getSystemUser() instanceof Student)){
+            return "not an instructor";
+        }
+        Student student = (Student) user.getSystemUser();
+        if(studentId!=student.getId()){
+            return "not authorized";
+        }
+
         return courseService.enrollCourse(courseCode,studentId);
     }
 

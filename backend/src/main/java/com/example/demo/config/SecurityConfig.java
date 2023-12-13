@@ -45,9 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
-                        .requestMatchers("/getAll").permitAll()
-                        .requestMatchers("/addCourse").permitAll()
-                        .requestMatchers("/student/**").permitAll()
+                        .requestMatchers("/course/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .oauth2Login(Customizer.withDefaults());
