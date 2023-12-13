@@ -41,20 +41,18 @@ function Login() {
     }
     if(isValidEmail && isValidPassword){
       console.log(info);
-      axios.post(SERVER_URL+'/login',info).then(response=>{
-        try{
-          login(info.email,info.password).then(()=>{
+      try{
+        login(info.email,info.password).then(()=>{
+          axios.post(SERVER_URL+'/login',info).then(response=>{
             window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
-          }).catch(err =>{alert(err.message.slice(err.message.indexOf(":")+1))});
-        }
-        catch{
-          alert("The email is already present");
-      }
-        
-      }).catch(err =>{
-        alert(err.response.data)
-      })
-      
+          }).catch(err =>{
+            alert(err.response.data)
+          })
+        }).catch(err =>{alert(err.response.data)});
+    }
+    catch{
+        alert("The email is already present");
+    }
       
 
     }

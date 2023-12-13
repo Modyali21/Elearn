@@ -164,18 +164,18 @@ function handleRepass(event){
                 <div className='Sflp'>
                     <input className='Sin2' placeholder='SSN'id='ssn' name ="ssn" type='text'required onChange={handleChange}/>
                     <select className='Sin2' placeholder='Degree'id='degree'  name="degree" required onChange={handleChange}>
-                      <option value="" disabled selected>Degree</option>
-                      <option value="student">Student</option>
-                      <option value="associate">Associate</option>
-                      <option value="bachelor">Bachelor</option>
-                      <option value="certificate">Certificate</option>
-                      <option value="diploma">Diploma</option>
-                      <option value="doctorate">Doctorate</option>
-                      <option value="engineer">Engineer's Degree</option>
-                      <option value="master">Master</option>
-                      <option value="professional">Professional Degree</option>
-                      <option value="specialist">Specialist Degree</option>
-                      <option value="vocational">Vocational</option>
+                    <option value="" disabled selected>Degree</option>
+                    <option value="student">Student</option>
+                    <option value="associate">Associate</option>
+                    <option value="bachelor">Bachelor</option>
+                    <option value="certificate">Certificate</option>
+                    <option value="diploma">Diploma</option>
+                    <option value="doctorate">Doctorate</option>
+                    <option value="engineer">Engineer's Degree</option>
+                    <option value="master">Master</option>
+                    <option value="professional">Professional Degree</option>
+                    <option value="specialist">Specialist Degree</option>
+                    <option value="vocational">Vocational</option>
                     </select>
                 </div>
                 <div  className='Sflp'>
