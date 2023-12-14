@@ -5,6 +5,7 @@ import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +26,8 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private InstructorService instructorService;
-
+    @Autowired
+    private EntityManager entityManager;
 
     @PostMapping("/addCourse")
     public String addCourse(@AuthenticationPrincipal CustomUserDetails user, @RequestBody Course course){
@@ -94,5 +96,14 @@ public class CourseController {
 
         return courseService.enrollCourse(courseCode,studentId);
     }
+    @GetMapping ("/filter/{criterias}")
+    public List<Course> getFilteredCourses(@PathVariable String criterias){
+        String partialCourseName=criterias;
+        String jpql = "SELECT c FROM Course c WHERE c.courseName LIKE :partialCourseName";
+        List<Course> result = entityManager.createQuery(jpql, Course.class)
+                .setParameter("partialCourseName", "%" + partialCourseName + "%")
+                .getResultList();
 
+        return result;
+    }
 }

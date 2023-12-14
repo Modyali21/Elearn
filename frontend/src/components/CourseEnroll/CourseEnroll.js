@@ -1,12 +1,73 @@
 import './CourseEnroll.css';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {SERVER_URL} from "../../constants"
 
 function CourseEnroll() {
-    function myFunction() {
-        var popup = document.getElementById("myPopup");
-        popup.classList.toggle("show");
+    const [courses, setCourses] = useState([]);
+    const [info,setInfo] = useState({
+        courseName: '',
+        instructorName : '',
+        filtertype : '',
+
+      })
+    function handleChange(event){
+        setInfo({...info,[event.target.name]:event.target.value})
+    }
+    async function handleSubmit(e){
+        e.preventDefault();
+        console.log(info);
+        
+          try{
+            axios.get(`${SERVER_URL}/course/filter/${info.courseName}`,'',{
+              }).then(response=>{
+                  console.log(response.data)
+                  setCourses(response.data)
+              })
+        }
+        catch{
+            alert("Errorororor");
+        }
+        
+      };
+    function myFunction(){
+        let email = "khaled22@gmail.com";
+        let password = "1234567";
+        axios.get(SERVER_URL+'/course/getAll',{},{
+        }).then(response=>{
+            console.log(response.data)
+            setCourses(response.data)
+        })  
+    }
+
+    function Enroll() {
+        try {
+          let email = "khaled22@gmail.com";
+          let password = "1234567";
+      
+          axios.put(SERVER_URL+'/course/student/1/coursecode/Alcc22', {}, {
+            auth: {
+              username: email,
+              password: password,
+            }
+          })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching courses:', error);
+            // Handle error appropriately, e.g., show a user-friendly message
+          });
+        } catch (error) {
+          console.error('Error in Enroll function:', error);
+          // Handle unexpected errors appropriately
+        }
       }
+      
+        window.onload = function() {
+            myFunction();
+          };
     return (
     <div className='ECbody'>
         <nav className='ECnav'>
@@ -15,79 +76,54 @@ function CourseEnroll() {
             <h2 className='ECh2'>E-Learning Platform</h2>
         </div>
         <div className='EClinks'>
-        <Link to={"/profile"} style={{textDecoration:"none"}}  className='ECbut'>Home</Link>
-        <Link to={"/updateprofile"} style={{textDecoration:"none"}}  className='ECbut'>Edit profile</Link>
-        <Link to={"/"} style={{textDecoration:"none"}}  className='ECbut'>Log out</Link>
+        <a href={"/profile"} style={{textDecoration:"none"}}  className='ECbut'>Home</a>
+        <a href={"/updateprofile"} style={{textDecoration:"none"}}  className='ECbut'>Edit profile</a>
+        <a href={"/"} style={{textDecoration:"none"}}  className='ECbut'>Log out</a>
 
         </div>
         </nav>
         <div className='ECtotal'>
         <div className="ECtab ">
             <h6 className='ECname'>Available Courses:</h6>
-            <form className='ECsearcgbar'>
-            <input type="text" placeholder="Course Title" className='ECsearch' name="search"/>
-            <input type="text" placeholder="Instructor Name" className='ECsearch' name="search"/>
+            <form className='ECsearcgbar' onSubmit={handleSubmit}>
+            <input type="text" placeholder="Course Name" onChange={handleChange} className='ECsearch' name="courseName" required/>
+            <input type="text" placeholder="Instructor Name" onChange={handleChange} className='ECsearch' name="instructorName"/>
             <button type="submit" className='ECSebut'><img className='ECsearchlogo' src={require('../../images/icons8-search-50.png')} alt='searchlogo' style={{width: '25px'}} /> Search</button>      
-            <select className='ECSebut' placeholder='None'id='filter'  name="filter" required>
+            <select className='ECSebut' placeholder='None'id='filter'  name="filtertype" onChange={handleChange} required>
                     <option value="" disabled selected>None</option>
-                    <option value="student">1-Cousre Title</option>
-                    <option value="associate">2-Instructor Name</option>
-                    <option value="bachelor">1 and 2</option>
-                    <option value="certificate">1 or 2</option>
+                    <option value="CousreName">1-CousreName</option>
+                    <option value="InstructorName">2-InstructorName</option>
+                    <option value="1and2">1and2</option>
+                    <option value="1or2">1or2</option>
             </select>
 
            </form>
         </div>
         <div className='ECdata'>
-            <div id="Courses" className="ECtabcontent">
-            <div className='ECCourses'  >
-                <div className='ECtitle'>
-                <a href="/course" target="_blank" className='Clink' rel="noopener noreferrer">Cousre Title: ALgorithms</a>
+            <div id="Courses" className="ECtabcontent" >
+            {courses.map((course, index) => (
+            <div key={index} className='ECCourses'>
+              <div className='ECtitle'>
+                <Link to="/course" className='Clink' rel="noopener noreferrer">Course Title: {course.courseName}</Link>
                 <div className='ECreg'>
-                    <button className='ECTeacBut1'>Register</button>
+                  <button className='ECTeacBut1' onClick={Enroll} >Enroll</button>
                 </div>
-                </div>
-                <h6 className='ECh6'>Instructor Name : Ahmed Mousa</h6>
-                <h6 className='ECh6'>Description:</h6>
-                <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-                <h6 className='ECh6'>DeadLine: 12/12/2024</h6>
+              </div>
+              <h6 className='ECh6'>Instructor Id: {course.instructorId}</h6>
+              <h6 className='ECh6'>Course Code: {course.courseCode}</h6>
+
+              <h6 className='ECh6'>Description:</h6>
+              <p>{course.description}</p>
+              <h6 className='ECh6'>DeadLine: {
+                    new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    }).format(new Date(course.deadLine))
+                    }</h6>
             </div>
-            <div className='ECCourses'  >
-                <div className='ECtitle'>
-                <a href="/course" target="_blank" className='Clink' rel="noopener noreferrer">Cousre Title: ALgorithms</a>
-                <div className='ECreg'>
-                    <button className='ECTeacBut1'>Register</button>
-                </div>
-                </div>
-                <h6 className='ECh6'>Instructor Name : Ahmed Mousa</h6>
-                <h6 className='ECh6'>Description:</h6>
-                <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-                <h6 className='ECh6'>DeadLine: 12/12/2024</h6>
-            </div>
-            <div className='ECCourses'  >
-                <div className='ECtitle'>
-                <a href="/course" target="_blank" className='Clink' rel="noopener noreferrer">Cousre Title: ALgorithms</a>
-                <div className='ECreg'>
-                    <button className='ECTeacBut1'>Register</button>
-                </div>
-                </div>
-                <h6 className='ECh6'>Instructor Name : Ahmed Mousa</h6>
-                <h6 className='ECh6'>Description:</h6>
-                <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-                <h6 className='ECh6'>DeadLine: 12/12/2024</h6>
-            </div>
-            <div className='ECCourses'  >
-                <div className='ECtitle'>
-                <a href="/course" target="_blank" className='Clink' rel="noopener noreferrer">Cousre Title: ALgorithms</a>
-                <div className='ECreg'>
-                    <button className='ECTeacBut1'>Register</button>
-                </div>
-                </div>
-                <h6 className='ECh6'>Instructor Name : Ahmed Mousa</h6>
-                <h6 className='ECh6'>Description:</h6>
-                <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-                <h6 className='ECh6'>DeadLine: 12/12/2024</h6>
-            </div>
+          ))}
+
            
           </div>
 

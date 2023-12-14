@@ -21,6 +21,8 @@ function Course() {
         // cityElement.style.alignItems = "center";
         evt.currentTarget.className += " active";
       }
+      const [courses, setCourses] = useState([]);
+
     return (
     <div className='Cbody' >
         <nav className='Cnav'>
@@ -30,10 +32,10 @@ function Course() {
 
         </div>
         <div className='Clinks'>
-        <Link to={"/profile"} style={{textDecoration:"none"}}  className='ECbut'>Home</Link>
-        <Link to={"/courseenroll"} style={{textDecoration:"none"}}  className='ECbut'>Available Courses</Link>
-        <Link to={"/updateprofile"} style={{textDecoration:"none"}}  className='ECbut'>Edit profile</Link>
-        <Link to={"/"} style={{textDecoration:"none"}}  className='ECbut'>Log out</Link>
+        <a href={"/profile"} style={{textDecoration:"none"}}  className='ECbut'>Home</a>
+        <a href={"/courseenroll"} style={{textDecoration:"none"}}  className='ECbut'>Available Courses</a>
+        <a href={"/updateprofile"} style={{textDecoration:"none"}}  className='ECbut'>Edit profile</a>
+        <a href={"/"} style={{textDecoration:"none"}}  className='ECbut'>Log out</a>
 
         </div>
         </nav>
@@ -65,69 +67,28 @@ function Course() {
             </div>
 
             <div id="Lectures" className="Ctabcontent">
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-            <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: Divide and Conquer</a>
-            <button className='CTeacBut'>Delete</button>
+
+
+            {courses.map((course, index) => (
+            <div key={index} className='CLecture1'>
+              <div className='Ctitle'>
+              <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {course.lecture}</a>
+              <button className='CTeacBut'>Delete</button>
+              </div>
+              <h6 className='Ch6'>Description:</h6>
+              <p>{course.description}</p>
+              <h6 className='Ch6'>DeadLine: {
+                    new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    }).format(new Date(course.deadLine))
+                    }</h6>
             </div>
-            <h6 className='Ch6'>Description:</h6>
-            <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-            <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: Divide and Conquer</a>
-            <button className='CTeacBut'>Delete</button>
-            </div>
-            <h6 className='Ch6'>Description:</h6>
-            <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-            <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: Divide and Conquer</a>
-            <button className='CTeacBut'>Delete</button>
-            </div>
-            <h6 className='Ch6'>Description:</h6>
-            <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-            <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: Divide and Conquer</a>
-            <button className='CTeacBut'>Delete</button>
-            </div>
-            <h6 className='Ch6'>Description:</h6>
-            <p>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>         
+          ))}      
             </div>
 
             <div id="Announcement" className="Ctabcontent">
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-              <h6 className='Ch6'>Announcement:</h6>            
-              <button className='CTeacBut'>Delete</button>
-            </div>
-            <p className='Cp'>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-              <h6 className='Ch6'>Announcement:</h6>            
-              <button className='CTeacBut'>Delete</button>
-            </div>
-            <p className='Cp'>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-              <h6 className='Ch6'>Announcement:</h6>            
-              <button className='CTeacBut'>Delete</button>
-            </div>
-            <p className='Cp'>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-              <h6 className='Ch6'>Announcement:</h6>            
-              <button className='CTeacBut'>Delete</button>
-            </div>
-            <p className='Cp'>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
             <div className='CLecture1'  >
             <div className='Ctitle'>
               <h6 className='Ch6'>Announcement:</h6>            

@@ -2,10 +2,10 @@ package com.example.demo.course;
 
 import com.example.demo.instructor.Instructor;
 import com.example.demo.student.Student;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,7 +35,6 @@ public class Course {
 //    private Instructor instructor;
     @Column(name = "instructor_id")
     private long instructorId;
-
     @JsonIgnore
     @ManyToMany(mappedBy = "enrolledCourses")
     Set<Student> studentSet= new HashSet<>();

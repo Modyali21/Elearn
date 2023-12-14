@@ -1,13 +1,16 @@
 import './MakeCourse.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {SERVER_URL} from "../../constants"
+import axios from 'axios';
 
-function CourseRegister() {
+function MakeCourse() {
   const [info,setInfo] = useState({
-    courseName: '',
-    courseCode : '',
+    courseCode: '',
+    courseName : '',
     description : '',
-    date : '',
+    deadLine : '',
+    instructorId: '1'
   })
 function handleChange(event){
     setInfo({...info,[event.target.name]:event.target.value})
@@ -15,18 +18,21 @@ function handleChange(event){
 async function handleSubmit(e){
     e.preventDefault();
     console.log(info);
-  //   try{
-  //     login(info.email,info.password).then(()=>{
-  //       axios.post(SERVER_URL+'/makecourse',info).then(response=>{
-  //         window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
-  //       }).catch(err =>{
-  //         alert(err.response.data)
-  //       })
-  //     }).catch(err =>{alert(err.response.data)});
-  // }
-  // catch{
-  //     alert("The email is already present");
-  // }
+      try{
+        let email = "khaledmohamad362@gmail.com"
+        let password = "123456"
+        axios.post(SERVER_URL+'/course/addCourse',info,{
+              auth: {
+                  username: email,
+                  password: password
+              }
+          }).then(response=>{
+              alert(response.data)
+          })
+    }
+    catch{
+        alert("Errorororor");
+    }
     
   };
 
@@ -38,10 +44,10 @@ async function handleSubmit(e){
             <h2 className='MCh2'>E-Learning Platform</h2>
         </div>
         <div className='MClinks'>
-        <Link to={"/profile"} style={{textDecoration:"none"}}  className='MCbut'>Home</Link>
-        <Link to={"/courseenroll"} style={{textDecoration:"none"}}  className='MCbut'>Available Courses</Link>
-        <Link to={"/updateprofile"} style={{textDecoration:"none"}}  className='MCbut'>Edit profile</Link>
-        <Link to={"/"} style={{textDecoration:"none"}}  className='MCbut'>Log out</Link>
+        <a href={"/profile"} style={{textDecoration:"none"}}  className='MCbut'>Home</a>
+        <a href={"/courseenroll"} style={{textDecoration:"none"}}  className='MCbut'>Available Courses</a>
+        <a href={"/updateprofile"} style={{textDecoration:"none"}}  className='MCbut'>Edit profile</a>
+        <a href={"/"} style={{textDecoration:"none"}}  className='MCbut'>Log out</a>
 
         </div>
         </nav>
@@ -63,7 +69,7 @@ async function handleSubmit(e){
                     </div>
                     <div className='MClab'>
                     <label for="">DeadLine: </label>
-                    <input type="date" name="date" className='MCin' placeholder='DeadLine' onChange={handleChange}  required/>
+                    <input type="date" name="deadLine" className='MCin' placeholder='DeadLine' onChange={handleChange}  required/>
                     </div>
                     <button className='MCbut' type='submit' >Finish</button>
                 </div>
@@ -74,4 +80,4 @@ async function handleSubmit(e){
   );
 }
 
-export default CourseRegister;
+export default MakeCourse;
