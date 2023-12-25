@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.admin.AdminService;
 import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
@@ -27,6 +28,8 @@ public class LoginControllerTests {
     private StudentService studentService;
     @Autowired
     private InstructorService instructorService;
+    @Autowired
+    private AdminService adminService;
     @Autowired
     private MockMvc mockMvc;
     private final String path = "src/test/resources/loginTestFiles/";
@@ -62,21 +65,21 @@ public class LoginControllerTests {
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void test1() throws Exception {
         setUp();
-        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test1.json"))).andExpect(status().isOk()).andExpect(content().string("welcome back"));
+        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test1.json"))).andExpect(status().isOk()).andExpect(content().string("0"));
     }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void test2() throws Exception {
         setUp();
-        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test2.json"))).andExpect(status().isOk()).andExpect(content().string("welcome back"));
+        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test2.json"))).andExpect(status().isOk()).andExpect(content().string("1"));
     }
 
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void test3() throws Exception {
         setUp();
-        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test3.json"))).andExpect(status().isOk()).andExpect(content().string("welcome back"));
+        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test3.json"))).andExpect(status().isOk()).andExpect(content().string("2"));
     }
 
     @Test
@@ -84,5 +87,13 @@ public class LoginControllerTests {
     public void test4() throws Exception {
         setUp();
         mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test4.json"))).andExpect(status().is(401)).andExpect(content().string("the email or password is wrong"));
+    }
+
+    @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    public void test5() throws Exception {
+        setUp();
+        adminService.setPrivilege("samy@gmail.com",true);
+        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON).content(Helper.readFile(path + "test3.json"))).andExpect(status().isOk()).andExpect(content().string("3"));
     }
 }

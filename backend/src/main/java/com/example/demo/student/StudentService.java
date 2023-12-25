@@ -10,6 +10,7 @@ public class StudentService extends SystemUserService<Student, StudentRepository
         super(repository);
     }
 
+
     @Override
     public Class<Student> getEntityClass() {
         return Student.class;

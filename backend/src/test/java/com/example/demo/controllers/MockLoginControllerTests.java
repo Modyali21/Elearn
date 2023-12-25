@@ -71,15 +71,4 @@ public class MockLoginControllerTests {
                 .andExpect(status().is(401))
                 .andExpect(content().string("the account is disabled, contact the admin"));
     }
-
-    /**
-     * registered user
-     */
-    @Test
-    public void test4() throws Exception {
-        mockMvc.perform(post("/login").contentType(MediaType.APPLICATION_JSON)
-                        .content(Helper.readFile(path + "test1.json")))
-                .andExpect(status().isOk())
-                .andExpect(content().string("welcome back"));
-    }
 }

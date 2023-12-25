@@ -7,6 +7,8 @@ import java.util.Collections;
 
 @Data
 public class ProfileInfoDTO {
+
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -18,8 +20,10 @@ public class ProfileInfoDTO {
     private String role;
 
    void fill(SystemUser data){
+       this.id = data.getId();
        this.firstName=  data.getFirstName();
        this.lastName= data.getLastName();
+       this.degree = data.getDegree();
        this.email= data.getEmail();
        this.phone= data.getPhone();
        this.school= data.getSchool();
@@ -35,9 +39,5 @@ public class ProfileInfoDTO {
        else {
            this.role ="Admin";
        }
-
-
-
-
    }
 }

@@ -6,10 +6,12 @@ import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
 import com.example.demo.systemUser.SystemUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 @Service
 public class MyProfileService {
 
@@ -19,170 +21,122 @@ public class MyProfileService {
     private InstructorService instructorservice;
 
 
+    public ProfileInfoDTO showProfileData(CustomUserDetails userdetails) {
+        try {
 
-    public ProfileInfoDTO showProfileData(CustomUserDetails userdetails){
-        Optional<Student> user = studentservice.findByEmail(userdetails.getUsername());
-        ProfileInfoDTO myprofileinfo = new ProfileInfoDTO();
-           if(user.isPresent()){
-             myprofileinfo.fill(user.get());
-
-             return myprofileinfo;
-
-           }
-
-            Optional<Instructor> user1 = instructorservice.findByEmail(userdetails.getUsername());
-            if(user1.isPresent()){
-                myprofileinfo.fill(user1.get());
-                 return myprofileinfo; }
-
-                return null;
-
-
-
-
+            Student user = studentservice.findByEmail(userdetails.getUsername());
+            ProfileInfoDTO myprofileinfo = new ProfileInfoDTO();
+            myprofileinfo.fill(user);
+            return myprofileinfo;
+        } catch (UsernameNotFoundException e) {
+            Instructor user1 = instructorservice.findByEmail(userdetails.getUsername());
+            ProfileInfoDTO myprofileinfo = new ProfileInfoDTO();
+            myprofileinfo.fill(user1);
+            return myprofileinfo;
+        }
     }
 
 
-    public  boolean edit(EditFormDTO data,String email){
+    public boolean edit(EditFormDTO data, String email) {
 
+        try {
+            Student records = studentservice.findByEmail(email);
+            if (data.getEmail() != null) {
+                if (!(instructorservice.emailTaken(data.getEmail()) ||
+                        studentservice.emailTaken(data.getEmail()) ||
+                        data.getEmail().equals("admin@admin.com"))) {
+                    records.setEmail(data.getEmail());
 
+                } else {
+                    return false;
+                }
+            }
+            if (data.getBirthDate() != null) {
+                records.setBirthDate(data.getBirthDate());
 
 
+            }
 
-           Optional<Student> records = studentservice.findByEmail(email);
 
+            if (data.getPhone() != null) {
+                records.setPhone(data.getPhone());
 
 
-           if(records.isPresent()){
+            }
+            if (data.getSchool() != null) {
+                records.setSchool(data.getSchool());
 
-               if(!(instructorservice.emailTaken(data.getEmail())||studentservice.emailTaken(data.getEmail()))){
-                   records.get().setEmail(data.getEmail());
 
+            }
+            if (data.getDegree() != null) {
+                records.setDegree(data.getDegree());
 
 
-               }
-               else{
-                   // Email taken
-                   return false;
-               }
-           if(data.getBirthDate()!=null){
-               records.get().setBirthDate(data.getBirthDate());
+            }
+            if (data.getFirstName() != null) {
+                records.setFirstName(data.getFirstName());
 
 
+            }
+            if (data.getLastName() != null) {
+                records.setLastName(data.getLastName());
 
-           }
 
+            }
 
+            studentservice.saveUser(records);
+            return true;
+        } catch (UsernameNotFoundException e) {
+            Instructor recordi = instructorservice.findByEmail(email);
+            if (data.getEmail() != null) {
+                if (!(instructorservice.emailTaken(data.getEmail()) ||
+                        studentservice.emailTaken(data.getEmail()) ||
+                        data.getEmail().equals("admin@admin.com"))) {
+                    recordi.setEmail(data.getEmail());
 
+                } else {
+                    return false;
+                }
+            }
 
-           if(data.getPhone()!=null){
-               records.get().setPhone(data.getPhone());
+            if (data.getBirthDate() != null) {
+                recordi.setBirthDate(data.getBirthDate());
 
 
-           }
-           if(data.getSchool()!=null){
-               records.get().setSchool(data.getSchool());
+            }
 
 
-           }
-           if(data.getDegree()!=null){
-               records.get().setDegree(data.getDegree());
+            if (data.getPhone() != null) {
+                recordi.setPhone(data.getPhone());
 
 
-           }
-           if(data.getFirstName()!=null){
-               records.get().setFirstName(data.getFirstName());
+            }
+            if (data.getSchool() != null) {
+                recordi.setSchool(data.getSchool());
 
 
-           }
-           if(data.getLastName()!=null){
-               records.get().setLastName(data.getLastName());
+            }
+            if (data.getDegree() != null) {
+                recordi.setDegree(data.getDegree());
 
 
-           }
+            }
+            if (data.getFirstName() != null) {
+                recordi.setFirstName(data.getFirstName());
 
-           studentservice.saveUser(records.get());}
 
+            }
+            if (data.getLastName() != null) {
+                recordi.setLastName(data.getLastName());
 
 
+            }
 
-
-
-
-       else{
-           Optional<Instructor> recordi = instructorservice.findByEmail(email);
-           if(recordi.isPresent()){
-
-               if(!(instructorservice.emailTaken(data.getEmail())||studentservice.emailTaken(data.getEmail()))){
-                   recordi.get().setEmail(data.getEmail());
-
-
-
-               }
-               // Email is taken
-               else return false;
-
-               if(data.getBirthDate()!=null){
-                   recordi.get().setBirthDate(data.getBirthDate());
-
-
-
-
-               }
-
-
-
-
-               if(data.getPhone()!=null){
-                   recordi.get().setPhone(data.getPhone());
-
-
-
-               }
-               if(data.getSchool()!=null){
-                   recordi.get().setSchool(data.getSchool());
-
-
-               }
-               if(data.getDegree()!=null){
-                   recordi.get().setDegree(data.getDegree());
-
-
-               }
-               if(data.getFirstName()!=null){
-                   recordi.get().setFirstName(data.getFirstName());
-
-
-               }
-               if(data.getLastName()!=null){
-                   recordi.get().setLastName(data.getLastName());
-
-
-               }
-
-               instructorservice.saveUser(recordi.get());}
-
-
-
-
-
-
-       }
-       return true;
-
-
-
-
-
-
-
-
-
-
+            instructorservice.saveUser(recordi);
+            return true;
+        }
 
 
     }
-
-
 
 }
