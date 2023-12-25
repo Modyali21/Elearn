@@ -4,7 +4,8 @@ import axios from 'axios';
 import {SERVER_URL} from "../../constants"
 import './Login.css';
 import {login} from "../../firebase"
-function Login() {
+function Login({onLogin}) {
+
   const [info,setInfo] = useState({
     email: '',
     password : '',
@@ -40,12 +41,10 @@ function Login() {
       }, 1000);
     }
     if(isValidEmail && isValidPassword){
-      console.log(info);
       axios.post(SERVER_URL+'/login',info).then(response=>{
         try{
-          login(info.email,info.password).then(()=>{
-            window.location.href = `http://localhost:3000/profile/?${info.email.slice(0,info.email.indexOf("@"))}`;
-          }).catch(err =>{alert(err.message.slice(err.message.indexOf(":")+1))});
+            onLogin(info)
+            window.location.href = `http://localhost:3000/profile/?${info?.email.slice(0,info?.email.indexOf("@"))}`;
         }
         catch{
           alert("The email is already present");
@@ -73,8 +72,8 @@ function Login() {
             </div>
             <h6 className='mb-4'>Please login to your account</h6>
             <form action='#' className='Lff' onSubmit={handleSubmit}>
-            <input className='Linp' placeholder='Email' id='email' type='name' name='email'required onChange={handleChange}/>
-            <input className='Linp' placeholder='Password' id='password' name='password' type='password'required onChange={handleChange}/>
+            <input className='Linp'  placeholder='Email' id='email' type='name' name='email'required onChange={handleChange}/>
+            <input className='Linp'  placeholder='Password' id='password' name='password' type='password'required onChange={handleChange}/>
             <button className=" Lbut" type='submit'>Sign in</button>
             
             </form>

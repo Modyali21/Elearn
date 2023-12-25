@@ -1,5 +1,6 @@
 :root{
   --text-color:   rgb(81, 54, 162);
+  --blue : #323c50;
 }
 body{
   background: #f7f5f6;

@@ -1,9 +1,10 @@
 import React from 'react'
 import "./Header.css"
+import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 navbar-cont">
-            <h2><a class="navbar-brand" href="/">ELearning Platform</a></h2>
+            <h2><Link to={'/profile'} class="navbar-brand" href="/">ELearning Platform</Link></h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,12 +23,15 @@ const Header = () => {
                         <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown link
                         </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/">Action</a>
-                    <a class="dropdown-item" href="/">Another action</a>
-                    <a class="dropdown-item" href="/">Something else here</a>
-            </div>
-        </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/">Action</a>
+                            <a class="dropdown-item" href="/">Another action</a>
+                            <a class="dropdown-item" href="/">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <Link to={'/signup'} class="nav-link" >log out</Link>
+                    </li>
         </ul>
     </div>
     
