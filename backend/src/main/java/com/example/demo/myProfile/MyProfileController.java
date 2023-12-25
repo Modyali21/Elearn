@@ -1,6 +1,9 @@
 package com.example.demo.myProfile;
 
 import com.example.demo.config.CustomUserDetails;
+
+import com.example.demo.systemUser.SystemUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

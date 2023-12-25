@@ -7,6 +7,7 @@ import java.util.Collections;
 
 @Data
 public class ProfileInfoDTO {
+
     private long id;
     private String firstName;
     private String lastName;
@@ -38,9 +39,5 @@ public class ProfileInfoDTO {
        else {
            this.role ="Admin";
        }
-
-
-
-
    }
 }

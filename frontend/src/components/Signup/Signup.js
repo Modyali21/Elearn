@@ -123,11 +123,9 @@ function handleRepass(event){
     if(isValidEmail && isValidPassword === 2 && isValidSSN && isValidBirth && isValidPhone){
     console.log(info);
       try{
-        signup(info.email,info.password).then(()=>{
           axios.post(SERVER_URL+'/register',info).then(response=>{
             window.location.href = "http://localhost:3000/";
-          }).catch(err =>{alert(err.response.data)})
-        }).catch(err =>{alert(err.message.slice(err.message.indexOf("P")))});
+          }).catch(err =>{alert(err.response)})
       }
       catch{
       alert("The email is already present");

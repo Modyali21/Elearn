@@ -1,9 +1,9 @@
-
-import {StudentTable,TeacherTable} from '../index'
+import {StudentTable,TeacherTable,Promote} from '../index'
 const Admin = () => {
     return (
         <>
-            <StudentTable/>
+            <Promote />
+            <StudentTable />
             <TeacherTable />
         </>
         

@@ -5,9 +5,12 @@ import com.example.demo.instructor.Instructor;
 import com.example.demo.instructor.InstructorService;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
+import com.example.demo.systemUser.SystemUser;
+import org.springframework.stereotype.Service;
+import java.util.Collections;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 @Service
 public class MyProfileService {
@@ -135,6 +138,5 @@ public class MyProfileService {
 
 
     }
-
 
 }
