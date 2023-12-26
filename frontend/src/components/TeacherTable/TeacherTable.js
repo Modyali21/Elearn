@@ -55,7 +55,7 @@ const TeacherTable = () => {
             })
             .catch(error => {
                 // Handle errors here
-                console.error('Error:', error);
+                alert(error)
             });
     }
     const email = 'admin@admin.com'

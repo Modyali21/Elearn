@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './StudentProfile.css'
-import {ProfileImage,UserInfo} from '../index'
+import {ProfileImage,UserInfo,EnrolledCourses} from '../index'
 import axios from 'axios'
 import {SERVER_URL} from '../../constants'
 const StudentProfile = (props) => {
@@ -32,7 +32,8 @@ const StudentProfile = (props) => {
                 phone: studentData?.phone,
                 school: studentData?.school,
                 degree:studentData?.degree}
-                }/>
+                }user = {props.user}/>
+            <EnrolledCourses role = {studentData?.role.toString()}/>
         </div>
     )
 }
