@@ -3,8 +3,7 @@ import "./EnrolledCourses.css"
 const EnrolledCourses = (props) => {
     return (
         
-        <>
-        {props.role === "Student"? (
+        
             <div className='container userinfo' id="enrolled-courses">
                 <section id='user'>ENROLLED COURSES</section>
                 <ul>
@@ -31,9 +30,7 @@ const EnrolledCourses = (props) => {
                         </div>
                     </li>
                 </ul>
-        </div>)
-        :<></>}
-        </>
+        </div>
             
     )
 }

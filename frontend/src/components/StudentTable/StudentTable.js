@@ -3,43 +3,46 @@ import './StudentTable.css'
 import { GrCaretNext } from "react-icons/gr";
 import { GrCaretPrevious } from "react-icons/gr";
 import axios from 'axios';
-import {SERVER_URL} from '../../constants'
+import { SERVER_URL } from '../../constants'
 
 const StudentTable = (props) => {
-
-    const [counter,setCounter] = useState(0)
-    const [info,setInfo] = useState({
-        firstName : '',
-        lastName : '',
+    const [counter, setCounter] = useState(0)
+    const [info, setInfo] = useState({
+        firstName: '',
+        lastName: '',
         email: '',
         phone: '',
         school: '',
         degree: '',
-        ssn : '',
-        birthDate : '',
-        firstResult : counter,
-        maxResult: 1,
-        sortby : '',
-        descending : false,
-        tagmode : false
+        ssn: '',
+        birthDate: '',
+        firstResult: counter,
+        maxResult: 8,
+        sortBy: '',
+        descending: false,
+        or: false
     })
-    const [studentData,setStudentData] = useState([])
-    function handleChange(event){
-        if(event.target.name === 'tagmode' && event.target.value === 'or' )
-            setInfo({...info,[event.target.name]: true})
-        else if(event.target.name === 'tagmode' && event.target.value === 'and')
-            setInfo({...info,[event.target.name]: false})
+    const [studentData, setStudentData] = useState([])
+    function handleChange(event) {
+        if (event.target.name === 'tagmode' && event.target.value === 'or')
+            setInfo({ ...info, or: true })
+        else if (event.target.name === 'tagmode' && event.target.value === 'and')
+            setInfo({ ...info, or: false })
+        else if (event.target.name === 'order' && event.target.value === "asc")
+            setInfo({ ...info, descending: false })
+        else if (event.target.name === 'order' && event.target.value === "desc")
+            setInfo({ ...info, descending: true })
         else
-            setInfo({...info,[event.target.name]: event.target.value})
+            setInfo({ ...info, [event.target.name]: event.target.value })
     }
 
-    function handleClick(){
+    function handleClick() {
         axios.post(SERVER_URL + '/admin/students', info, {
             auth: {
                 username: email,
                 password: password
             }
-            })
+        })
             .then(response => {
                 setStudentData(response.data)
             })
@@ -48,15 +51,15 @@ const StudentTable = (props) => {
                 console.error('Error:', error);
             });
     }
-    const email = 'admin@admin.com'
-    const password = 'admin'
+    const email = props.email
+    const password = props.password
     useEffect(() => {
-        axios.post(SERVER_URL + '/admin/students',{}, {
+        axios.post(SERVER_URL + '/admin/students', {}, {
             auth: {
                 username: email,
                 password: password
             }
-            })
+        })
             .then(response => {
                 console.log(response.data)
                 setStudentData(response.data)
@@ -64,73 +67,80 @@ const StudentTable = (props) => {
             .catch(error => {
                 alert(error)
             });
-            
-        }, []);
-        
-        
-        function handlePrevious(){
-            
-        }
-        function handleNext(){
-            
-        }
+
+    }, []);
+
+
+    function handlePrevious() {
+
+    }
+    function handleNext() {
+
+    }
 
 
     return (
         <div className='container'>
             <div className='filter-find'>
                 <div className='find'>
-                    <input type={'text'} name='firstName' placeholder='Student first name' onChange={handleChange}/>
+                    <input type={'text'} name='firstName' placeholder='Student first name' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type={'text'} name='lastName' placeholder='Student last name' onChange={handleChange}/>
+                    <input type={'text'} name='lastName' placeholder='Student last name' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type={'text'} name='email' placeholder='Email' onChange={handleChange}/>
+                    <input type={'text'} name='email' placeholder='Email' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type={'text'} name='phone' placeholder='Student phone' onChange={handleChange}/>
+                    <input type={'text'} name='phone' placeholder='Student phone' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type={'text'} name='school' placeholder='School' onChange={handleChange}/>
+                    <input type={'text'} name='school' placeholder='School' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                <select placeholder='Degree' name="degree" onChange={handleChange}>
-                    <option value="" disabled selected>Degree</option>
-                    <option value="student">Student</option>
-                    <option value="associate">Associate</option>
-                    <option value="bachelor">Bachelor</option>
-                    <option value="certificate">Certificate</option>
-                    <option value="diploma">Diploma</option>
-                    <option value="doctorate">Doctorate</option>
-                    <option value="engineer">Engineer's Degree</option>
-                    <option value="master">Master</option>
-                    <option value="professional">Professional Degree</option>
-                    <option value="specialist">Specialist Degree</option>
-                    <option value="vocational">Vocational</option>
+                    <select placeholder='Degree' name="degree" onChange={handleChange}>
+                        <option value="" disabled selected>Degree</option>
+                        <option value="student">Student</option>
+                        <option value="associate">Associate</option>
+                        <option value="bachelor">Bachelor</option>
+                        <option value="certificate">Certificate</option>
+                        <option value="diploma">Diploma</option>
+                        <option value="doctorate">Doctorate</option>
+                        <option value="engineer">Engineer's Degree</option>
+                        <option value="master">Master</option>
+                        <option value="professional">Professional Degree</option>
+                        <option value="specialist">Specialist Degree</option>
+                        <option value="vocational">Vocational</option>
                     </select>
                 </div>
                 <div className='find'>
-                    <input type={'text'} name='ssn' placeholder='Student SSN' onChange={handleChange}/>
+                    <input type={'text'} name='ssn' placeholder='Student SSN' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input  type="date" name="birthDate" placeholder='Birthdate'  max="2030-12-31" required onChange={handleChange}/>
+                    <input type="date" name="birthDate" placeholder='Birthdate' max="2030-12-31" required onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <select name='sortby' onChange={handleChange}>
-                        <option disabled selected>Sort by</option>
-                        <option value="fname">First Name</option>
-                        <option value="lname">Last Name</option>
+                    <select name='sortBy' onChange={handleChange}>
+                        <option value="firstName" selected>First Name</option>
+                        <option value="lastName">Last Name</option>
                         <option value="degree">Degree</option>
                         <option value="school">School</option>
-                        <option value="bithdate">Birthdate</option>
+                        <option value="birthDate">Birthdate</option>
+                        <option value="id">id</option>
+                        <option value="ssn">ssn</option>
+                        <option value="phone">phone</option>
                     </select>
                 </div>
                 <div className='find'>
                     <select name='tagmode' onChange={handleChange}>
-                        <option disabled selected>Tags mode</option>
-                        <option value="and">AND</option>
+                        <option value="and" selected>AND</option>
                         <option value="or">OR</option>
+                    </select>
+                </div>
+                <div className='find'>
+                    <select name='order' onChange={handleChange}>
+                        <option value="asc" selected>ascending</option>
+                        <option value="desc">descending</option>
                     </select>
                 </div>
                 <button className='btn btn-dark button' onClick={handleClick}>Find/Sort</button>
@@ -153,7 +163,7 @@ const StudentTable = (props) => {
                     </thead>
 
                     <tbody>
-                        {studentData.map((student) =>(
+                        {studentData.map((student) => (
                             <tr key={student.id}>
                                 <td>{student.id}</td>
                                 <td>{student.firstName}</td>
@@ -165,13 +175,13 @@ const StudentTable = (props) => {
                                 <td>{student.ssn}</td>
                                 <td>{student.birthDate}</td>
                             </tr>
-                    ))}
+                        ))}
                     </tbody>
                 </table>
             </div>
-            
+
             <div className='pages'>
-                <button className='btn btn-dark page-back page' onClick={handlePrevious}>Previous <GrCaretPrevious/></button>
+                <button className='btn btn-dark page-back page' onClick={handlePrevious}>Previous <GrCaretPrevious /></button>
                 <button className='btn btn-dark page-next page' onClick={handleNext}>Next <GrCaretNext /></button>
             </div>
 
