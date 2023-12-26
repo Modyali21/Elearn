@@ -5,7 +5,7 @@ import { GrCaretPrevious } from "react-icons/gr";
 import axios from 'axios';
 import {SERVER_URL} from '../../constants'
 
-const StudentTable = () => {
+const StudentTable = (props) => {
 
     const [counter,setCounter] = useState(0)
     const [info,setInfo] = useState({
@@ -51,7 +51,7 @@ const StudentTable = () => {
     const email = 'admin@admin.com'
     const password = 'admin'
     useEffect(() => {
-        axios.post(SERVER_URL + '/admin/students', {}, {
+        axios.post(SERVER_URL + '/admin/students',{}, {
             auth: {
                 username: email,
                 password: password
@@ -62,8 +62,7 @@ const StudentTable = () => {
                 setStudentData(response.data)
             })
             .catch(error => {
-                // Handle errors here
-                console.error('Error:', error);
+                alert(error)
             });
             
         }, []);

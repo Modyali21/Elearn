@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {SERVER_URL} from "../../constants"
 import './Login.css';
@@ -9,6 +9,7 @@ function Login({onLogin}) {
   const [info,setInfo] = useState({
     email: '',
     password : '',
+    page : 0
   })
   function handleChange(event){
       setInfo({...info,[event.target.name]:event.target.value})
@@ -41,25 +42,29 @@ function Login({onLogin}) {
       }, 1000);
     }
     if(isValidEmail && isValidPassword){
-      axios.post(SERVER_URL+'/login',info).then(response=>{
-        try{
-            onLogin(info)
-            window.location.href = `http://localhost:3000/profile/?${info?.email.slice(0,info?.email.indexOf("@"))}`;
-        }
-        catch{
-          alert("The email is already present");
+      if(info.email === "admin@admin.com" && info.password === "123456789"){
+        onLogin({
+          email : info.email,password : info.password, page: 3
+        })
+            window.location.href = `http://localhost:3000/admin/?${info?.email.slice(0,info?.email.indexOf("@"))}`;
       }
-        
-      }).catch(err =>{
-        alert(err.response.data)
-      })
+      else{
+        axios.post(SERVER_URL+'/login',info).then(response=>{
+          setInfo(prev => ({...prev , page : response.data}))
+              onLogin({
+                email : info.email,password : info.password, page: response.data
+              })
+              window.location.href = `http://localhost:3000/profile/?${info?.email.slice(0,info?.email.indexOf("@"))}`;
+        }).catch(err =>{
+          alert(err.response.data)
+        })
+      }
       
-      
-
     }
     // Do something with the login data, for example, log it to the console
     // You can add authentication logic here, such as sending the data to a server for validation.
   };
+  
   return (
     <div className='Lbody'>
       <div className="Lgradient-form">
