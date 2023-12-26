@@ -8,6 +8,7 @@ import com.example.demo.student.StudentService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -28,23 +30,23 @@ public class CourseController {
 
 
     @PostMapping("/addCourse")
-    public String addCourse(@AuthenticationPrincipal CustomUserDetails user, @RequestBody Course course){
+    public ResponseEntity<String> addCourse(@AuthenticationPrincipal CustomUserDetails user, @RequestBody Course course){
         //check if course already exists
         if(courseService.getCourseById(course.getCourseCode())!=null){
-            return "the course already exists";
+            return ResponseEntity.status(400).body("the course already exists");
         }
         if(!(user.getSystemUser() instanceof Instructor)){
-            return "not an instructor";
+            return ResponseEntity.status(401).body("not an instructor");
         }
         Instructor instructor = (Instructor)user.getSystemUser();
         Course addedCourse=null;
         if(course.getInstructorId()==instructor.getId())
             addedCourse=  courseService.saveCourseDetails(course);
         else{
-            return "not authorized";
+            return ResponseEntity.status(401).body("not authorized");
         }
 
-        return "course has been added successfully";
+        return ResponseEntity.status(200).body("course has been added successfully");
     }
     @GetMapping("/getAllOfInstructor")
     public List<Course> getInstructorCourses(@RequestBody Instructor instructor){
@@ -65,13 +67,13 @@ public class CourseController {
 
 
     @PostMapping("/deleteCourse")
-    public String deleteCourse(@AuthenticationPrincipal CustomUserDetails user,@RequestBody Course course){
+    public ResponseEntity<String> deleteCourse(@AuthenticationPrincipal CustomUserDetails user,@RequestBody Course course){
         Instructor instructor = (Instructor)user.getSystemUser();
         if(course.getInstructorId()!=instructor.getId()){
-            return "not authorized";
+            return ResponseEntity.status(401).body("not authorized");
         }
         if(courseService.getCourseById(course.getCourseCode())==null){
-            return "the course doesn't exists";
+            return ResponseEntity.status(400).body("the course doesn't exists");
         }
         return courseService.deleteCourse(course);
     }
@@ -80,19 +82,28 @@ public class CourseController {
         return courseService.sortBy(criteria);
     }
     @PutMapping("/student/{studentId}/coursecode/{courseCode}")
-    public String assignProjectToEmployee(@AuthenticationPrincipal CustomUserDetails user,
-            @PathVariable Long studentId,
-            @PathVariable String courseCode
+    public ResponseEntity<String> assignCourseToStudent(@AuthenticationPrincipal CustomUserDetails user,
+                                                  @PathVariable Long studentId,
+                                                  @PathVariable String courseCode
     ){
         if(!(user.getSystemUser() instanceof Student)){
-            return "not an instructor";
+            //not acceptable
+            return ResponseEntity.status(406).body("not an instructor");
         }
         Student student = (Student) user.getSystemUser();
         if(studentId!=student.getId()){
-            return "not authorized";
+            return ResponseEntity.status(401).body("not authorized");
         }
 
         return courseService.enrollCourse(courseCode,studentId);
+    }
+    @GetMapping("/studentEnrolled")
+    public Set<Course> getEnrolledCourses(@RequestBody long studentId){
+        return courseService.getEnrolledCourses(studentId);
+    }
+    @GetMapping("/studentUnEnrolled")
+    public List<Course> getUnEnrolledCourses(@RequestBody long studentId){
+        return courseService.getUnEnrolledCourse(studentId);
     }
 
 }
