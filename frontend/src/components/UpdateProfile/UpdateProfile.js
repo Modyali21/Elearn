@@ -69,7 +69,7 @@ const UpdateProfile = (props) => {
         }
         if(isValidEmail && isValidBirth && isValidPhone){
             console.log(info);
-            axios.post(SERVER_URL+'/myprofile',info,{
+            axios.post(SERVER_URL+'/profile',info,{
                 auth: {
                     username: props.user.email,
                     password: props.user.password

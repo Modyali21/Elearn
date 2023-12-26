@@ -28,8 +28,9 @@ public class ProfileController {
                                               @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         if (profileService.editProfile(data, customUserDetails.getSystemUser())) {
             return ResponseEntity.status(201).body("profile was edited successfully");
+        } else {
+            return ResponseEntity.status(409).body("the email is taken, the edit was rejected");
         }
-        return ResponseEntity.status(409).body("the email is taken, the edit was rejected");
     }
 
 

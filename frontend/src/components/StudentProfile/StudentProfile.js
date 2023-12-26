@@ -16,7 +16,7 @@ const StudentProfile = (props) => {
     useEffect(() => {
         console.log(props.user.email)
         console.log(props.user.password)
-        axios.get(SERVER_URL + '/myprofile', {
+        axios.get(SERVER_URL + '/profile', {
             auth: {
                 username: props.user.email,
                 password: props.user.password

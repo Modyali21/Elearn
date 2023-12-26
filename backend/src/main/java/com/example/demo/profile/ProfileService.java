@@ -49,7 +49,6 @@ public class ProfileService {
         if (data.getBirthDate() != null) {
             systemUser.setBirthDate(data.getBirthDate());
         }
-
         if (systemUser.getRole().contains("ROLE_STUDENT")) {
             studentService.saveUser((Student) systemUser);
         } else if (systemUser.getRole().contains("ROLE_INSTRUCTOR")) {
