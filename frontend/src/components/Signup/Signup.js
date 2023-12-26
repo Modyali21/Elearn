@@ -3,7 +3,6 @@ import './Signup.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {SERVER_URL} from "../../constants"
-import {signup} from "../../firebase"
 function SignUp2() {
   const [repass,setRepass] = useState('')
   const [info,setInfo] = useState({
@@ -122,16 +121,11 @@ function handleRepass(event){
       }
     if(isValidEmail && isValidPassword === 2 && isValidSSN && isValidBirth && isValidPhone){
     console.log(info);
-      try{
           axios.post(SERVER_URL+'/register',info).then(response=>{
+            alert(response.data)
             window.location.href = "http://localhost:3000/";
-          }).catch(err =>{alert(err.response)})
-      }
-      catch{
-      alert("The email is already present");
+          }).catch(err =>{alert(err.response.data)})
   }
-    
-    }
   };
   return (
     <div className='SSbody'>
