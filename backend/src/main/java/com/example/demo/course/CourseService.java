@@ -4,10 +4,13 @@ import com.example.demo.student.Student;
 import com.example.demo.student.StudentRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import jakarta.persistence.metamodel.Attribute;
 import jakarta.persistence.metamodel.EntityType;
 import jakarta.persistence.metamodel.Metamodel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -54,25 +57,15 @@ public class CourseService {
         return query.getResultList();
 
     }
-    public ResponseEntity<String> enrollCourse(String courseCode, long studentId){
+    public ResponseEntity<String> enrollCourse(String courseCode, Student student){
         Set<Course> courseSet = null;
-        Student student=null;
         Course course=null;
-
-        ///get the student with specified id
-        if(studentRepository.findById(studentId).isPresent())
-            student= studentRepository.findById(studentId).get();
-        else{
-            //bad request
-            return ResponseEntity.status(400).body("this student doesn't exists");
-        }
 
         /// get the course with specified course code
         if(courseRepository.findById(courseCode).isPresent())
          course = courseRepository.findById(courseCode).get();
         else {
-            ///bad request
-            return ResponseEntity.status(400).body("this student doesn't exists");
+            return ResponseEntity.status(409).body("the course doesn't exist");
         }
 
         ///comparing deadlines
@@ -110,6 +103,19 @@ public class CourseService {
             }
         }
         return unEnrolled;
+    }
+
+    public Specification<Course> enrolled(long studentId){
+        return (root,cq,cb)->{
+            Subquery<Long> sq = cq.subquery(Long.class);
+            Root<Student> student = sq.from(Student.class);
+            sq.select(student.get("id")).where(cb.equal(student.get("id"), studentId));
+            return cb.not(root.get("studentSet").in(sq));
+        };
+    }
+
+    public List<Course> test(long studentId){
+        return courseRepository.findAll(enrolled(studentId));
     }
 
 }

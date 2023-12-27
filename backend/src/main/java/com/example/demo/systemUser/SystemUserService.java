@@ -40,6 +40,15 @@ public abstract class SystemUserService<T extends SystemUser, R extends SystemUs
         }
     }
 
+    public T findById(long id) {
+        Optional<T> user = repository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new UsernameNotFoundException("no user with that id");
+        }
+    }
+
     public void deleteUser(T user) {
         repository.delete(user);
     }
