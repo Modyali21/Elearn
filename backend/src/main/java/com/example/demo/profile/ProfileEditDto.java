@@ -1,11 +1,11 @@
-package com.example.demo.myProfile;
+package com.example.demo.profile;
 
 import lombok.Data;
 
 import java.sql.Date;
-@Data
 
-public class EditFormDTO {
+@Data
+public class ProfileEditDto {
 
     private String firstName;
     private String lastName;

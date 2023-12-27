@@ -16,7 +16,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.87);
+    background-color: rgba(0, 0, 0, 0.441);
 }
 .EClog{
     width: 30%;
@@ -62,9 +62,16 @@
 
 }
 .ECname{
+    width: 40%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ECname2{
     background-color: white;
     color: black;
-    width: 200px;
+    width: 50%;
     height:40px;
     display: flex;
     align-items: center;
@@ -77,9 +84,10 @@
     display: flex;
     flex: row;
     align-items: center;
-    justify-content: space-around;
-    width: 70%;
+    justify-content: space-evenly;
+    width: 55%;
     height: 100%;
+    /* border: 1px solid; */
 }
 
 /* Create an active/current tablink class */
@@ -191,7 +199,7 @@
 }
 
 .ECsearch{
-    width: 30% ;
+    width: 80% ;
     height: 40px;
     border-radius: 20px;
     border: none;
@@ -220,7 +228,7 @@
 
 /* Change background color of buttons on hover */
 .ECSebut:hover {
-  background-color: #a9a7a7;
+  background-color: white;
   border: 1px solid black;
 }
 .ECSebut:active {

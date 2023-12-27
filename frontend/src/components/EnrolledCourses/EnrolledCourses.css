@@ -20,8 +20,6 @@
 .cbtns{
     border-radius: 50px;
     width: 200px;
-    background-color:var(--text-color);
-    color: white;
     margin: 0 3px;
 }
 #enrolled-courses ul li:not(:last-child){

@@ -1,17 +1,17 @@
-import './MakeCourse.css';
+import './MakeLecture.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {SERVER_URL} from "../../constants"
 import axios from 'axios';
 
-function MakeCourse(props) {
+function MakeLecture(props) {
   const [info,setInfo] = useState({
-    courseCode: '',
-    courseName : '',
-    description : '',
-    deadLine : '',
-    email: props.user.email
+    courseCode: props.cid,
+    lectureName : '',
+    lectureLink : '',
+    description : ''
   })
+
 function handleChange(event){
     setInfo({...info,[event.target.name]:event.target.value})
 }
@@ -21,7 +21,7 @@ async function handleSubmit(e){
       try{
         let email = props.user.email
         let password = props.user.password
-        axios.post(SERVER_URL+'/course/addCourse',info,{
+        axios.post(SERVER_URL+'/course/addLecture',info,{
               auth: {
                   username: email,
                   password: password
@@ -31,7 +31,7 @@ async function handleSubmit(e){
           })
     }
     catch{
-        alert("Errorororor");
+        alert("Error");
     }
     
   };
@@ -52,26 +52,22 @@ async function handleSubmit(e){
         </div>
         </nav>
         <div className='MCtotal'>
-            <form className='MCform1' onSubmit={handleSubmit} >
-                <h4 className='MCtitle'>Cousre Regsiteration</h4>
+            <form action='/course' className='MCform1' onSubmit={handleSubmit} >
+                <h4 className='MCtitle'>Lecture Form</h4>
                 <div className='MCform2'>
-                    <div className='MClab'>
-                    <label for="">Course Name: </label>
-                    <input type="text" name="courseName" className='MCin' placeholder='Course Name' onChange={handleChange}  required/>
+                <div className='MClab'>
+                    <label for="">Lecture Name:</label>
+                    <input type="text" id="lectureName" className='MCin' name="lectureName" onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
-                    <label for="">Course Code: </label>
-                    <input type="text" name="courseCode" className='MCin' placeholder='Course Code' onChange={handleChange}  required/>
+                    <label for="">Lecture Link:</label>
+                    <input type="url" id="lectureLink" className='MCin' name="lectureLink" onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
                     <label for="">Description: </label>
-                    <textarea  name="description" className='MCtextarea' placeholder='Description' onChange={handleChange}  required/>
+                    <textarea  name="description" className='MCtextarea' placeholder='' onChange={handleChange}  required/>
                     </div>
-                    <div className='MClab'>
-                    <label for="">DeadLine: </label>
-                    <input type="date" name="deadLine" className='MCin' placeholder='DeadLine' onChange={handleChange}  required/>
-                    </div>
-                    <button className='MCbut' type='submit' >Finish</button>
+                    <button className='MCbut' type='submit' >Done</button>
                 </div>
             </form>
         </div>
@@ -80,4 +76,4 @@ async function handleSubmit(e){
   );
 }
 
-export default MakeCourse;
+export default MakeLecture;
