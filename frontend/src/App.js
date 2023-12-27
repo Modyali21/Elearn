@@ -1,19 +1,8 @@
-import "./App.css";
-import {
-  ElearningPage,
-  Header,
-  CourseEnroll,
-  MakeCourse,
-  Signup,
-  Login,
-  StudentProfile,
-  Course,
-  MakeLecture,
-  HomePage,
-} from "./components/index";
-import { UpdateProfile } from "./components/index";
-import { Admin } from "./components/index";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.css';
+import {ElearningPage,Header,CourseEnroll,MakeCourse,Signup,Login,StudentProfile, Course,MakeLecture,HomePage,MakeAnnounm} from "./components/index"
+import {UpdateProfile} from "./components/index"
+import {Admin} from "./components/index"
+import {BrowserRouter,Route, Routes} from "react-router-dom"
 import { CookiesProvider, useCookies } from "react-cookie";
 function App() {
   const [cookies, setCookie] = useCookies(["user"]);
@@ -35,31 +24,14 @@ function App() {
             }
           />
           <Route path="/course" element={<Course />} user={cookies.user} />
-          <Route
-            path="/courseenroll"
-            element={<CourseEnroll user={cookies.user} />}
-          />
-          <Route
-            path="/makecourse"
-            element={<MakeCourse user={cookies.user} />}
-          />
-          <Route
-            path="/makelecture"
-            element={<MakeLecture user={cookies.user} />}
-          />
-          <Route
-            path="/admin"
-            element={
-              <>
-                <Header />
-                <Admin user={cookies.user} />
-              </>
-            }
-          />
-          <Route
-            index
-            element={
-              <CookiesProvider>
+          <Route path="/courseenroll" element={<CourseEnroll user={cookies.user} />} />
+          <Route path="/makecourse" element={<MakeCourse user={cookies.user} />} />
+          <Route path="/makelecture" element={<MakeLecture user={cookies.user} />} />
+          <Route path="/makeannoun" element={<MakeAnnounm user={cookies.user} />} />
+          <Route path="/admin" element={<><Header/><Admin user={cookies.user} /></>} />
+          <Route index  element={
+            <CookiesProvider>
+
                 <div>
                   {cookies.user || !cookies.user ? (
                     <Login onLogin={handleLogin} />
