@@ -1,6 +1,7 @@
 package com.example.demo.instructor;
 
 import com.example.demo.systemUser.SystemUser;
+import com.example.demo.systemUser.SystemUserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -41,6 +42,11 @@ public class Instructor extends SystemUser {
             return Collections.singletonList("ROLE_INSTRUCTOR");
         }
         return Arrays.asList("ROLE_INSTRUCTOR", "ROLE_ADMIN");
+    }
+
+    @Override
+    public SystemUserDto toDto() {
+        return new InstructorDto(id, firstName, lastName, email, phone, school, degree, ssn, birthDate, hasPrivilege);
     }
 
 }
