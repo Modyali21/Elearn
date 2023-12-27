@@ -115,8 +115,8 @@ const UpdateProfile = (props) => {
                             <option value="specialist">Specialist Degree</option>
                             <option value="vocational">Vocational</option>
                         </select>                    </div>
-                    <input className='btn btn-primary submit-btn' type={"submit"} value={"Update Profile"}/>
-                    <Link style={{textDecoration:"none"}} className="mt-2" to='/profile'>return to profile page</Link>
+                    <input className='btn btn-dark submit-btn' type={"submit"} value={"Update Profile"}/>
+                    <Link style={{textDecoration:"none"}} className="mt-2 text-light" to='/profile'>return to profile page</Link>
                 </form>
         </div>
         

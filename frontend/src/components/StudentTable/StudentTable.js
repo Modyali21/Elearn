@@ -16,8 +16,8 @@ const StudentTable = (props) => {
         degree: '',
         ssn: '',
         birthDate: '',
-        firstResult: counter,
-        maxResult: 8,
+        maxResults: 5,
+        firstResult : 5,
         sortBy: '',
         descending: false,
         or: false
@@ -53,8 +53,9 @@ const StudentTable = (props) => {
     }
     const email = props.email
     const password = props.password
+    
     useEffect(() => {
-        axios.post(SERVER_URL + '/admin/students', {}, {
+        axios.post(SERVER_URL + '/admin/students',{}, {
             auth: {
                 username: email,
                 password: password
@@ -68,15 +69,13 @@ const StudentTable = (props) => {
                 alert(error)
             });
 
-    }, []);
+    },[]);
 
 
     function handlePrevious() {
 
     }
-    function handleNext() {
-
-    }
+    
 
 
     return (
@@ -146,7 +145,7 @@ const StudentTable = (props) => {
                 <button className='btn btn-dark button' onClick={handleClick}>Find/Sort</button>
             </div>
 
-            <div className='container all'>
+            <div className='container alldata'>
                 <table className="table-container container">
                     <thead>
                         <tr>
@@ -182,7 +181,7 @@ const StudentTable = (props) => {
 
             <div className='pages'>
                 <button className='btn btn-dark page-back page' onClick={handlePrevious}>Previous <GrCaretPrevious /></button>
-                <button className='btn btn-dark page-next page' onClick={handleNext}>Next <GrCaretNext /></button>
+                <button className='btn btn-dark page-next page' >Next <GrCaretNext /></button>
             </div>
 
         </div>

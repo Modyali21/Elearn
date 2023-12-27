@@ -35,10 +35,6 @@ export const HomePage = () => {
                             <div class="learn-txt">
                                 <h1>COURSES</h1>
                                 <p className='speachtxt'>an intellectual playground where learning takes center stage! At [Platform Name], we are thrilled to present a diverse and enriching collection of courses designed to spark curiosity, fuel passion, and drive personal and professional growth..</p>
-                                <div class="doOrCourse">
-                                    <div class="startlearn"><a href="/" id="homework-videos">Lectures Enrolled </a></div>
-                                    <div class="startlearn"><a href="/course" id="semester-course">Courses Enrolled</a></div>
-                                </div>
                                 
                             </div>
                         </div>
@@ -46,7 +42,7 @@ export const HomePage = () => {
                             <div class="grad-txt">
                                 <h1>Top Students</h1>
                                 <p className='speachtxt'>Every year, many top achievers emerge from our society at the level of the Republic. Therefore, we are working to build a constructive scientific generation capable of achieving the impossible..</p>
-                                <div class="startgrad"><a href="/" id="top-students" >Get started</a></div>
+                                <div class="startgrad"><a href="#services" id="top-students" >Get started</a></div>
                             </div>
                             <div class="grad-img"></div>
                         </div>
@@ -79,7 +75,7 @@ export const HomePage = () => {
                     <div class="big-footer">
                         <div class="footerlists">
                             <div class="p">
-                                <div class="head">DO THE MATH</div>
+                                <div class="head">elearning platform</div>
                                 <ul>
                                     <li><a href="/">Terms</a> </li>
                                     <li><a href="/">Licenses</a> </li>
