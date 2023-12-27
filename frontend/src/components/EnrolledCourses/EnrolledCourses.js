@@ -1,6 +1,11 @@
 import React from 'react'
 import "./EnrolledCourses.css"
+
 const EnrolledCourses = (props) => {
+    function handleCourse(id){
+        // alert("id:"+id);
+        props.courseFun(id);
+    }
     return (
         
         
@@ -10,7 +15,7 @@ const EnrolledCourses = (props) => {
                     <li>
                         <span>Database Course</span>
                         <div className='btns'>
-                            <button className="btn cbtns" id="see-course">See course</button>
+                            <button className="btn cbtns" id="see-course" onClick={handleCourse("1")}>See course</button>
                             <button className="btn cbtns">See Anouncements</button>
                         </div>
                     </li>

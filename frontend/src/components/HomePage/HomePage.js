@@ -3,7 +3,7 @@ import './HomePage.css'
 export const HomePage = () => {
     return (
         <>
-            <div class="all">
+            <div class="allg">
                 <div class="allitems">
                     <div class="content">
                         <div class="game"></div>
@@ -26,7 +26,7 @@ export const HomePage = () => {
                                     with everything you need in mathematics for all 
                                     ages and forms a basic infrastructure for you that 
                                     facilitates your scientific and human dealings.Our mission is to empower learners with the skills and knowledge they need to thrive in a rapidly evolving world. Through our eLearning platform, we aim to break down barriers to education, making learning a flexible and enriching journey for everyone.</p>
-                                    <div><a href="/profile" class="start">Your Profile</a></div>
+                                    <div><a href="/profile" style={{textDecoration:"none", color:"white"}} class="start">Your Profile</a></div>
                             </div>
                             <div class="img2"></div>
                         </div>
@@ -77,7 +77,7 @@ export const HomePage = () => {
                         </div>
                     </div>
                     <div class="big-footer">
-                        <div class="footerlists">
+                        <div class="footerlists pt-4">
                             <div class="p">
                                 <div class="head">DO THE MATH</div>
                                 <ul>

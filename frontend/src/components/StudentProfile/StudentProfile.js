@@ -42,7 +42,7 @@ const StudentProfile = (props) => {
                     degree: studentData?.degree
                 }
             } user={props.user} />
-            {props.user.page == 1 ? <EnrolledCourses /> : <></>}
+            {props.user.page == 1 ? <EnrolledCourses courseFun={props.courseId} /> : <></>}
 
         </div>
     )
