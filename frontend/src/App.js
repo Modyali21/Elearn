@@ -35,6 +35,7 @@ function App() {
           <Route path="/makeannoun" element={<MakeAnnounm user={cookies.user}  cid={courseId}/>} />
           <Route path="*" element={<NotFound user={cookies.user} />} />
           <Route path="/admin" element={<><Admin user={cookies.user} /></>} />
+
           <Route index  element={
             <CookiesProvider>
 

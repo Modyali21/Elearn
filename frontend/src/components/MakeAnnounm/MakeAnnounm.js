@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function MakeAnnounm(props) {
   const [info,setInfo] = useState({
-    courseCode: props.cid,
+   courseCode: props.cid,
     description : '',
     announcementName : ''
   })
