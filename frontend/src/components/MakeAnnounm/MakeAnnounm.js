@@ -1,15 +1,14 @@
-import './MakeLecture.css';
+import './MakeAnnounm.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {SERVER_URL} from "../../constants"
 import axios from 'axios';
 
-function MakeLecture(props) {
+function MakeAnnounm(props) {
   const [info,setInfo] = useState({
     courseCode: props.cid,
-    lectureName : '',
-    lectureLink : '',
-    description : ''
+    description : '',
+    announcementName : ''
   })
 
 function handleChange(event){
@@ -53,15 +52,11 @@ async function handleSubmit(e){
         </nav>
         <div className='MCtotal'>
             <form action='/course' className='MCform1' onSubmit={handleSubmit} >
-                <h4 className='MCtitle'>Lecture Form</h4>
+                <h4 className='MCtitle'>Announcement Form</h4>
                 <div className='MCform2'>
                 <div className='MClab'>
-                    <label for="">Lecture Name:</label>
-                    <input type="text" id="lectureName" className='MCin' name="lectureName" onChange={handleChange} required/>
-                    </div>
-                    <div className='MClab'>
-                    <label for="">Lecture Link:</label>
-                    <input type="url" id="lectureLink" className='MCin' name="lectureLink" onChange={handleChange} required/>
+                    <label for="">Announcement Title:</label>
+                    <input type="text" id="announcementName" className='MCin' name="announcementName" onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
                     <label for="">Description: </label>
@@ -76,4 +71,4 @@ async function handleSubmit(e){
   );
 }
 
-export default MakeLecture;
+export default MakeAnnounm;

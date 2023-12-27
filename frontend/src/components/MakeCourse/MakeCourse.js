@@ -10,7 +10,7 @@ function MakeCourse(props) {
     courseName : '',
     description : '',
     deadLine : '',
-    instructorId: '1'
+    email: props.user.email
   })
 function handleChange(event){
     setInfo({...info,[event.target.name]:event.target.value})
