@@ -2,7 +2,7 @@ import './Course.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Course() {
+function Course(props) {
     function trigger(evt, cityName) {
         var i, tabcontent, tablinks,cityElement;
         cityElement = document.getElementById(cityName);
@@ -21,8 +21,31 @@ function Course() {
         // cityElement.style.alignItems = "center";
         evt.currentTarget.className += " active";
       }
-      const [courses, setCourses] = useState([]);
+      const [Lecture, setLectures] = useState([]);
+      const [Anouncement, setAnouncements] = useState([]);
+      const [Details, setDetails] = useState([]);
+      const [Total, setTotal] = useState([]);
 
+      // useEffect(() => {
+      //   console.log(props.user.email)
+      //   console.log(props.user.password)
+      //   axios.get(SERVER_URL + '/course/lecture',{
+      //       auth: {
+      //           username: props.user.email,
+      //           password: props.user.password
+      //       }
+      //       })
+      //       .then(response => {
+      //           console.log(response.data)
+      //           setTotal(response.data)
+      //           setLectures(Total.lectures);
+      //           setAnouncements(Total.anouncements);
+      //           setDetails(Total.details);
+      //       })
+      //       .catch(error => {
+      //           console.error('Error:', error);
+      //       });
+      //   },[]);
     return (
     <div className='Cbody' >
         <nav className='Cnav'>
@@ -50,18 +73,16 @@ function Course() {
             <div id="Details" style={{color:"white"}} className="Ctabcontent ">
               <div className='Cdetails'>
               <header className='Cheader'>
-                <h1 className='Ch1'>Algorithms and Data Structures</h1>
+                <h1 className='Cht'>Algorithm{Details.courseName}</h1>
                 </header>
 
                 <section className='Cheader'>
                 <h3 className='Ch1'>Course Description</h3>
-                <h5>This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.This course introduces key concepts in algorithms and data structures, emphasizing their role in computational problem-solving.</h5>
-
-                
+                <h5 className='Ch5'>The title attribute provides a tooltip message that will be displayed when users hover over the input, giving them guidance on the allowed range.{Details.description}</h5>
                 </section >
                 <section className='Cheader'>
                 <h3 className='Ch1'>DeadLine</h3>
-                <h5>22/11/2024</h5>
+                <h5>22/33/44{Details.deadline}</h5>
                 </section>
               </div>
             </div>
@@ -69,33 +90,29 @@ function Course() {
             <div id="Lectures" className="Ctabcontent">
 
 
-            {courses.map((course, index) => (
+            {Lecture.map((lecture, index) => (
             <div key={index} className='CLecture1'>
               <div className='Ctitle'>
-              <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {course.lecture}</a>
+              <a href="#" target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {lecture.name}</a>
               <button className='CTeacBut'>Delete</button>
               </div>
               <h6 className='Ch6'>Description:</h6>
-              <p>{course.description}</p>
-              <h6 className='Ch6'>DeadLine: {
-                    new Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                    }).format(new Date(course.deadLine))
-                    }</h6>
+              <p>{lecture.description}</p>
+              <h6 className='Ch6'>Duration: {lecture.duration/60}hours {lecture.duration%60}minutes</h6>
             </div>
           ))}      
             </div>
 
             <div id="Announcement" className="Ctabcontent">
-            <div className='CLecture1'  >
-            <div className='Ctitle'>
-              <h6 className='Ch6'>Announcement:</h6>            
+            {Anouncement.map((anouncement, index) => (
+            <div key={index} className='CLecture1'>
+              <div className='Ctitle'>
+              <h6 className='Ch6'>Description:</h6>
               <button className='CTeacBut'>Delete</button>
+              </div>
+              <p>{anouncement.description}</p>
             </div>
-            <p className='Cp'>In this video, we delve into the fascinating world of Greedy Algorithms, a powerful and intuitive paradigm in computer science. Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum. Join us on this journey as we demystify the core principles behind Greedy Algorithms, explore real-world applications, and analyze their efficiency.</p>
-            </div>
+          ))}  
             </div>
             <div id="Quizzes" className="Ctabcontent">
             <h3>Quizzes</h3>

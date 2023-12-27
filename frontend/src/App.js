@@ -1,5 +1,5 @@
 import './App.css';
-import {ElearningPage,Header,CourseEnroll,MakeCourse,Signup,Login,StudentProfile, Course} from "./components/index"
+import {ElearningPage,Header,CourseEnroll,MakeCourse,Signup,Login,StudentProfile, Course,MakeLecture} from "./components/index"
 import {UpdateProfile} from "./components/index"
 import {Admin} from "./components/index"
 import {BrowserRouter,Route, Routes} from "react-router-dom"
@@ -16,9 +16,10 @@ function App() {
     <> 
       <BrowserRouter>
         <Routes>
-          <Route path="/course" element={<Course />} />
+          <Route path="/course" element={<Course />} user={cookies.user} />
           <Route path="/courseenroll" element={<CourseEnroll user={cookies.user} />} />
           <Route path="/makecourse" element={<MakeCourse user={cookies.user} />} />
+          <Route path="/makelecture" element={<MakeLecture user={cookies.user} />} />
           <Route path="/admin" element={<><Header/><Admin user={cookies.user} /></>} />
           <Route index  element={
             <CookiesProvider>
