@@ -26,10 +26,10 @@ public class LectureController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator , @RequestBody LectureDTO info ){
+    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator , @RequestBody recieveLectureDTO info ){
 
         if(!is.emailTaken(creator.getUsername())){
-            return ResponseEntity.status(409).body("Not Authorized to create lectures!");
+            return ResponseEntity.status(403).body("Not Authorized to create lectures!");
 
         }
         Course course =cs.getCourseById(info.getCourseCode());
@@ -39,7 +39,7 @@ public class LectureController {
 
         }
         if (!(course.getInstructorId()==instructor.getId())) {
-            return  ResponseEntity.status(409).body("Not Authorized! it is not your course");
+            return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
 
         }
          ls.createLecture(info,course,instructor);
@@ -56,7 +56,7 @@ public class LectureController {
     @DeleteMapping("/delete/{cid}/{lid}")
     public ResponseEntity<String> deleteLecture(@AuthenticationPrincipal CustomUserDetails creator , @PathVariable(name="cid") String courseCode , @PathVariable(name="lid") long lectureId){
         if(!is.emailTaken(creator.getUsername())){
-            return ResponseEntity.status(409).body("Not Authorized to delete lectures!");
+            return ResponseEntity.status(403).body("Not Authorized to delete lectures!");
 
         }
         Course course =cs.getCourseById(courseCode);
@@ -66,7 +66,7 @@ public class LectureController {
 
         }
         if (!(course.getInstructorId()==instructor.getId())) {
-            return  ResponseEntity.status(409).body("Not Authorized! it is not your course");
+            return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
 
         }
        if(!ls.deleteLecture(lectureId,course)) {
@@ -80,7 +80,7 @@ public class LectureController {
     }
 
     @GetMapping("/getLectures/{cid}")
-    public List<LectureDTO> getAllLectures(@PathVariable(name = "cid") String cid){
+    public List<sendLectureDTO> getAllLectures(@PathVariable(name = "cid") String cid){
         return ls.getAllLectures(cid);
 
 

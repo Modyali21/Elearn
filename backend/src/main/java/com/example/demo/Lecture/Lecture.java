@@ -20,13 +20,13 @@ public class Lecture {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL )
     @JoinColumn(name = "course_code",referencedColumnName = "course_code")
     private Course course;
 
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructorssn",referencedColumnName = "ssn")
     private Instructor instructor;
 

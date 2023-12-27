@@ -15,7 +15,7 @@ public class LectureService {
     @Autowired
     LectureRepository lr;
 
-     public void createLecture(LectureDTO info, Course course , Instructor instructor){
+     public void createLecture(recieveLectureDTO info, Course course , Instructor instructor){
          Lecture lecture = new Lecture(course,instructor, info.getVideoLink(), info.getTitle(), info.getDescription(), new java.sql.Date(System.currentTimeMillis()));
          lr.save(lecture);
 
@@ -42,15 +42,17 @@ public class LectureService {
 
 
      }
-     public List<LectureDTO> getAllLectures(String cid){
+     public List<sendLectureDTO> getAllLectures(String cid){
          List<Lecture> list = lr.findByCourse_CourseCode(cid);
-         List<LectureDTO> newlist = new ArrayList<>();
+         List<sendLectureDTO> newlist = new ArrayList<>();
          for(Lecture i : list){
-             LectureDTO entry = new LectureDTO();
+             sendLectureDTO entry = new sendLectureDTO();
              entry.setCourseCode(cid);
              entry.setTitle(i.getTitle());
              entry.setDescription(i.getDescription());
              entry.setVideoLink(i.getVideoLink());
+             entry.setLid(i.getId());
+
              newlist.add(entry);
          }
          return  newlist;  }
