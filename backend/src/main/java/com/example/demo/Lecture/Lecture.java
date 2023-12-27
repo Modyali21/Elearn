@@ -20,7 +20,7 @@ public class Lecture {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     @Id
-    @ManyToOne(cascade = CascadeType.ALL )
+    @ManyToOne( )
     @JoinColumn(name = "course_code",referencedColumnName = "course_code")
     private Course course;
 
