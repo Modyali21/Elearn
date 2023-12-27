@@ -42,7 +42,7 @@ public class LectureController {
             return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
 
         }
-         ls.createLecture(info,course,instructor);
+         ls.createLecture(info,course);
          return ResponseEntity.status(200).body(" Done! Lecture is added");
 
 

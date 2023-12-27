@@ -15,8 +15,8 @@ public class LectureService {
     @Autowired
     LectureRepository lr;
 
-     public void createLecture(recieveLectureDTO info, Course course , Instructor instructor){
-         Lecture lecture = new Lecture(course,instructor, info.getVideoLink(), info.getTitle(), info.getDescription(), new java.sql.Date(System.currentTimeMillis()));
+     public void createLecture(recieveLectureDTO info, Course course ){
+         Lecture lecture = new Lecture(course, info.getVideoLink(), info.getTitle(), info.getDescription(), new java.sql.Date(System.currentTimeMillis()));
          lr.save(lecture);
 
 
