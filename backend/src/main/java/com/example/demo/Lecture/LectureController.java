@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -25,7 +26,7 @@ public class LectureController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator , @RequestBody AddLectureFormDTO info ){
+    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator , @RequestBody LectureDTO info ){
 
         if(!is.emailTaken(creator.getUsername())){
             return ResponseEntity.status(409).body("Not Authorized to create lectures!");
@@ -78,7 +79,11 @@ public class LectureController {
 
     }
 
-    /*@GetMapping("/getLectures/{cid}")
-    public*/
+    @GetMapping("/getLectures/{cid}")
+    public List<LectureDTO> getAllLectures(@PathVariable(name = "cid") String cid){
+        return ls.getAllLectures(cid);
+
+
+    }
 
 }
