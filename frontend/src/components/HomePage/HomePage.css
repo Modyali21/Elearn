@@ -1,13 +1,14 @@
-.all{
+.allg{
     display: flex;
     justify-content: right;
+    /* height: auto; */
 }
 html {
     scroll-behavior: smooth;
 }
 
 .content{
-    background-image: url(../../images/final.avif);
+    background-image: url(../../images/final.jpg);
     background-size:cover;
     height: 75vh;
     width: 100%;
@@ -436,6 +437,7 @@ html {
     background-color:#2a282b;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* height:auto; */
 }
 .footerlogo{
     display: flex;

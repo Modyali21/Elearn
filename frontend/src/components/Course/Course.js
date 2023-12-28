@@ -5,7 +5,7 @@ import axios from 'axios';
 import { SERVER_URL } from "../../constants"
 
 function Course(props) {
-  var teacher = 1;
+  var teacher = props.user.page;
   function trigger(evt, cityName) {
     var i, tabcontent, tablinks, cityElement;
     cityElement = document.getElementById(cityName);
@@ -23,7 +23,7 @@ function Course(props) {
     cityElement.style.justifyContent = "space-between";
     // cityElement.style.alignItems = "center";
     evt.currentTarget.className += " active";
-    if (teacher == 1) {
+    if (teacher == 2 || teacher == 3) {
       // Get elements with the class name "CTeacBut2" (returns a collection)
       var elements = document.getElementsByClassName("CTeacBut2");
     
@@ -31,25 +31,27 @@ function Course(props) {
       for (var i = 0; i < elements.length; i++) {
         elements[i].style.display = "flex";
       }
+    }else{
+            // Get elements with the class name "CTeacBut2" (returns a collection)
+            var elements = document.getElementsByClassName("CTeacBut2");
+    
+            // Loop through the collection and set the display style for each element
+            for (var i = 0; i < elements.length; i++) {
+              elements[i].style.display = "none";
+            }
     }
   }
-  const [info, setInfo] = useState({
-    courseCode: '',
-    anouncementName: '',
-    lectureName: '',
-  })
   const [Lecture, setLectures] = useState([]);
   const [Anouncement, setAnouncements] = useState([]);
   const [Details, setDetails] = useState([]);
   const [Total, setTotal] = useState([]);
-  async function DeleteLec(e,name) {
+  async function DeleteLec(id) {
     // e.preventDefault();
-    info.lectureName = name;
-    console.log(info);
+    console.log(id);
     try {
       let email = props.user.email
       let password = props.user.password
-      axios.post(SERVER_URL + '/course/deleteLecture', info, {
+      axios.post(SERVER_URL + '/course/deleteLecture', id, {
         auth: {
           username: email,
           password: password
@@ -63,14 +65,13 @@ function Course(props) {
     }
 
   };
-  async function DeleteAnno(e,name) {
+  async function DeleteAnno(name) {
     // e.preventDefault();
-    info.anouncementName = name;
-    console.log(info);
+    console.log(name);
     try {
       let email = props.user.email
       let password = props.user.password
-      axios.post(SERVER_URL + '/course/deleteAnn', info, {
+      axios.post(SERVER_URL + '/announce/deleteAnnounce', name, {
         auth: {
           username: email,
           password: password
@@ -105,6 +106,8 @@ function Course(props) {
   //           console.error('Error:', error);
   //       });
   //   },[]);
+
+
   return (
     <div className='Cbody' >
       <nav className='Cnav'>
@@ -128,6 +131,7 @@ function Course(props) {
           <button className="tablinks" onClick={(event) => trigger(event, 'Announcement')}>Announcement</button>
         </div>
         <div className='Cdata'>
+
           <div id="Details" style={{ color: "white" }} className="Ctabcontent ">
             <div className='Cdetails'>
               <header className='Cheader'>
@@ -153,7 +157,7 @@ function Course(props) {
               <div key={index} className='CLecture1'>
                 <div className='Ctitle'>
                   <a href={lecture.link} target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {lecture.name}</a>
-                  <button className='CTeacBut' onClick={(event) => DeleteLec(event, lecture.name)}>Delete</button>
+                  <button className='CTeacBut' onClick={DeleteLec(lecture.id)}>Delete</button>
                 </div>
                 <h6 className='Ch6'>Description:</h6>
                 <p>{lecture.description}</p>
@@ -169,7 +173,7 @@ function Course(props) {
               <div key={index} className='CLecture1'>
                 <div className='Ctitle'>
                   <h2 target="_blank" className='Clink'>Announcement title: {anouncement.name}</h2>
-                  <button className='CTeacBut' onClick={(event) => DeleteAnno(event, anouncement.name)}>Delete</button>
+                  <button className='CTeacBut' onClick={DeleteAnno(anouncement.name)}>Delete</button>
                 </div>
                 <h6 className='Ch6'>Description:</h6>
                 <p>{anouncement.description}</p>

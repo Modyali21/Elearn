@@ -6,10 +6,10 @@ import axios from 'axios';
 
 function MakeLecture(props) {
   const [info,setInfo] = useState({
-    courseCode: props.cid,
-    lectureName : '',
-    lectureLink : '',
-    description : ''
+    courseCode: "SCC",
+    title : '',
+    description : '',
+    videoLink : ''
   })
 
 function handleChange(event){
@@ -21,13 +21,15 @@ async function handleSubmit(e){
       try{
         let email = props.user.email
         let password = props.user.password
-        axios.post(SERVER_URL+'/course/addLecture',info,{
+        axios.post(SERVER_URL+'/lecture/create',info,{
               auth: {
                   username: email,
                   password: password
               }
           }).then(response=>{
               alert(response.data)
+          }).catch(err => {
+            alert(err.response.data)
           })
     }
     catch{
@@ -57,11 +59,15 @@ async function handleSubmit(e){
                 <div className='MCform2'>
                 <div className='MClab'>
                     <label for="">Lecture Name:</label>
-                    <input type="text" id="lectureName" className='MCin' name="lectureName" onChange={handleChange} required/>
+                    <input type="text" id="title" className='MCin' name="title" onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
                     <label for="">Lecture Link:</label>
                     <input type="url" id="lectureLink" className='MCin' name="lectureLink" onChange={handleChange} required/>
+                    </div>
+                    <div className='MClab'>
+                    <label for="">Lecture Duration:</label>
+                    <input type="number" id="duration" className='MCin' name="duration" min="1" max="600" placeholder='In Minutes'  onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
                     <label for="">Description: </label>

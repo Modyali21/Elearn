@@ -9,7 +9,7 @@ function MakeCourse(props) {
     courseCode: '',
     courseName : '',
     description : '',
-    deadLine : ''
+    deadLine : '',
   })
 function handleChange(event){
     setInfo({...info,[event.target.name]:event.target.value})

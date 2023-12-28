@@ -186,7 +186,7 @@ function handleRepass(event){
 
             <div className="SSfirst">
                 <img className='SSLOGO' src={require('../../images/e-learn.jpg')} alt='logo'/>
-                <h1>Sign Up</h1>
+                <h1 style={{color:"white"}}>Sign Up</h1>
             </div>
             <div className="SSSecond">
                 <h5>Welcome to Our E-Learning Platform! 🚀</h5>
