@@ -9,8 +9,7 @@ function MakeCourse(props) {
     courseCode: '',
     courseName : '',
     description : '',
-    deadLine : '',
-    email: props.user.email
+    deadLine : ''
   })
 function handleChange(event){
     setInfo({...info,[event.target.name]:event.target.value})
@@ -21,7 +20,7 @@ async function handleSubmit(e){
       try{
         let email = props.user.email
         let password = props.user.password
-        axios.post(SERVER_URL+'/course/addCourse',info,{
+        axios.post(SERVER_URL+'/instructor/addCourse',info,{
               auth: {
                   username: email,
                   password: password
@@ -45,7 +44,6 @@ async function handleSubmit(e){
         </div>
         <div className='MClinks'>
         <a href={"/profile"} style={{textDecoration:"none"}}  className='MCbut'>Home</a>
-        <a href={"/courseenroll"} style={{textDecoration:"none"}}  className='MCbut'>Available Courses</a>
         <a href={"/updateprofile"} style={{textDecoration:"none"}}  className='MCbut'>Edit profile</a>
         <a href={"/"} style={{textDecoration:"none"}}  className='MCbut'>Log out</a>
 
