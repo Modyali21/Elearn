@@ -16,9 +16,9 @@ const StudentTable = (props) => {
         degree: '',
         ssn: '',
         birthDate: '',
-        maxResults: 5,
-        firstResult : 5,
-        sortBy: '',
+        maxResults: 8,
+        firstResult : counter,
+        sortBy: 'firstName',
         descending: false,
         or: false
     })
@@ -116,7 +116,7 @@ const StudentTable = (props) => {
                     <input type={'text'} name='ssn' placeholder='Student SSN' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type="date" name="birthDate" placeholder='Birthdate' max="2030-12-31" required onChange={handleChange} />
+                    <input type="date" name="birthDate" placeholder='Birthdate' max="2030-12-31" onChange={handleChange} />
                 </div>
                 <div className='find'>
                     <select name='sortBy' onChange={handleChange}>

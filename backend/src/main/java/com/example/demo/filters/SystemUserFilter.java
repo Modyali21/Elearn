@@ -35,26 +35,29 @@ public class SystemUserFilter<T extends SystemUser, R extends SystemUserFilterDe
     @Override
     public Predicate getPredicates(CriteriaBuilder criteriaBuilder, Root<T> root) {
         List<Predicate> predicates = new ArrayList<>();
-        if (systemUserFilterDetails.getFirstName() != null) {
+        if (systemUserFilterDetails.getFirstName() != null && !systemUserFilterDetails.getFirstName().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "firstName", systemUserFilterDetails.getFirstName()));
         }
-        if (systemUserFilterDetails.getLastName() != null) {
+        if (systemUserFilterDetails.getLastName() != null && !systemUserFilterDetails.getLastName().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "lastName", systemUserFilterDetails.getLastName()));
         }
-        if (systemUserFilterDetails.getDegree() != null) {
+        if (systemUserFilterDetails.getDegree() != null && !systemUserFilterDetails.getDegree().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "degree", systemUserFilterDetails.getDegree()));
         }
-        if (systemUserFilterDetails.getPhone() != null) {
+        if (systemUserFilterDetails.getPhone() != null && !systemUserFilterDetails.getPhone().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "phone", systemUserFilterDetails.getPhone()));
         }
-        if (systemUserFilterDetails.getEmail() != null) {
+        if (systemUserFilterDetails.getEmail() != null && !systemUserFilterDetails.getEmail().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "email", systemUserFilterDetails.getEmail()));
         }
-        if (systemUserFilterDetails.getSsn() != null) {
+        if (systemUserFilterDetails.getSsn() != null && !systemUserFilterDetails.getSsn().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "ssn", systemUserFilterDetails.getSsn()));
         }
-        if (systemUserFilterDetails.getSchool() != null) {
+        if (systemUserFilterDetails.getSchool() != null && !systemUserFilterDetails.getSchool().isEmpty()) {
             predicates.add(like(criteriaBuilder, root, "school", systemUserFilterDetails.getSchool()));
+        }
+        if(systemUserFilterDetails.getBirthDate()!=null){
+            predicates.add(equal(criteriaBuilder,root,"birthDate",systemUserFilterDetails.getBirthDate()));
         }
         if (systemUserFilterDetails.isOr()) {
             return or(criteriaBuilder, root, predicates.toArray(Predicate[]::new));

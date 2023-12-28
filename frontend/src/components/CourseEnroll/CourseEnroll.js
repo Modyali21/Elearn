@@ -74,7 +74,7 @@ function CourseEnroll(props) {
             <h6 className='ECname2'>Available Courses</h6>
           </div>
           <form className='ECsearcgbar' onSubmit={handleSubmit}>
-            <input type="text" placeholder="Course Name" onChange={handleChange} className='ECsearch' name="courseName" required />
+            <input type="text" placeholder="Course Name" onChange={handleChange} className='ECsearch' name="courseName" />
             {/* <input type="text" placeholder="Instructor Name" onChange={handleChange} className='ECsearch' name="instructorName"/> */}
             <button type="submit" className='ECSebut'><img className='ECsearchlogo' src={require('../../images/icons8-search-50.png')} alt='searchlogo' style={{ width: '25px' }} /> Search</button>
             {/* <select className='ECSebut' placeholder='None'id='filter'  name="filtertype" onChange={handleChange} required>
