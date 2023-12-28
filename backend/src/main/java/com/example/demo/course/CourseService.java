@@ -111,7 +111,7 @@ public class CourseService {
 
     public Page<Course> getAvailableCourses(long studentId, String courseName) {
         Specification<Course> spec;
-        if (!courseName.isEmpty()) {
+        if (courseName != null && !courseName.isEmpty()) {
             spec = filterCourses(studentId, false).and((root, cq, cb) -> cb.like(root.get("courseName"),
                                                                                  "%" + courseName + "%"));
         } else {
