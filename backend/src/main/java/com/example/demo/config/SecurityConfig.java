@@ -51,6 +51,8 @@ public class SecurityConfig {
                                                            .hasRole("ADMIN")
                                                            .requestMatchers("/announce/**")
                                                            .permitAll()
+                                                            .requestMatchers("/lecture/**")
+                                                                .permitAll()
                                                            .requestMatchers("/instructor/**")
                                                            .hasRole("INSTRUCTOR")
                                                            .requestMatchers("/student/**")

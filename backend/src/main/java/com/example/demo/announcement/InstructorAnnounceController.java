@@ -38,9 +38,9 @@ public class InstructorAnnounceController {
 
     }
 
-    @GetMapping("/getAllAnnounce")
-    public List<Announcement> getAllAnnouncements(@RequestBody String courseCode) {
-
+    @GetMapping("/getAllAnnounce/{courseCode}")
+    public List<Announcement> getAllAnnouncements(@PathVariable String courseCode) {
+        System.out.println("courseCode:"+courseCode);
         return announcementServices.getAllAnnounceOfCourse(courseCode);
     }
 

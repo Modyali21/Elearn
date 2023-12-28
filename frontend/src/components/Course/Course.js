@@ -1,11 +1,12 @@
 import './Course.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from "../../constants"
 
 function Course(props) {
   var teacher = props.user.page;
+  console.log(props.course)
   function trigger(evt, cityName) {
     var i, tabcontent, tablinks, cityElement;
     cityElement = document.getElementById(cityName);
@@ -43,9 +44,7 @@ function Course(props) {
   }
   const [Lecture, setLectures] = useState([]);
   const [Anouncement, setAnouncements] = useState([]);
-  const [Details, setDetails] = useState([]);
-  const [Total, setTotal] = useState([]);
-  async function DeleteLec(id) {
+   function DeleteLec(id) {
     // e.preventDefault();
     console.log(id);
     try {
@@ -65,7 +64,7 @@ function Course(props) {
     }
 
   };
-  async function DeleteAnno(name) {
+   function DeleteAnno(name) {
     // e.preventDefault();
     console.log(name);
     try {
@@ -85,29 +84,33 @@ function Course(props) {
     }
 
   };
-  
-  // useEffect(() => {
-  //   console.log(props.user.email)
-  //   console.log(props.user.password)
-  //   axios.get(SERVER_URL + '/course/lecture',{
-  //       auth: {
-  //           username: props.user.email,
-  //           password: props.user.password
-  //       }
-  //       })
-  //       .then(response => {
-  //           console.log(response.data)
-  //           setTotal(response.data)
-  //           setLectures(Total.lectures);
-  //           setAnouncements(Total.anouncements);
-  //           setDetails(Total.details);
-  //       })
-  //       .catch(error => {
-  //           console.error('Error:', error);
-  //       });
-  //   },[]);
 
 
+////////////////////////////////////get Lecture/////////////////////////////////////
+useEffect(() => {
+    console.log(props.user.email)
+    console.log(props.user.password)
+    axios.get(SERVER_URL + `/lecture/getLectures/${props.course.courseCode}`)
+        .then(response => {
+            console.log(response.data)
+            setLectures(response.data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    },[]);
+  ////////////////////////////////////get Announcement/////////////////////////////////////
+useEffect(() => {
+    axios.get(SERVER_URL + `/announce/getAllAnnounce/${props.course.courseCode}`)
+        .then(response => {
+            console.log(response.data)
+            setAnouncements(response.data);
+            console.log(Anouncement)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    },[]);
   return (
     <div className='Cbody' >
       <nav className='Cnav'>
@@ -135,16 +138,22 @@ function Course(props) {
           <div id="Details" style={{ color: "white" }} className="Ctabcontent ">
             <div className='Cdetails'>
               <header className='Cheader'>
-                <h1 className='Cht'>Algorithm{Details.courseName}</h1>
+                <h1 className='Cht'>{props.course.courseName}</h1>
               </header>
 
-              <section className='Cheader'>
+              <section className='Cheader2'>
                 <h3 className='Ch1'>Course Description</h3>
-                <h5 className='Ch5'>The title attribute provides a tooltip message that will be displayed when users hover over the input, giving them guidance on the allowed range.{Details.description}</h5>
+                <h5 className='Ch5'>{props.course.description}</h5>
               </section >
               <section className='Cheader'>
                 <h3 className='Ch1'>DeadLine</h3>
-                <h5>22/33/44{Details.deadline}</h5>
+                <h5>{
+                  new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  }).format(new Date(props.course.deadLine))
+                }</h5>
               </section>
             </div>
           </div>
@@ -156,8 +165,8 @@ function Course(props) {
             {Lecture.map((lecture, index) => (
               <div key={index} className='CLecture1'>
                 <div className='Ctitle'>
-                  <a href={lecture.link} target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {lecture.name}</a>
-                  <button className='CTeacBut' onClick={DeleteLec(lecture.id)}>Delete</button>
+                  <a href={lecture.videoLink} target="_blank" className='Clink' rel="noopener noreferrer">Lecture title: {lecture.title}</a>
+                  <button className='CTeacBut' onClick={() => DeleteLec(lecture.id)}>Delete</button>
                 </div>
                 <h6 className='Ch6'>Description:</h6>
                 <p>{lecture.description}</p>
@@ -172,8 +181,8 @@ function Course(props) {
             {Anouncement.map((anouncement, index) => (
               <div key={index} className='CLecture1'>
                 <div className='Ctitle'>
-                  <h2 target="_blank" className='Clink'>Announcement title: {anouncement.name}</h2>
-                  <button className='CTeacBut' onClick={DeleteAnno(anouncement.name)}>Delete</button>
+                  <h2 target="_blank" className='Clink'>Announcement title: {anouncement.announcementName}</h2>
+                  <button className='CTeacBut' onClick={() => DeleteAnno(anouncement.announcementName)}>Delete</button>
                 </div>
                 <h6 className='Ch6'>Description:</h6>
                 <p>{anouncement.description}</p>
@@ -188,3 +197,7 @@ function Course(props) {
 }
 
 export default Course;
+
+
+
+

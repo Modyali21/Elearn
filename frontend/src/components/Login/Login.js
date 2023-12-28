@@ -43,7 +43,7 @@ function Login({ onLogin }) {
     if (isValidEmail && isValidPassword) {
       axios.post(SERVER_URL + '/login', info).then(response => {
         setInfo(prev => ({ ...prev, page: response.data }))
-        alert(response.data)
+        // alert(response.data)
         onLogin({
           email: info.email, password: info.password, page: response.data
         })
