@@ -17,6 +17,11 @@ const UserInfo = (props) => {
                         <li >Degree: <span>{props.information.degree}</span></li>
                     </ul>
                 </div>
+                <div className='info-container'>
+                    {props.user.page === 2 || props.user.page === 3 ? (
+                        <Link to={'/admin'}><button className='btn btnn my-3'>Go to admin page</button></Link>
+                    ): <></>}
+                </div>
             </div>
         </div>
         

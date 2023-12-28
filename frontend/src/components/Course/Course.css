@@ -212,11 +212,38 @@
     width: 100px;
     height: 40px;
     border-radius: 30px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     border: none;
+}
+.CTeacBut2{
+    background-color: white;
+    color: var(--blue);
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--blue);
+    width: 300px;
+    height: 50px;
+    border-radius: 30px;
     display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.CTeacBut2:hover{
+    color: var(--blue);
+    background-color:rgb(230, 230, 230);
+}
+.CTeacBut2:active{
+    color: var(--blue);
+    font-size: smaller;
+}
+.CAdd{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .CTeacBut:hover{
     color: white;

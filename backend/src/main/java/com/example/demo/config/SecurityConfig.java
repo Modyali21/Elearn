@@ -49,6 +49,7 @@ public class SecurityConfig {
                                                            .permitAll()
                                                            .requestMatchers("/admin/**")
                                                            .hasRole("ADMIN")
+                                                            .requestMatchers("/announce/**").permitAll()
                                                            .anyRequest()
                                                            .authenticated())
             .httpBasic(Customizer.withDefaults())

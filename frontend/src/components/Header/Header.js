@@ -4,33 +4,26 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 navbar-cont">
-            <h2><Link to={'/profile'} class="navbar-brand" href="/">ELearning Platform</Link></h2>
+            <h2><Link to={'/elearning'} class="navbar-brand">ELearning Platform</Link></h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+            <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/elearning">Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Features</a>
+                        <a class="nav-link " href="/profile">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Pricing</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/">Action</a>
-                            <a class="dropdown-item" href="/">Another action</a>
-                            <a class="dropdown-item" href="/">Something else here</a>
-                        </div>
+                        <a class="nav-link" href="/course">Courses</a>
                     </li>
                     <li class="nav-item">
-                        <Link to={'/signup'} class="nav-link" >log out</Link>
+                        <a to={'/signup'} class="nav-link" href='/' >login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a to={'/signup'} class="nav-link" href='/signup' >Register</a>
                     </li>
         </ul>
     </div>

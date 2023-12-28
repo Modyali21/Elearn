@@ -7,27 +7,26 @@
     width: 150px;
     border-radius: 50%;
     height: 150px;
-    border: 5px solid rgb(255, 255, 255);
+    border: 5px solid rgb(142, 142, 142);
 }
 .all-profile{
     height: 550px;
-    background-image:url("../../images/background11.jpg");
+    background-image:url("../../images/photo-1621619856624-42fd193a0661.avif");
     background-position: center;
     background-size: cover;
     display: flex;
     justify-content: space-evenly;
     overflow: hidden;
     margin-bottom: 50px;
+    
 }
 .image-container{
-    color: black;
     position: relative;
     top: 200px;
     width: 380px;
     /* height: 100%; */
     border-radius: 50px;
-    background-color: rgb(255, 255, 255);
-    
+    background-color: rgba(2, 2, 2, 0.637);
 }
 .profile{
     width: 100%;
@@ -38,6 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 .button{
     padding: 5px;
@@ -45,7 +45,7 @@
 }
 .buttons{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 #file-input {
@@ -61,7 +61,7 @@
     font-size: 22px;
 }
 .image-container .profile .user-about{
-    color: rgb(105, 105, 105);
+    color: rgb(255, 255, 255);
     font-size: 15px;
     padding: 0px 15px;
 
