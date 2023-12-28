@@ -38,7 +38,7 @@ public class LectureController {
             return  ResponseEntity.status(409).body("No course with this code");
 
         }
-        if (!(course.getInstructorId()==instructor.getId())) {
+        if (!(course.getInstructor().getId()==instructor.getId())) {
             return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
         }
          ls.createLecture(info,course);
@@ -64,7 +64,7 @@ public class LectureController {
             return  ResponseEntity.status(409).body("No course with this code");
 
         }
-        if (!(course.getInstructorId()==instructor.getId())) {
+        if (!(course.getInstructor().getId()==instructor.getId())) {
             return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
 
         }

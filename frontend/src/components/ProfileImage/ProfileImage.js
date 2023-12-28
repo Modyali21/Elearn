@@ -40,11 +40,15 @@ const ProfileImage = (props) => {
                     <h3 id="header2">Boost your knowlegde</h3>
                     <span className="intro-discription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt recusandae ea dolorem nemo perspiciatis quasi mollitia fugiat quae ullam neque voluptatum illo unde, facere accusamus provident quos et quidem dignissimos, assumenda dolore nisi. Natus nemo perspiciatis facilis hic, quia accusantium totam nesciunt! Ab deleniti animi sint natus temporibus impedit qui sapiente eius.</span>
                     <div className="buttons">
-                        {props.role === 'instructor' ||  props.role === 'admin' ?
+                        {(props.role === 'instructor' ||  props.role === 'admin') ?
                             (<div className="button"><Link to="/makecourse" className="btn btn-light ">Create Course</Link></div>) :
                             (<></>)
                         }
-                        <div className="button"><Link to="/courseenroll" className="btn btn-light ">View Courses</Link></div>
+                        {(props.role === 'instructor' ||  props.role === 'admin') ?
+                            (<></>) :
+                            (<div className="button"><Link to="/courseenroll" className="btn btn-light ">View Courses</Link></div>)
+                        }
+
                     </div>
                 </div>
             </div>

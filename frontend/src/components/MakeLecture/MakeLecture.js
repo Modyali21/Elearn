@@ -63,7 +63,11 @@ async function handleSubmit(e){
                     </div>
                     <div className='MClab'>
                     <label for="">Lecture Link:</label>
-                    <input type="url" id="videoLink" className='MCin' name="videoLink" onChange={handleChange} required/>
+                    <input type="url" id="lectureLink" className='MCin' name="lectureLink" onChange={handleChange} required/>
+                    </div>
+                    <div className='MClab'>
+                    <label for="">Lecture Duration:</label>
+                    <input type="number" id="duration" className='MCin' name="duration" min="1" max="600" placeholder='In Minutes'  onChange={handleChange} required/>
                     </div>
                     <div className='MClab'>
                     <label for="">Description: </label>

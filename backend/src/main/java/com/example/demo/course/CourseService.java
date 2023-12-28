@@ -4,16 +4,20 @@ import com.example.demo.student.Student;
 import com.example.demo.student.StudentRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import jakarta.persistence.metamodel.Attribute;
 import jakarta.persistence.metamodel.EntityType;
 import jakarta.persistence.metamodel.Metamodel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -26,26 +30,31 @@ public class CourseService {
     StudentRepository studentRepository;
     @Autowired
     private EntityManager entityManager;
-    public Course saveCourseDetails(Course course){
+
+    public Course saveCourseDetails(Course course) {
         return courseRepository.save(course);
     }
-    public List<Course> getAllCourses(){
+
+    public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
-    public Course getCourseById(String courseCode){
+
+    public Course getCourseById(String courseCode) {
         return courseRepository.findById(courseCode).orElse(null);
     }
-    public ResponseEntity<String> deleteCourse(Course course){
+
+    public ResponseEntity<String> deleteCourse(Course course) {
         courseRepository.deleteById(course.getCourseCode());
         return ResponseEntity.status(200).body("deleted Successfully the course ");
     }
-    public List<Course> sortBy(String criteria){
+
+    public List<Course> sortBy(String criteria) {
         Metamodel metamodel = entityManager.getMetamodel();
         EntityType<Course> courseEntityType = metamodel.entity(Course.class);
         Set<String> attributeNames = courseEntityType.getAttributes().stream()
-                .map(Attribute::getName)
-                .collect(java.util.stream.Collectors.toSet());
-        if(!attributeNames.contains(criteria)){
+                                                     .map(Attribute::getName)
+                                                     .collect(java.util.stream.Collectors.toSet());
+        if (!attributeNames.contains(criteria)) {
             return null;
         }
 
@@ -54,31 +63,22 @@ public class CourseService {
         return query.getResultList();
 
     }
-    public ResponseEntity<String> enrollCourse(String courseCode, long studentId){
-        Set<Course> courseSet = null;
-        Student student=null;
-        Course course=null;
 
-        ///get the student with specified id
-        if(studentRepository.findById(studentId).isPresent())
-            student= studentRepository.findById(studentId).get();
-        else{
-            //bad request
-            return ResponseEntity.status(400).body("this student doesn't exists");
-        }
+    public ResponseEntity<String> enrollCourse(String courseCode, Student student) {
+        Set<Course> courseSet = null;
+        Course course = null;
 
         /// get the course with specified course code
-        if(courseRepository.findById(courseCode).isPresent())
-         course = courseRepository.findById(courseCode).get();
+        if (courseRepository.findById(courseCode).isPresent())
+            course = courseRepository.findById(courseCode).get();
         else {
-            ///bad request
-            return ResponseEntity.status(400).body("this student doesn't exists");
+            return ResponseEntity.status(409).body("the course doesn't exist");
         }
 
         ///comparing deadlines
         LocalDateTime localDateTime = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(localDateTime);
-        int comparisonResult=course.getDeadLine().compareTo(date);
+        int comparisonResult = course.getDeadLine().compareTo(date);
         if (comparisonResult < 0) {
             return ResponseEntity.status(406).body("Your date is in the past.");
         }
@@ -86,7 +86,7 @@ public class CourseService {
 
         //fetch the set of course the student is enrolled, then add the new course
         courseSet = student.getEnrolledCourses();
-        if(courseSet.contains(course)){
+        if (courseSet.contains(course)) {
             return ResponseEntity.status(400).body("Already Enrolled");
         }
         courseSet.add(course);
@@ -94,22 +94,28 @@ public class CourseService {
         studentRepository.save(student);
         return ResponseEntity.status(200).body("enrolled successfully");
     }
-    public Set<Course> getEnrolledCourses(long studentId){
-        Student student = studentRepository.findById(studentId).orElse(null);
-        Set<Course> enrolled =student.getEnrolledCourses();
-        return enrolled;
-    }
-    public List<Course> getUnEnrolledCourse(long studentId){
-        Student student = studentRepository.findById(studentId).orElse(null);
-        Set<Course> courseOfStudent= student.getEnrolledCourses();
-        List<Course> allCourses= courseRepository.findAll();
-        List<Course> unEnrolled= new ArrayList<>();
-        for(Course c :allCourses){
-            if(!courseOfStudent.contains(c)){
-                unEnrolled.add(c);
+
+    public Specification<Course> filterCourses(long studentId, boolean enrolled) {
+        return (root, cq, cb) -> {
+            Subquery<Course> sq = cq.subquery(Course.class);
+            Root<Course> c2 = sq.from(Course.class);
+            Join<Course, Student> x = c2.join("studentSet");
+            sq.where(cb.and(cb.equal(x.get("id"), studentId), cb.equal(c2.get("courseCode"), root.get("courseCode"))));
+            if (enrolled) {
+                return cb.exists(sq);
+            } else {
+                return cb.exists(sq).not();
             }
-        }
-        return unEnrolled;
+        };
+    }
+
+    public Page<Course> getAvailableCourses(long studentId, String courseName) {
+        return courseRepository.findAll(filterCourses(studentId, false).and((root, cq, cb) -> cb.like(root.get(
+                "courseName"), "%" + courseName + "%")), PageRequest.of(0, 20));
+    }
+
+    public Page<Course> getEnrolledCourses(long studentId) {
+        return courseRepository.findAll(filterCourses(studentId, true), PageRequest.of(0, 20));
     }
 
 }

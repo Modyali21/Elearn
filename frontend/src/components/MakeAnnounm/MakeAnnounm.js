@@ -8,8 +8,9 @@ function MakeAnnounm(props) {
     const [info, setInfo] = useState({
         announcementName: '',
         description: '',
-        courseCode: "SCC"
+        courseCode: props.cid
     })
+
 
     function handleChange(event) {
         setInfo({ ...info, [event.target.name]: event.target.value })

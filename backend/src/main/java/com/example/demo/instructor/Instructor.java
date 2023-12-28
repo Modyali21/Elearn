@@ -1,11 +1,10 @@
 package com.example.demo.instructor;
 
+import com.example.demo.course.Course;
 import com.example.demo.systemUser.SystemUser;
 import com.example.demo.systemUser.SystemUserDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,11 @@ public class Instructor extends SystemUser {
     @Getter
     @Setter
     private boolean hasPrivilege;
+
+    @Getter
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Course> courses;
 
     public Instructor() {
         super();
