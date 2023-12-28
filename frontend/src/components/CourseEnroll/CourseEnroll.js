@@ -29,7 +29,9 @@ function CourseEnroll(props) {
     }).then(response => {
       console.log(response.data)
       setCourses(response.data)
-    })
+    }).catch(error => {
+      alert(error.response.data);
+    });
   }
 
   function Enroll(cId) {

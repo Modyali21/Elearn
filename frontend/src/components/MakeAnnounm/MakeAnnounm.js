@@ -8,7 +8,7 @@ function MakeAnnounm(props) {
     const [info, setInfo] = useState({
         announcementName: '',
         description: '',
-        courseCode: props.cid
+        courseCode: props.course.courseCode
     })
 
 

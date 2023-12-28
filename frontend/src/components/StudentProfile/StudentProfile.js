@@ -44,7 +44,7 @@ const StudentProfile = (props) => {
                     degree: studentData?.degree
                 }
             } user={props.user} />
-            <EnrolledCourses user={props.user} role={getRole(props.user.page)} />
+            <EnrolledCourses user={props.user} role={getRole(props.user.page)} FuncCourse = {props.courseContent} />
 
         </div>
     )
