@@ -1,7 +1,6 @@
 package com.example.demo.student;
 
 import com.example.demo.systemUser.SystemUserService;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service

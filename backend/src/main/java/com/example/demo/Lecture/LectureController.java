@@ -26,60 +26,57 @@ public class LectureController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator , @RequestBody recieveLectureDTO info ){
+    public ResponseEntity<String> createLecture(@AuthenticationPrincipal CustomUserDetails creator,
+                                                @RequestBody recieveLectureDTO info) {
 
-        if(!is.emailTaken(creator.getUsername())){
+        if (!is.emailTaken(creator.getUsername())) {
             return ResponseEntity.status(403).body("Not Authorized to create lectures!");
 
         }
-        Course course =cs.getCourseById(info.getCourseCode());
-        Instructor instructor =(Instructor) creator.getSystemUser();
-        if(course==null){
-            return  ResponseEntity.status(409).body("No course with this code");
+        Course course = cs.getCourseById(info.getCourseCode());
+        Instructor instructor = (Instructor) creator.getSystemUser();
+        if (course == null) {
+            return ResponseEntity.status(409).body("No course with this code");
 
         }
-        if (!(course.getInstructor().getId()==instructor.getId())) {
-            return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
+        if (!(course.getInstructor().getId() == instructor.getId())) {
+            return ResponseEntity.status(403).body("Not Authorized! it is not your course");
         }
-         ls.createLecture(info,course);
-         return ResponseEntity.status(200).body(" Done! Lecture is added");
-
-
-
-
-
-
+        ls.createLecture(info, course);
+        return ResponseEntity.status(200).body(" Done! Lecture is added");
 
 
     }
+
     @DeleteMapping("/delete/{cid}/{lid}")
-    public ResponseEntity<String> deleteLecture(@AuthenticationPrincipal CustomUserDetails creator , @PathVariable(name="cid") String courseCode , @PathVariable(name="lid") long lectureId){
-        if(!is.emailTaken(creator.getUsername())){
+    public ResponseEntity<String> deleteLecture(@AuthenticationPrincipal CustomUserDetails creator,
+                                                @PathVariable(name = "cid") String courseCode, @PathVariable(name =
+            "lid") long lectureId) {
+        if (!is.emailTaken(creator.getUsername())) {
             return ResponseEntity.status(403).body("Not Authorized to delete lectures!");
 
         }
-        Course course =cs.getCourseById(courseCode);
-        Instructor instructor =(Instructor) creator.getSystemUser();
-        if(course==null){
-            return  ResponseEntity.status(409).body("No course with this code");
+        Course course = cs.getCourseById(courseCode);
+        Instructor instructor = (Instructor) creator.getSystemUser();
+        if (course == null) {
+            return ResponseEntity.status(409).body("No course with this code");
 
         }
-        if (!(course.getInstructor().getId()==instructor.getId())) {
-            return  ResponseEntity.status(403).body("Not Authorized! it is not your course");
+        if (!(course.getInstructor().getId() == instructor.getId())) {
+            return ResponseEntity.status(403).body("Not Authorized! it is not your course");
 
         }
-       if(!ls.deleteLecture(lectureId,course)) {
-           return ResponseEntity.status(409).body("No lecture with this id in this course");
-       }
-       else{
-           return ResponseEntity.status(200).body("Done! Lecture is deleted");
+        if (!ls.deleteLecture(lectureId, course)) {
+            return ResponseEntity.status(409).body("No lecture with this id in this course");
+        } else {
+            return ResponseEntity.status(200).body("Done! Lecture is deleted");
 
-       }
+        }
 
     }
 
     @GetMapping("/getLectures/{cid}")
-    public List<sendLectureDTO> getAllLectures(@PathVariable(name = "cid") String cid){
+    public List<sendLectureDTO> getAllLectures(@PathVariable(name = "cid") String cid) {
         return ls.getAllLectures(cid);
 
 

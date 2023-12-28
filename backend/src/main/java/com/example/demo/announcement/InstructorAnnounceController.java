@@ -2,7 +2,6 @@ package com.example.demo.announcement;
 
 import com.example.demo.config.CustomUserDetails;
 import com.example.demo.instructor.Instructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,6 @@ import java.util.List;
 public class InstructorAnnounceController {
 
 
-
     private final AnnouncementServices announcementServices;
 
     public InstructorAnnounceController(AnnouncementServices announcementServices) {
@@ -23,27 +21,28 @@ public class InstructorAnnounceController {
     }
 
     @PostMapping("/addAnnounce")
-    public ResponseEntity<String> addAnnounce (@AuthenticationPrincipal CustomUserDetails user,
-                                               @RequestBody AnnouncementDTO announcementDTO){
-        if(!(user.getSystemUser() instanceof Instructor instructor)){
+    public ResponseEntity<String> addAnnounce(@AuthenticationPrincipal CustomUserDetails user,
+                                              @RequestBody AnnouncementDTO announcementDTO) {
+        if (!(user.getSystemUser() instanceof Instructor instructor)) {
             return ResponseEntity.status(401).body("not an instructor");
         }
-        return announcementServices.addAnnounce(instructor,announcementDTO);
+        return announcementServices.addAnnounce(instructor, announcementDTO);
     }
+
     @PostMapping("/deleteAnnounce")
     public ResponseEntity<String> deleteAnnounce(
             @AuthenticationPrincipal CustomUserDetails user,
-            @RequestBody String announceName){
+            @RequestBody String announceName) {
 
         return announcementServices.deleteAnnounce(announceName);
 
     }
+
     @GetMapping("/getAllAnnounce")
-    public List<Announcement> getAllAnnouncements(@RequestBody String courseCode){
+    public List<Announcement> getAllAnnouncements(@RequestBody String courseCode) {
 
         return announcementServices.getAllAnnounceOfCourse(courseCode);
     }
-
 
 
 }

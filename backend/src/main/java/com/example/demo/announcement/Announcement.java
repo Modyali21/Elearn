@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "announcement",uniqueConstraints =
+@Table(name = "announcement", uniqueConstraints =
         {@UniqueConstraint(columnNames = "announce_name")})
 public class Announcement {
     @Id
