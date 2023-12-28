@@ -3,6 +3,7 @@ package com.example.demo.student;
 import com.example.demo.config.CustomUserDetails;
 import com.example.demo.course.Course;
 import com.example.demo.course.CourseDto;
+import com.example.demo.course.CourseFilterDetails;
 import com.example.demo.course.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,16 +35,13 @@ public class StudentController {
 
     @GetMapping("/enrolledCourses")
     public List<CourseDto> getEnrolledCourses(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        return courseService.getEnrolledCourses(customUserDetails.getSystemUser().getId())
-                            .stream()
-                            .map(Course::toDto)
-                            .toList();
+        return courseService.getEnrolledCourses(customUserDetails.getSystemUser().getId()).map(Course::toDto).toList();
     }
 
-    @GetMapping("/availableCourses")
-    public List<CourseDto> getUnEnrolledCourses(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        return courseService.getUnEnrolledCourse(customUserDetails.getSystemUser().getId())
-                            .stream()
+    @PostMapping("/availableCourses")
+    public List<CourseDto> getUnEnrolledCourses(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                @RequestBody CourseFilterDetails courseFilterDetails) {
+        return courseService.getAvailableCourses(customUserDetails.getSystemUser().getId(), courseFilterDetails.getCourseName())
                             .map(Course::toDto)
                             .toList();
     }

@@ -9,9 +9,6 @@ function CourseEnroll(props) {
   const [courses, setCourses] = useState([]);
   const [info, setInfo] = useState({
     courseName: '',
-    // instructorName : '',
-    // filtertype : '',
-
   })
   function handleChange(event) {
     setInfo({ ...info, [event.target.name]: event.target.value })
@@ -20,20 +17,11 @@ function CourseEnroll(props) {
     e.preventDefault();
     console.log(info);
 
-    try {
-      axios.get(`${SERVER_URL}/course/filter/${info.courseName}`, '', {
-      }).then(response => {
-        console.log(response.data)
-        setCourses(response.data)
-      })
-    }
-    catch {
-      alert("Errorororor");
-    }
+    myFunction();
 
   };
   function myFunction() {
-    axios.get(SERVER_URL + '/student/availableCourses', {
+    axios.post(SERVER_URL + '/student/availableCourses',info ,{
       auth: {
         username: props.user.email,
         password: props.user.password
