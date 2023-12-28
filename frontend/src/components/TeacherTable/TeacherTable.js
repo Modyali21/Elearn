@@ -124,7 +124,7 @@ const TeacherTable = (props) => {
                     <input type={'text'} name='ssn' placeholder='teacher SSN' onChange={handleChange} />
                 </div>
                 <div className='find'>
-                    <input type="date" id="birth" name='birthDate' placeholder='Birthdate' max="2030-12-31" required onChange={handleChange} />
+                    <input type="date" id="birth" name='birthDate' placeholder='Birthdate' max="2030-12-31" onChange={handleChange} />
                 </div>
                 <div className='find'>
                     <select name='sortBy' onChange={handleChange}>

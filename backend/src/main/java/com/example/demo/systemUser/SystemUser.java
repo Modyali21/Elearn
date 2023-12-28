@@ -58,5 +58,6 @@ public abstract class SystemUser {
     }
 
     public abstract List<String> getRole();
+
     public abstract SystemUserDto toDto();
 }

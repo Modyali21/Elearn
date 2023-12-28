@@ -51,7 +51,8 @@ public class CourseService {
     public List<Course> sortBy(String criteria) {
         Metamodel metamodel = entityManager.getMetamodel();
         EntityType<Course> courseEntityType = metamodel.entity(Course.class);
-        Set<String> attributeNames = courseEntityType.getAttributes().stream()
+        Set<String> attributeNames = courseEntityType.getAttributes()
+                                                     .stream()
                                                      .map(Attribute::getName)
                                                      .collect(java.util.stream.Collectors.toSet());
         if (!attributeNames.contains(criteria)) {
@@ -69,8 +70,7 @@ public class CourseService {
         Course course = null;
 
         /// get the course with specified course code
-        if (courseRepository.findById(courseCode).isPresent())
-            course = courseRepository.findById(courseCode).get();
+        if (courseRepository.findById(courseCode).isPresent()) course = courseRepository.findById(courseCode).get();
         else {
             return ResponseEntity.status(409).body("the course doesn't exist");
         }
@@ -110,8 +110,14 @@ public class CourseService {
     }
 
     public Page<Course> getAvailableCourses(long studentId, String courseName) {
-        return courseRepository.findAll(filterCourses(studentId, false).and((root, cq, cb) -> cb.like(root.get(
-                "courseName"), "%" + courseName + "%")), PageRequest.of(0, 20));
+        Specification<Course> spec;
+        if (courseName != null && !courseName.isEmpty()) {
+            spec = filterCourses(studentId, false).and((root, cq, cb) -> cb.like(root.get("courseName"),
+                                                                                 "%" + courseName + "%"));
+        } else {
+            spec = filterCourses(studentId, false);
+        }
+        return courseRepository.findAll(spec, PageRequest.of(0, 20));
     }
 
     public Page<Course> getEnrolledCourses(long studentId) {

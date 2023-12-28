@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -40,13 +39,13 @@ public class LoginController {
                                                          .stream()
                                                          .map(GrantedAuthority::getAuthority).toList();
             int page;
-            if(tmp.contains("ROLE_STUDENT")){
+            if (tmp.contains("ROLE_STUDENT")) {
                 page = 1;
             } else if (tmp.contains("ROLE_INSTRUCTOR") && tmp.contains("ROLE_ADMIN")) {
-                page =3;
-            }else if (tmp.contains("ROLE_INSTRUCTOR")){
+                page = 3;
+            } else if (tmp.contains("ROLE_INSTRUCTOR")) {
                 page = 2;
-            }else {
+            } else {
                 page = 0;
             }
             return ResponseEntity.status(200).body(page);

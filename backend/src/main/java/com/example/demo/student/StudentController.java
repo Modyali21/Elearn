@@ -41,7 +41,8 @@ public class StudentController {
     @PostMapping("/availableCourses")
     public List<CourseDto> getUnEnrolledCourses(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                                 @RequestBody CourseFilterDetails courseFilterDetails) {
-        return courseService.getAvailableCourses(customUserDetails.getSystemUser().getId(), courseFilterDetails.getCourseName())
+        return courseService.getAvailableCourses(customUserDetails.getSystemUser().getId(),
+                                                 courseFilterDetails.getCourseName())
                             .map(Course::toDto)
                             .toList();
     }

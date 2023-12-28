@@ -21,7 +21,7 @@ function CourseEnroll(props) {
 
   };
   function myFunction() {
-    axios.post(SERVER_URL + '/student/availableCourses',info ,{
+    axios.post(SERVER_URL + '/student/availableCourses', info, {
       auth: {
         username: props.user.email,
         password: props.user.password
@@ -33,29 +33,23 @@ function CourseEnroll(props) {
   }
 
   function Enroll(cId) {
-    try {
-      let email = props.user.email;
-      let password = props.user.password;
-      axios.put(SERVER_URL + `/student/enroll/${cId}`, {}, {
-        auth: {
-          username: email,
-          password: password,
-        }
+    let email = props.user.email;
+    let password = props.user.password;
+    axios.put(SERVER_URL + `/student/enroll/${cId}`, {}, {
+      auth: {
+        username: email,
+        password: password,
+      }
+    })
+      .then(response => {
+        alert(response.data);
+        myFunction();
       })
-        .then(response => {
-          alert(response.data);
-          myFunction();
-        })
-        .catch(error => {
-          console.error('Error fetching courses:', error);
-          // Handle error appropriately, e.g., show a user-friendly message
-        });
-    } catch (error) {
-      console.error('Error in Enroll function:', error);
-      // Handle unexpected errors appropriately
-    }
+      .catch(error => {
+        alert(error.response.data);
+      });
   }
-  useEffect(() => {myFunction()}, []);
+  useEffect(() => { myFunction() }, []);
   window.onload = function () {
     myFunction();
     console.log("testtt")
@@ -80,7 +74,7 @@ function CourseEnroll(props) {
             <h6 className='ECname2'>Available Courses</h6>
           </div>
           <form className='ECsearcgbar' onSubmit={handleSubmit}>
-            <input type="text" placeholder="Course Name" onChange={handleChange} className='ECsearch' name="courseName" required />
+            <input type="text" placeholder="Course Name" onChange={handleChange} className='ECsearch' name="courseName" />
             {/* <input type="text" placeholder="Instructor Name" onChange={handleChange} className='ECsearch' name="instructorName"/> */}
             <button type="submit" className='ECSebut'><img className='ECsearchlogo' src={require('../../images/icons8-search-50.png')} alt='searchlogo' style={{ width: '25px' }} /> Search</button>
             {/* <select className='ECSebut' placeholder='None'id='filter'  name="filtertype" onChange={handleChange} required>

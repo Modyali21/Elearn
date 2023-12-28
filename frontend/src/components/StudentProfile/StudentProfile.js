@@ -31,7 +31,7 @@ const StudentProfile = (props) => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    },[]);
+    }, []);
     return (
         <div>
             <ProfileImage name={`${studentData?.firstName} ${studentData?.lastName}`} role={getRole(props.user.page)} page={props.user.page} />
@@ -44,7 +44,7 @@ const StudentProfile = (props) => {
                     degree: studentData?.degree
                 }
             } user={props.user} />
-            {props.user.page === 1 ? <EnrolledCourses courseFun={props.courseId} /> : <></>}
+            <EnrolledCourses user={props.user} role={getRole(props.user.page)} />
 
         </div>
     )

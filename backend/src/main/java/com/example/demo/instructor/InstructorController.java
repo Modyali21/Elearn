@@ -31,9 +31,11 @@ public class InstructorController {
             return ResponseEntity.status(409).body("the course already exists");
         }
         Instructor instructor = (Instructor) user.getSystemUser();
-        Course course = Course.builder().courseCode(courseCreationDto.getCourseCode())
+        Course course = Course.builder()
+                              .courseCode(courseCreationDto.getCourseCode())
                               .courseName(courseCreationDto.getCourseName())
                               .deadline(courseCreationDto.getDeadLine())
+                              .description(courseCreationDto.getDescription())
                               .instructor(instructor)
                               .build();
         courseService.saveCourseDetails(course);

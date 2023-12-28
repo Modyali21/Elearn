@@ -1,46 +1,42 @@
 package com.example.demo.Lecture;
 
 import com.example.demo.course.Course;
-import com.example.demo.instructor.Instructor;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import lombok.NoArgsConstructor;
-
 
 import java.sql.Date;
 
 @Entity
-@Table(name="lecture")
+@Table(name = "lecture")
 @IdClass(LectureId.class)
 @Data
 @NoArgsConstructor
 public class Lecture {
-    @Id @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Id
-    @ManyToOne( )
-    @JoinColumn(name = "course_code",referencedColumnName = "course_code")
+    @ManyToOne()
+    @JoinColumn(name = "course_code", referencedColumnName = "course_code")
     private Course course;
 
 
-
-
-    @Column(name="video_link" , nullable = false)
+    @Column(name = "video_link", nullable = false)
     private String videoLink;
 
-    @Column(name="title" ,nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="date_created" , nullable = false )
+    @Column(name = "date_created", nullable = false)
     private Date date_created;
 
 
-    public Lecture( Course course, String videoLink, String title, String description, Date date_created) {
+    public Lecture(Course course, String videoLink, String title, String description, Date date_created) {
 
         this.course = course;
 

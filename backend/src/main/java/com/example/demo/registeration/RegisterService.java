@@ -25,7 +25,9 @@ public class RegisterService {
     }
 
     public boolean emailTaken(String email) {
-        return studentService.emailTaken(email) || instructorService.emailTaken(email) || email.equals("admin@admin.com");
+        return studentService.emailTaken(email)
+               || instructorService.emailTaken(email)
+               || email.equals("admin@admin.com");
     }
 
     public boolean ssnTaken(String ssn) {
