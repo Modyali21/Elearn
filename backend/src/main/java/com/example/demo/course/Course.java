@@ -1,5 +1,7 @@
 package com.example.demo.course;
 
+import com.example.demo.Lecture.Lecture;
+import com.example.demo.announcement.Announcement;
 import com.example.demo.instructor.Instructor;
 import com.example.demo.student.Student;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity

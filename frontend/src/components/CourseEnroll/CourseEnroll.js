@@ -21,7 +21,7 @@ function CourseEnroll(props) {
 
   };
   function myFunction() {
-    axios.post(SERVER_URL + '/student/availableCourses',info ,{
+    axios.post(SERVER_URL + '/student/availableCourses', info, {
       auth: {
         username: props.user.email,
         password: props.user.password
@@ -33,29 +33,23 @@ function CourseEnroll(props) {
   }
 
   function Enroll(cId) {
-    try {
-      let email = props.user.email;
-      let password = props.user.password;
-      axios.put(SERVER_URL + `/student/enroll/${cId}`, {}, {
-        auth: {
-          username: email,
-          password: password,
-        }
+    let email = props.user.email;
+    let password = props.user.password;
+    axios.put(SERVER_URL + `/student/enroll/${cId}`, {}, {
+      auth: {
+        username: email,
+        password: password,
+      }
+    })
+      .then(response => {
+        alert(response.data);
+        myFunction();
       })
-        .then(response => {
-          alert(response.data);
-          myFunction();
-        })
-        .catch(error => {
-          console.error('Error fetching courses:', error);
-          // Handle error appropriately, e.g., show a user-friendly message
-        });
-    } catch (error) {
-      console.error('Error in Enroll function:', error);
-      // Handle unexpected errors appropriately
-    }
+      .catch(error => {
+        alert(error.response.data);
+      });
   }
-  useEffect(() => {myFunction()}, []);
+  useEffect(() => { myFunction() }, []);
   window.onload = function () {
     myFunction();
     console.log("testtt")
