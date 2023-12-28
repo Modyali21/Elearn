@@ -1,7 +1,7 @@
 import React from 'react'
-import "./Header.css"
+//import "./Header.css"
 import { Link } from 'react-router-dom';
-const Header = () => {
+const AdminNav = () => {
     return (
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-0 navbar-cont">
             <h2><Link to={'/elearning'} class="navbar-brand">ELearning Platform</Link></h2>
@@ -13,17 +13,12 @@ const Header = () => {
                     <li class="nav-item active">
                         <a class="nav-link" href="/elearning">Home<span class="sr-only">(current)</span></a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link " href="/profile">My Profile</a>
+                        <a to={'/signup'} class="nav-link" href='/' >logout</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/course">Courses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='/' >logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='/signup' >Register</a>
+                        <a to={'/signup'} class="nav-link" href='/signup' >Register</a>
                     </li>
         </ul>
     </div>
@@ -32,4 +27,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default AdminNav

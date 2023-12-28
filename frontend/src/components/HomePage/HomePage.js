@@ -109,7 +109,7 @@ export const HomePage = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div class="copyright">Copyright &copy; 2023-2024 SheHata.com website. MADE BY Mohamed ALy Directed by MR.Mohamed Shehata</div>
+                        <div class="copyright">Copyright &copy; 2023-2024 OnlineLearning.com website. MADE BY SWE Team Directed by ENG.Elnaggar</div>
                     </div>
                 </div>
             </div>
