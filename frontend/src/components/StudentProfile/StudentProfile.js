@@ -3,8 +3,10 @@ import './StudentProfile.css'
 import { ProfileImage, UserInfo, EnrolledCourses } from '../index'
 import axios from 'axios'
 import { SERVER_URL } from '../../constants'
+import { useCookies } from 'react-cookie'
 function getRole(page) {
-    if (page == 1) {
+
+    if (page === 1) {
         return "student"
     } else {
         return "instructor"
@@ -29,7 +31,7 @@ const StudentProfile = (props) => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, []);
+    },[]);
     return (
         <div>
             <ProfileImage name={`${studentData?.firstName} ${studentData?.lastName}`} role={getRole(props.user.page)} page={props.user.page} />
@@ -43,7 +45,6 @@ const StudentProfile = (props) => {
                 }
             } user={props.user} />
             {props.user.page == 1 ? <EnrolledCourses courseFun={props.courseId} /> : <></>}
-
         </div>
     )
 }

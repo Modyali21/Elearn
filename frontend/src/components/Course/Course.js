@@ -41,23 +41,17 @@ function Course(props) {
             }
     }
   }
-  const [info, setInfo] = useState({
-    courseCode: '',
-    anouncementName: '',
-    lectureName: '',
-  })
   const [Lecture, setLectures] = useState([]);
   const [Anouncement, setAnouncements] = useState([]);
   const [Details, setDetails] = useState([]);
   const [Total, setTotal] = useState([]);
   async function DeleteLec(id) {
     // e.preventDefault();
-    info.lectureid = id;
-    console.log(info);
+    console.log(id);
     try {
       let email = props.user.email
       let password = props.user.password
-      axios.post(SERVER_URL + '/course/deleteLecture', info, {
+      axios.post(SERVER_URL + '/course/deleteLecture', id, {
         auth: {
           username: email,
           password: password
@@ -73,12 +67,11 @@ function Course(props) {
   };
   async function DeleteAnno(name) {
     // e.preventDefault();
-    info.anouncementName = name;
-    console.log(info);
+    console.log(name);
     try {
       let email = props.user.email
       let password = props.user.password
-      axios.post(SERVER_URL + '/course/deleteAnn', info, {
+      axios.post(SERVER_URL + '/announce/deleteAnnounce', name, {
         auth: {
           username: email,
           password: password
@@ -113,6 +106,8 @@ function Course(props) {
   //           console.error('Error:', error);
   //       });
   //   },[]);
+
+
   return (
     <div className='Cbody' >
       <nav className='Cnav'>
@@ -136,6 +131,7 @@ function Course(props) {
           <button className="tablinks" onClick={(event) => trigger(event, 'Announcement')}>Announcement</button>
         </div>
         <div className='Cdata'>
+
           <div id="Details" style={{ color: "white" }} className="Ctabcontent ">
             <div className='Cdetails'>
               <header className='Cheader'>

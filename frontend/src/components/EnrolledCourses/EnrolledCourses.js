@@ -15,23 +15,23 @@ const EnrolledCourses = (props) => {
                     <li>
                         <span>Database Course</span>
                         <div className='btns'>
-                            <button className="btn cbtns" id="see-course" onClick={handleCourse("1")}>See course</button>
-                            <button className="btn cbtns">See Anouncements</button>
+                            <button className="btn btn-dark cbtns" id="see-course" onClick={handleCourse("1")}>See course</button>
+                            <button className="btn btn-dark cbtns">See Anouncements</button>
                         </div>
                     </li>
                     <li>
                         <span>Neumerical Course</span>
                         <div className='btns'>
-                            <button className="btn cbtns">See course</button>
-                            <button className="btn cbtns">See Anouncements</button>
+                            <button className="btn btn-dark cbtns">See course</button>
+                            <button className="btn  btn-dark cbtns">See Anouncements</button>
                         </div>
                         
                     </li>
                     <li>
                         <span>Software Engineering Course</span>
                         <div className='btns'>
-                            <button className="btn cbtns">See course</button>
-                            <button className="btn cbtns">See Anouncements</button>
+                            <button className="btn btn-dark cbtns">See course</button>
+                            <button className="btn btn-dark cbtns">See Anouncements</button>
                         </div>
                     </li>
                 </ul>

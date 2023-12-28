@@ -3,21 +3,6 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react"
 import { useAuth, upload } from "../../firebase"
 const ProfileImage = (props) => {
-    const Options = (props) => {
-        const page = props.page
-        if (page == 2) {
-            return (<div className="button"><Link to="/makecourse" className="btn btn-dark ">Create Course</Link></div>)
-        } else if (page == 1) {
-            return (<div className="button"><Link to="/courseenroll" className="btn btn-dark ">View Courses</Link></div>)
-        } else {
-            return (
-                <>
-                    <div className="button"><Link to="/makecourse" className="btn btn-dark ">Create Course</Link></div>
-                    <div className="button"><Link to="/admin" className="btn btn-dark ">go to admin page</Link></div>
-                </>
-            )
-        }
-    }
     const currentUser = useAuth();
     const [loading, setLoading] = useState(false);
     const [photoURL, setPhotoURL] = useState("https://cdn.vectorstock.com/i/preview-1x/51/05/male-profile-avatar-with-brown-hair-vector-12055105.webp");
@@ -31,7 +16,7 @@ const ProfileImage = (props) => {
             setPhotoURL(currentUser.photoURL)
         }
         console.log("hdhh" + props.page)
-    }, [currentUser])
+    }, [])
 
 
 
@@ -48,14 +33,18 @@ const ProfileImage = (props) => {
                         <span className="user-status">{props.role}</span>
                         <span className="user-about">Everyone has the right to an effective remedy by the competent national tribunals for acts violating the fundamental rights </span>
                     </div>
-                    <div><Link to="/updateprofile" className="btn btn-dark edit-profile">Edit Profile</Link></div>
+                    <div><Link to="/updateprofile" className="btn btn-light edit-profile">Edit Profile</Link></div>
                 </div>
                 <div className="intro">
                     <h1 id="header1">ONLINE LEARNING PLATFORM</h1>
-                    <h3 id="header2">Boost your knowledge</h3>
+                    <h3 id="header2">Boost your knowlegde</h3>
                     <span className="intro-discription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt recusandae ea dolorem nemo perspiciatis quasi mollitia fugiat quae ullam neque voluptatum illo unde, facere accusamus provident quos et quidem dignissimos, assumenda dolore nisi. Natus nemo perspiciatis facilis hic, quia accusantium totam nesciunt! Ab deleniti animi sint natus temporibus impedit qui sapiente eius.</span>
                     <div className="buttons">
-                        <Options page={props.page} />
+                        {props.role === 'instructor' ||  props.role === 'admin' ?
+                            (<div className="button"><Link to="/makecourse" className="btn btn-light ">Create Course</Link></div>) :
+                            (<></>)
+                        }
+                        <div className="button"><Link to="/courseenroll" className="btn btn-light ">View Courses</Link></div>
                     </div>
                 </div>
             </div>

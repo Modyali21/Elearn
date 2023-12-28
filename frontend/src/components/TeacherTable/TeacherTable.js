@@ -19,7 +19,7 @@ const TeacherTable = (props) => {
         ssn: '',
         birthDate: '',
         firstResult: counter,
-        maxResult: 8,
+        maxResults: 8,
         sortBy: 'firstName',
         descending: false,
         or: false,
@@ -79,7 +79,11 @@ const TeacherTable = (props) => {
                 console.error('Error:', error);
             });
 
-    }, []);
+    },[]);
+    function handleNext(){
+        setCounter(prev => prev + info.maxResults)
+        console.log(info.firstResult)
+    }
 
     return (
 
@@ -156,7 +160,7 @@ const TeacherTable = (props) => {
                 <button className='btn btn-dark button' onClick={handleClick}>Find/Sort</button>
             </div>
 
-            <div className='container all'>
+            <div className='container alldata'>
                 <table className="table-container container">
                     <thead>
                         <tr>
@@ -193,7 +197,7 @@ const TeacherTable = (props) => {
             </div>
             <div className='pages'>
                 <button className='btn btn-dark page-back page'>Previous <GrCaretPrevious /></button>
-                <button className='btn btn-dark page-next page'>Next <GrCaretNext /></button>
+                <button className='btn btn-dark page-next page' onClick={handleNext}>Next <GrCaretNext /></button>
             </div>
         </div>
     )

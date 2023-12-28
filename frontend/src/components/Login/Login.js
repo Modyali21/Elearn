@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import axios from 'axios';
 import { SERVER_URL } from "../../constants"
 import './Login.css';
-import { login } from "../../firebase"
 function Login({ onLogin }) {
 
   const [info, setInfo] = useState({
@@ -44,13 +43,14 @@ function Login({ onLogin }) {
     if (isValidEmail && isValidPassword) {
       axios.post(SERVER_URL + '/login', info).then(response => {
         setInfo(prev => ({ ...prev, page: response.data }))
+        alert(response.data)
         onLogin({
           email: info.email, password: info.password, page: response.data
         })
-        if (response.data == "0") {
+        if (response.data === 0) {
           window.location.href = `http://localhost:3000/admin/?${info?.email.slice(0, info?.email.indexOf("@"))}`;
         } else {
-          window.location.href = `http://localhost:3000/profile/?${info?.email.slice(0, info?.email.indexOf("@"))}`;
+          window.location.href = `http://localhost:3000/elearning/?${info?.email.slice(0, info?.email.indexOf("@"))}`;
         }
       }).catch(err => {
         alert(err.response.data)

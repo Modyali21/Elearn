@@ -28,13 +28,13 @@ function App() {
               </>
             }
           />
-          <Route path="/course" element={<Course />} user={cookies.user} />
+          <Route path="/course" element={<Course user={cookies.user} />}  />
           <Route path="/courseenroll" element={<CourseEnroll user={cookies.user} />} />
           <Route path="/makecourse" element={<MakeCourse user={cookies.user} />} />
           <Route path="/makelecture" element={<MakeLecture user={cookies.user} cid={courseId} />} />
           <Route path="/makeannoun" element={<MakeAnnounm user={cookies.user}  cid={courseId}/>} />
           <Route path="*" element={<NotFound user={cookies.user} />} />
-          <Route path="/admin" element={<><Header/><Admin user={cookies.user} /></>} />
+          <Route path="/admin" element={<><Admin user={cookies.user} /></>} />
           <Route index  element={
             <CookiesProvider>
 
